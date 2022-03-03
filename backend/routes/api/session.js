@@ -8,7 +8,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-//  L O G I N  V A L I D A T O R
+//  L O G I N   V A L I D A T O R
 const validateLogin = [
     check('credential')
         .exists({ checkFalsy: true })
@@ -45,7 +45,7 @@ router.delete('/', (_req, res) => {
     return res.json({ message: 'success' });
 });
 
-//  R E S T O R E  S E S S I O N  U S E R
+//  R E S T O R E   S E S S I O N  U S E R
 router.get('/', restoreUser, (req, res) => {
     const { user } = req;
     if (user) {
