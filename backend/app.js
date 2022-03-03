@@ -18,20 +18,23 @@ app.use(cookieParser());
 app.use(express.json());
 
 if (!isProduction) {
+    // enable cors only in development
     app.use(cors());
 }
 
+// helmet helps set a variety of headers to better secure your app
 app.use(
     helmet.crossOriginResourcePolicy({
-        policy: 'cross-origin'
+        policy: "cross-origin"
     })
 );
 
+// Set the _csrf token and create req.csrfToken method
 app.use(
     csurf({
         cookie: {
             secure: isProduction,
-            sameSite: isProduction && 'Lax',
+            sameSite: isProduction && "Lax",
             httpOnly: true
         }
     })
@@ -43,7 +46,7 @@ app.use(routes);
 
 // Catch unhandled requests and forward to error handler.
 app.use((_req, _res, next) => {
-    const err = new Error("The request resource couldn't be found.");
+    const err = new Error("The requested resource couldn't be found.");
     err.title = "Resource Not Found";
     err.errors = ["The requested resource couldn't be found."];
     err.status = 404;
@@ -52,9 +55,10 @@ app.use((_req, _res, next) => {
 
 // Process sequelize errors
 app.use((err, _req, _res, next) => {
+    // check if error is a Sequelize error:
     if (err instanceof ValidationError) {
-        err.errorrs = err.errors.map(e => e.message);
-        err.title = 'Validation Error';
+        err.errors = err.errors.map((e) => e.message);
+        err.title = 'Validation error';
     }
     next(err);
 });
@@ -70,4 +74,6 @@ app.use((err, _req, res, _next) => {
         stack: isProduction ? null : err.stack
     });
 });
+
+
 module.exports = app;
