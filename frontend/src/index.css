@@ -1,1 +1,12 @@
-/* TODO Add site wide styles */
+* {
+    margin: 0;
+    font-family: 'Be Vietnam Pro';
+    /* color: white; */
+    /* padding: 5px; */
+}
+
+body {
+    background: linear-gradient(0deg, rgba(5, 10, 15, 1) 0%, rgba(15, 29, 46, 1) 50%, rgba(5, 10, 15, 1) 100%);
+    /* width : 1920px; */
+    height : 1080px;
+}
