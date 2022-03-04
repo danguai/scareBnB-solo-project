@@ -1,11 +1,37 @@
-.dropdown__menu__box {
-    background-color: white;
+.user__menu__box {
+    /* background-color: white; */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+
 }
 
-/* .dropdown__menu__button {
+.user__menu__button {
+    position: relative;
     display: flex;
-} */
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    border: 0;
+    width: 70px;
+    height: 35px;
+}
+
+.dropdown__menu__options {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: absolute;
+    top: 40px;
+    background-color: white;
+    list-style-type: none;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.dropdown__menu__element {
+    padding: 10px;
+}

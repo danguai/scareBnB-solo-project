@@ -22,16 +22,16 @@ const ProfileButton = ({ user }) => {
     if (sessionUser) {
         sessionLinks = (
             <>
-                <li>
+                <li className='dropdown__menu__element'>
                     <NavLink to="/">{sessionUser.username}</NavLink>
                 </li>
-                <li>
+                <li className='dropdown__menu__element'>
                     <NavLink to="/">Notifications</NavLink>
                 </li>
-                <li>
+                <li className='dropdown__menu__element'>
                     <NavLink to="/">Trips</NavLink>
                 </li>
-                <li>
+                <li className='dropdown__menu__element'>
                     <button onClick={logout}>Log Out</button>
                 </li>
 
@@ -40,13 +40,13 @@ const ProfileButton = ({ user }) => {
     } else {
         sessionLinks = (
             <>
-                <li>
+                <li className='dropdown__menu__element'>
                     <NavLink to="/login">Log In</NavLink>
                 </li>
-                <li>
+                <li className='dropdown__menu__element'>
                     <NavLink to="/signup">Sign Up</NavLink>
                 </li>
-                <li>
+                <li className='dropdown__menu__element'>
                     <NavLink to='/'>Demo User</NavLink>
                 </li>
             </>
@@ -72,13 +72,13 @@ const ProfileButton = ({ user }) => {
 
     return (
         <>
-            <div className="dropdown__menu__box">
-                <button className="dropdown__menu__button" onClick={openMenu}> User
-                    <i className="fas fa-user-circle" />
+            <div className="user__menu__box">
+                <button className="user__menu__button" onClick={openMenu}>
+                    User
                 </button>
                 <div>
                     {showMenu && (
-                        <ul>
+                        <ul className='dropdown__menu__options'>
                             {sessionLinks}
                         </ul>
                     )}
