@@ -57,6 +57,15 @@ export const signUp = user => async dispatch => {
     return response;
 };
 
+//  L O G   O U T
+export const logOut = () => async dispatch => {
+    const response = await fetch('/api/session', {
+        method: 'DELETE'
+    });
+    dispatch(removeUser());
+    return response;
+};
+
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
