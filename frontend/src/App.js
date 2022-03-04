@@ -14,22 +14,23 @@ function App() {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // useEffect(() => {
-  //   dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+  }, [dispatch]);
 
-  // return isLoaded && (
   return (
     <>
-      <Navigation />
-      <Switch>
-        <Route path='/login'>
-          <LoginFormPage />
-        </Route>
-        <Route path='/signup'>
-          <SignupFormPage />
-        </Route>
-      </Switch>
+      <Navigation isLoaded={isLoaded} />
+      {isLoaded && (
+        <Switch>
+          <Route path='/login'>
+            <LoginFormPage />
+          </Route>
+          <Route path='/signup'>
+            <SignupFormPage />
+          </Route>
+        </Switch>
+      )}
     </>
   );
 }
