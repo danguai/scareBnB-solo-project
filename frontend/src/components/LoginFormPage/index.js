@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom'
+    ;
+import * as sessionActions from '../../store/session';
 
 import './LoginForm.css';
 
@@ -15,9 +16,7 @@ const LoginFormPage = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
-    if (sessionUser) return (
-        <Redirect to='/' />
-    );
+    if (sessionUser) return <Redirect to='/' />;
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -31,17 +30,20 @@ const LoginFormPage = () => {
             });
     };
     return (
-        <div className='form__container'>
+        <div className='login__form__container'>
             <form onSubmit={handleSubmit}>
                 <ul>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <div className='login__box'>
-                    <div>
+                    <div className='login__title'>
+                        Login
+                    </div>
+                    <div className='login__welcome'>
                         Welcome back to Scarebnb
                     </div>
                     <div className='user__pass__box'>
-                        <label className='login__elements'>
+                        <label className='login__label'>
                             Username or Email
                             <input
                                 className='input__login__box'
@@ -51,7 +53,7 @@ const LoginFormPage = () => {
                                 required
                             />
                         </label>
-                        <label className='login__elements'>
+                        <label className='login__label'>
                             Password
                             <input
                                 className='input__login__box'
