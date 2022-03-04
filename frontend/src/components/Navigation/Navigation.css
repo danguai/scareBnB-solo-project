@@ -8,6 +8,10 @@
     /* background-color: red; */
 }
 
+.navigation__bar > li {
+    list-style-type: none;
+}
+
 .temp__solution {
     padding: 0 50px;
     color: white;

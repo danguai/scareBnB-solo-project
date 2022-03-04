@@ -45,12 +45,12 @@ router.delete('/', (_req, res) => {
     return res.json({ message: 'success' });
 });
 
-//  R E S T O R E   S E S S I O N  U S E R
+//  R E S T O R E   S E S S I O N   U S E R
 router.get('/', restoreUser, (req, res) => {
     const { user } = req;
     if (user) {
         return res.json({ user: user.toSafeObject() });
-    } else return res.json();
+    } else return res.json({});
 });
 
 

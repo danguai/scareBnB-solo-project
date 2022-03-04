@@ -18,6 +18,7 @@ const ProfileButton = ({ user }) => {
     };
 
     let sessionLinks;
+
     if (sessionUser) {
         sessionLinks = (
             <>
@@ -33,6 +34,7 @@ const ProfileButton = ({ user }) => {
                 <li>
                     <button onClick={logout}>Log Out</button>
                 </li>
+
             </>
         );
     } else {
@@ -71,14 +73,16 @@ const ProfileButton = ({ user }) => {
     return (
         <>
             <div className="dropdown__menu__box">
-                <button onClick={openMenu}> User
+                <button className="dropdown__menu__button" onClick={openMenu}> User
                     <i className="fas fa-user-circle" />
                 </button>
-                {showMenu && (
-                    <ul>
-                        {sessionLinks}
-                    </ul>
-                )}
+                <div>
+                    {showMenu && (
+                        <ul>
+                            {sessionLinks}
+                        </ul>
+                    )}
+                </div>
             </div>
         </>
     );
