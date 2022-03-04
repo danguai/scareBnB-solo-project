@@ -5,6 +5,8 @@ import ProfileButton from "../ProfileButton";
 import './Navigation.css';
 
 const Navigation = ({ isLoaded, sessionUser }) => {
+
+
     return (
         <div>
             <div className="navigation__bar">
@@ -24,7 +26,6 @@ const Navigation = ({ isLoaded, sessionUser }) => {
                     <li>
                         {isLoaded && <ProfileButton user={sessionUser} />}
                     </li>
-
                 </ul>
             </div>
         </div>
