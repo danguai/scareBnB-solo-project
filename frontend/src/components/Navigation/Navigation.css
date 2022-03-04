@@ -1,0 +1,19 @@
+.navigation__bar {
+    /* top: 0; */
+    height: 50px;
+    /* width: 100%; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: red; */
+}
+
+.temp__solution {
+    padding: 0 50px;
+    color: white;
+    text-decoration: none;
+}
+
+.temp__solution:hover {
+    color: red;
+}

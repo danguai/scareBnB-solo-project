@@ -10,29 +10,63 @@ const router = express.Router();
 
 //  S I G N   U P   V A L I D A T O R
 const validateSignup = [
+    check('firstName')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 4, max: 50 })
+        .withMessage('First Name should be between 4 and 50 characters long'),
+    check('lastName')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 4, max: 50 })
+        .withMessage('Last Name should be between 4 and 50 characters long'),
+    check('username')
+        .exists({ checkFalsy: true })
+        .not()
+        .isEmail()
+        .withMessage('Username cannot be an email.')
+        .isLength({ min: 4, max: 30 })
+        .withMessage('Please provide a username with at least 4 characters.'),
     check('email')
         .exists({ checkFalsy: true })
         .isEmail()
         .withMessage('Please provide a valid email.'),
-    check('username')
-        .exists({ checkFalsy: true })
-        .isLength({ min: 4 })
-        .withMessage('Please provide a username with at least 4 characters.'),
-    check('username')
-        .not()
-        .isEmail()
-        .withMessage('Username cannot be an email.'),
     check('password')
         .exists({ checkFalsy: true })
         .isLength({ min: 6 })
         .withMessage('Password must be 6 characters or more.'),
+    // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
+    // .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")'),
+    check('confirmPassword')
+        .exists({ checkFalsy: true })
+        .withMessage('Please confirm Password.')
+        .isLength({ min: 6 })
+        .withMessage('Password must be 6 characters or more.')
+        .custom((value, { req }) => {
+            if (value !== req.body.password) {
+                throw new Error("Confirm Password doesn't match Password.");
+            }
+            return true;
+        }),
     handleValidationErrors
 ];
 
 //  S I G N   U P
 router.post('/', validateSignup, asyncHandler(async (req, res) => {
-    const { email, password, username } = req.body;
-    const user = await User.signup({ email, username, password });
+    const {
+        firstName,
+        lastName,
+        username,
+        email,
+        password
+    } = req.body;
+
+    const user = await User.signup(
+        {
+            firstName,
+            lastName,
+            username,
+            email,
+            password
+        });
 
     await setTokenCookie(res, user);
 
