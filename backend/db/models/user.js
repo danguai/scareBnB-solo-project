@@ -2,8 +2,34 @@
 const { Validator } = require('sequelize');
 const bcrypt = require('bcryptjs');
 
+console.log('VALIDATOR', Validator.isNumeric);
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [3, 50],
+        isNotNumber(value) {
+          if (Validator.isNumeric(value)) {
+            throw new Error('Cannot be a number.');
+          }
+        }
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [3, 50],
+        isNotNumber(value) {
+          if (Validator.isNumeric(value)) {
+            throw new Error('Cannot be a number.');
+          }
+        }
+      }
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -47,9 +73,11 @@ module.exports = (sequelize, DataTypes) => {
       }
     });
 
-  User.signup = async function ({ username, email, password }) {
+  User.signup = async function ({ firstName, lastName, username, email, password }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
+      firstName,
+      lastName,
       username,
       email,
       hashedPassword
