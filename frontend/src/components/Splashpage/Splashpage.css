@@ -1,0 +1,15 @@
+.splashpage__image__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px
+}
+
+.splash__temp__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 700px;
+    width: auto;
+    border-radius: 20px;
+}

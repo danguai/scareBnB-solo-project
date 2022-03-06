@@ -1,11 +1,15 @@
 import React from 'react';
-import Splashpage from './Splashpage';
 
-const SplashpageContainer = () => {
+import './Splashpage.css';
+
+const Splashpage = () => {
 
     return (
-        <Splashpage />
-    );
+        <div>
+            <div className='splashpage__image__container'>
+                <img className='splash__temp__image' src={require('../../images/HauntedHouse.png')} />
+            </div>
+        </div>
+    )
 };
-
-export default SplashpageContainer;
+export default Splashpage;

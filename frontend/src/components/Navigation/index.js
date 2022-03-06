@@ -6,7 +6,6 @@ import './Navigation.css';
 
 const Navigation = ({ isLoaded, sessionUser }) => {
 
-
     return (
         <div>
             <div className="navigation__bar">
