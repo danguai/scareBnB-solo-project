@@ -1,38 +1,53 @@
 'use strict';
 
+const { faker } = require('@faker-js/faker');
 const bcrypt = require('bcryptjs');
+
+const randomIndex = num => Math.floor(Math.random() * Math.floor(num));
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Users', [
-      {
-        firstName: 'Demo',
-        lastName: 'Lition',
-        username: 'Demo-lition',
-        email: 'demo@user.io',
-        hashedPassword: bcrypt.hashSync('password')
-      },
-      {
-        firstName: 'Fake',
-        lastName: 'User1',
-        username: 'FakeUser1',
-        email: 'user1@user.io',
-        hashedPassword: bcrypt.hashSync('password2')
-      },
-      {
-        firstName: 'User2',
-        lastName: 'Fake',
-        username: 'FakeUser2',
-        email: 'user2@user.io',
-        hashedPassword: bcrypt.hashSync('password3')
-      }
-    ], {});
+
+    let demoUser = {
+      firstName: 'Fred',
+      lastName: 'Kruger',
+      email: 'krugerlovesyou@gmail.com',
+      username: 'freddy',
+      imageProfile: '',
+      hashedPassword: '$2a$12$b56Z0fkkc5xeK6jbRFmQquYBG5hnc0ih/BCbblr7Exx/wxdp0N7ui',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    let usersArr = [demoUser];
+
+    let imagesProfile = [
+      '', '',
+      faker.image.avatar(),
+      faker.image.avatar(),
+      faker.image.avatar(),
+      faker.image.avatar()
+    ];
+
+    let i = 0;
+    while (i < 20) {
+      const user = {
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        email: faker.internet.email(),
+        username: faker.internet.userName(),
+        imageProfile: imagesProfile[randomIndex(5)],
+        hashedPassword: bcrypt.hashSync(faker.internet.password()),
+        createdAt: faker.date.past(),
+        updatedAt: faker.date.recent(),
+      };
+      usersArr.push(user);
+      i++;
+    }
+    return queryInterface.bulkInsert('Users', usersArr, {});
   },
 
   down: (queryInterface, Sequelize) => {
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('Users', {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
-    }, {});
+    return queryInterface.bulkDelete('Users', null, {});
   }
 };
