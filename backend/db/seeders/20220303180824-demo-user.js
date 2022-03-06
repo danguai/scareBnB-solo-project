@@ -3,6 +3,8 @@
 const { faker } = require('@faker-js/faker');
 const bcrypt = require('bcryptjs');
 
+const randomIndex = num => Math.floor(Math.random() * Math.floor(num));
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
 
@@ -10,8 +12,8 @@ module.exports = {
       firstName: 'Fred',
       lastName: 'Kruger',
       email: 'krugerlovesyou@gmail.com',
-      userName: 'freddy',
-      profileUrl: null,
+      username: 'freddy',
+      imageProfile: '',
       hashedPassword: '$2a$12$b56Z0fkkc5xeK6jbRFmQquYBG5hnc0ih/BCbblr7Exx/wxdp0N7ui',
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -19,7 +21,7 @@ module.exports = {
 
     let usersArr = [demoUser];
 
-    let profilesImages = [
+    let imagesProfile = [
       '', '',
       faker.image.avatar(),
       faker.image.avatar(),
@@ -33,20 +35,19 @@ module.exports = {
         firstName: faker.name.firstName(),
         lastName: faker.name.lastName(),
         email: faker.internet.email(),
-        userName: faker.internet.userName(),
-        profileUrl: profilesImages[randomIndex(5)],
+        username: faker.internet.userName(),
+        imageProfile: imagesProfile[randomIndex(5)],
         hashedPassword: bcrypt.hashSync(faker.internet.password()),
+        createdAt: faker.date.past(),
+        updatedAt: faker.date.recent(),
       };
       usersArr.push(user);
       i++;
     }
-    return queryInterface.bulkInsert('Users', [], {});
+    return queryInterface.bulkInsert('Users', usersArr, {});
   },
 
   down: (queryInterface, Sequelize) => {
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('Users', {
-      username: { [Op.in]: ['freddy'] }
-    }, {});
+    return queryInterface.bulkDelete('Users', null, {});
   }
 };
