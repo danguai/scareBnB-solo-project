@@ -6,7 +6,7 @@ import * as sessionActions from '../../store/session';
 
 import './SignUpForm.css';
 
-const SignupFormPage = () => {
+const SignupFormPage = ({ user }) => {
     const dispatch = useDispatch();
     // const history = useHistory();
 

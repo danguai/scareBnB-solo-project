@@ -51,10 +51,14 @@ export const signUp = user => async dispatch => {
             email,
             password
         })
-    });
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
+    }).catch(e => console.log('BEFORE DATA', e));
+    if (response.ok) {
+        const data = await response.json();
+        dispatch(setUser(data.user));
+        return response;
+    }
+    return Promise.reject();
+    // console.log('AFTER DISPATCH', data);
 };
 
 //  L O G   O U T
