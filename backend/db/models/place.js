@@ -1,5 +1,7 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
+
   const Place = sequelize.define('Place', {
     address: DataTypes.STRING,
     city: DataTypes.STRING,
@@ -10,8 +12,14 @@ module.exports = (sequelize, DataTypes) => {
     rating: DataTypes.INTEGER,
     userId: DataTypes.INTEGER
   }, {});
-  Place.associate = function(models) {
-    // associations can be defined here
+
+  Place.associate = function (models) {
+    Place.belongsTo(models.Users, { foreignKey: 'userId' });
+
+    Place.hasMany(models.Bookings, { foreignKey: 'placeId' });
+    Place.hasMany(models.Reviews, { foreignKey: 'placeId' });
+
+    Place.hasOne(models.Favorites, { foreignKey: 'placeId' });
   };
   return Place;
 };
