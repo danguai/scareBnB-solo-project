@@ -7,6 +7,7 @@ import SignupFormPage from "./components/SignUpFormPage";
 import LoginFormPage from "./components/LoginFormPage";
 import Navigation from "./components/Navigation";
 import Splashpage from "./components/Splashpage";
+import BookingFormPage from "./components/BookingFormPage";
 
 import * as sessionActions from './store/session';
 
@@ -24,6 +25,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route path='/booking'>
+            <BookingFormPage />
+          </Route>
           <Route path='/login'>
             <LoginFormPage />
           </Route>

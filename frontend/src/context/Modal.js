@@ -1,18 +1,32 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
 import ReactDOM from 'react-dom';
 
+import { useDispatch } from "react-redux";
+
+import { displayModal } from "../store/session";
+
 import './Modal.css';
 
 const ModalContext = React.createContext();
 
 export const ModalProvider = ({ children }) => {
+    const dispath = useDispatch();
 
     const modalRef = useRef();
 
     const [value, setValue] = useState();
 
+    const onCloseFunc = e => {
+
+    };
+
     useEffect(() => {
         setValue(modalRef.current);
+
+        document.addEventListener('click', onCloseFunc);
+
+        return document.removeEventListener('click', onCloseFunc);
+
     }, []);
 
     return (

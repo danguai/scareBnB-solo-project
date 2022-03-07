@@ -29,6 +29,18 @@
     color: white;
 }
 
+.signup__button__disabled {
+    margin-top: 20px;
+    cursor: not-allowed;
+    background : linear-gradient(180deg, rgba(194, 68, 84, 0.25) 0%, rgba(128, 42, 71, 0.25) 100%);
+    width : 586px;
+    height : 50px;
+    border-radius : 8px;
+    border: 2px;
+    border-color: black;
+    color: white;
+}
+
 .signup__button:hover {
     background : linear-gradient(0deg, rgba(194, 68, 84, 1) 0%, rgba(128, 42, 71, 1) 100%);
 }
@@ -72,4 +84,8 @@
     display: flex;
     justify-content: flex-start;
     padding: 10px 0;
+}
+
+.errors {
+    color: red;
 }

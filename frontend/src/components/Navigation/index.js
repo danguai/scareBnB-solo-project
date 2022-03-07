@@ -11,13 +11,7 @@ const Navigation = ({ isLoaded, sessionUser }) => {
             <div className="navigation__bar">
                 <ul className="navigation__bar">
                     <li>
-                        <NavLink className="temp__solution" to='/'>Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink className="temp__solution" to='/'>Places To Stay</NavLink>
-                    </li>
-                    <li>
-                        <NavLink className="temp__solution" to='/'>Haunting experiences</NavLink>
+                        <img className='scareBnB__Logo' src={require('../../images/LOGO.png')} />
                     </li>
                     <li>
                         <NavLink className="temp__solution" to='/'>Become a Ghost</NavLink>

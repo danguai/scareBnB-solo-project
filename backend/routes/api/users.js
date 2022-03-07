@@ -31,14 +31,14 @@ const validateSignup = [
         .withMessage('Please provide a valid email.'),
     check('password')
         .exists({ checkFalsy: true })
-        .isLength({ min: 6 })
+        .isLength({ min: 1 })
         .withMessage('Password must be 6 characters or more.'),
     // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
     // .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")'),
     check('confirmPassword')
         .exists({ checkFalsy: true })
         .withMessage('Please confirm Password.')
-        .isLength({ min: 6 })
+        .isLength({ min: 1 })
         .withMessage('Password must be 6 characters or more.')
         .custom((value, { req }) => {
             if (value !== req.body.password) {

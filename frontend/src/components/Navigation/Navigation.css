@@ -19,5 +19,15 @@
 }
 
 .temp__solution:hover {
-    color: red;
+    color: rgb(176, 34, 34, 1);
+}
+
+.scareBnB__Logo {
+    background-image: url('../../images/LOGO.svg');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: auto;
+    border-radius: 20px;
 }

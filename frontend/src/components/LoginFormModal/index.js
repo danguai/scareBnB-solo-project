@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Modal } from '../../context/Modal';
 import LoginForm from './LoginForm';
 
+import { displayModal } from '../../store/session';
+
 const LoginFormModal = () => {
-    const [showModal, setShowModal] = useState(false);
+    const dispatch = useDispatch();
 
     return (
         <>
-            <button onClick={() => setShowModal(true)}>Log In</button>
-            {showModal && (
-                <Modal onClose={() => setShowModal(false)}>
-                    <LoginForm />
-                </Modal>
-            )}
+            <Modal onClose={() => dispatch(displayModal())}>
+                <LoginForm />
+            </Modal>
         </>
     );
 }

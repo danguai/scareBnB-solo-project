@@ -41,7 +41,7 @@ const ProfileButton = ({ user }) => {
         sessionLinks = (
             <>
                 <li className='dropdown__menu__element'>
-                    <NavLink to="/login">Log In</NavLink>
+                    <button onClick={() => dispatch(sessionActions.displayModal())}>Log In</button>
                 </li>
                 <li className='dropdown__menu__element'>
                     <NavLink to="/signup">Sign Up</NavLink>
