@@ -1,6 +1,6 @@
 'use strict';
 
-// const { faker } = require('@faker-js/faker');
+const { faker } = require('@faker-js/faker');
 
 // const randomId = num => Math.floor(Math.random() * Math.floor(num) + 1)
 
@@ -22,7 +22,14 @@ module.exports = {
     //   bookingsArr.push(booking);
     //   i++;
     // }
-    return queryInterface.bulkInsert('Bookings', [], {});
+    return queryInterface.bulkInsert('Bookings', [{
+      userId: 2,
+      placeId: 1,
+      startDate: '2022-04-01',
+      endDate: '2022-04-07',
+      createdAt: faker.date.past(),
+      updatedAt: faker.date.recent(),
+    }], {});
 
   },
 
