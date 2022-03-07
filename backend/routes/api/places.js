@@ -29,13 +29,14 @@ const validateNewPlace = [
     check('zipcode')
         .exists({ checkFalsy: true })
         .isLength({ min: 5, max: 5 })
-        .withMessage('Should be a valid zipcode'),
-    check('zippricecode')
+        .withMessage('It should be a valid zipcode'),
+    check('price')
         .exists({ checkFalsy: true })
-        .isLength({ min: 4 })
-        .withMessage('Should be a valid zipcode'),
-
-
+        .isDecimal()
+        .withMessage('The Price should include 2 decimals'),
+    check('rating')
+        .isNumeric({ max: 5 })
+        .withMessage('How many stars would you give this place'),
     handleValidationErrors
 ];
 
