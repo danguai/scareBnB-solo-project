@@ -10,43 +10,33 @@ const router = express.Router();
 
 //  C R E A T E   P L A C E   V A L I D A T O R
 const validateNewPlace = [
-    // check('firstName')
-    //     .exists({ checkFalsy: true })
-    //     .isLength({ min: 4, max: 50 })
-    //     .withMessage('First Name should be between 4 and 50 characters long'),
-    // check('lastName')
-    //     .exists({ checkFalsy: true })
-    //     .isLength({ min: 4, max: 50 })
-    //     .withMessage('Last Name should be between 4 and 50 characters long'),
-    // check('username')
-    //     .exists({ checkFalsy: true })
-    //     .not()
-    //     .isEmail()
-    //     .withMessage('Username cannot be an email.')
-    //     .isLength({ min: 4, max: 30 })
-    //     .withMessage('Please provide a username with at least 4 characters.'),
-    // check('email')
-    //     .exists({ checkFalsy: true })
-    //     .isEmail()
-    //     .withMessage('Please provide a valid email.'),
-    // check('password')
-    //     .exists({ checkFalsy: true })
-    //     .isLength({ min: 1 })
-    //     .withMessage('Password must be 6 characters or more.'),
-    // // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
-    // // .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")'),
-    // check('confirmPassword')
-    //     .exists({ checkFalsy: true })
-    //     .withMessage('Please confirm Password.')
-    //     .isLength({ min: 1 })
-    //     .withMessage('Password must be 6 characters or more.')
-    //     .custom((value, { req }) => {
-    //         if (value !== req.body.password) {
-    //             throw new Error("Confirm Password doesn't match Password.");
-    //         }
-    //         return true;
-    //     }),
-    // handleValidationErrors
+    check('address')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 255 })
+        .withMessage('Address should not be more than 255 characters'),
+    check('city')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 85 })
+        .withMessage('City should not be more than 85 characters'),
+    check('state')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 60 })
+        .withMessage('State should not be more than 60 characters'),
+    check('country')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 60 })
+        .withMessage('Country should not be more than 60 characters'),
+    check('zipcode')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 5, max: 5 })
+        .withMessage('Should be a valid zipcode'),
+    check('zippricecode')
+        .exists({ checkFalsy: true })
+        .isLength({ min: 4 })
+        .withMessage('Should be a valid zipcode'),
+
+
+    handleValidationErrors
 ];
 
 //  C R E A T E   P L A C E
