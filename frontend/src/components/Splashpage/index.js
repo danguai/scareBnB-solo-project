@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 import LoginForm from '../LoginFormModal/';
+import SignupForm from '../SignUpModal/';
 
 import './Splashpage.css';
 
@@ -44,7 +45,8 @@ const Splashpage = () => {
                     <img className='splash__temp__image' src={require('../../images/HauntedHouse.png')} />
                 </div>
             </div>
-            {shouldDisplay && <LoginForm />}
+            {shouldDisplay && <SignupForm />}
+            {/* {shouldDisplay && <LoginForm />} */}
         </div>
     )
 };

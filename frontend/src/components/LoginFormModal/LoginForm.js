@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { validateCredentials, validatePassword } from '../../utils/validation';
+import { validateCredential, validateUsername, validateEmail, validatePassword } from '../../utils/validation';
 
 import * as sessionActions from '../../store/session';
 
@@ -14,15 +14,19 @@ const LoginForm = () => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
+    const [credentialError, setCredentialError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+
+    const checkingErrors = (credentialError || passwordError);
+
     const handleSubmit = e => {
         e.preventDefault();
 
         setErrors([]);
 
         return dispatch(sessionActions.login({ credential, password }))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
+            .catch(async (data) => {
+                setErrors(data.errors);
             });
     };
     return (
@@ -46,6 +50,11 @@ const LoginForm = () => {
                                 type="text"
                                 value={credential}
                                 onChange={(e) => setCredential(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateCredential(credential)
+                                    if (error) setCredential(error)
+                                }}
+                                onFocus={() => { setCredentialError('') }}
                                 required
                             />
                         </label>
@@ -56,6 +65,11 @@ const LoginForm = () => {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                onBlur={() => {
+                                    const error = validatePassword(password)
+                                    if (error) setPasswordError(error)
+                                }}
+                                onFocus={() => { setPasswordError('') }}
                                 required
                             />
                         </label>

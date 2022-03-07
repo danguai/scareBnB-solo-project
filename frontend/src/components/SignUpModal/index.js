@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Modal } from '../../context/Modal';
-import SignUpFormPage from './SignupFormPage';
+import SignupForm from './SignUpForm';
 
 import { displayModal } from '../../store/session';
 
@@ -11,7 +11,7 @@ const SignUpFormModal = () => {
     return (
         <>
             <Modal onClose={() => dispatch(displayModal())}>
-                <SignUpForm />
+                <SignupForm />
             </Modal>
         </>
     );

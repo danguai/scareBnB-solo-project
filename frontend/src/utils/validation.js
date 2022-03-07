@@ -1,7 +1,14 @@
-
-
 // L O G   I N   V A L I D A T O R S
+export const validateCredential = ({ credential }) => {
+    console.log(credential);
+    if (!credential.email) return 'Please provide an email.';
 
+    if (!credential.email.includes('@')) return 'Please provide a valid email.';
+
+    if (!credential.username) return 'Please provide a username.';
+
+    if (!credential.username) return 'Please provide a valid username.';
+};
 
 // S I G N   U P   V A L I D A T O R S
 export const validateFirstName = (firstName) => {

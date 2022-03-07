@@ -28,12 +28,12 @@ function App() {
           <Route path='/booking'>
             <BookingFormPage />
           </Route>
-          <Route path='/login'>
+          {/* <Route path='/login'>
             <LoginFormPage />
-          </Route>
-          <Route path='/signup'>
+          </Route> */}
+          {/* <Route path='/signup'>
             <SignupFormPage />
-          </Route>
+          </Route> */}
           <Route>
             <Splashpage />
           </Route>
