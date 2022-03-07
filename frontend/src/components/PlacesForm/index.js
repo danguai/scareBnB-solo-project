@@ -31,14 +31,23 @@ const PlacesForm = ({ places }) => {
     const [errors, setErrors] = useState([]);
 
     // ERRORS
-    const [firstNameError, setFirstNameError] = useState('');
-    const [lastNameError, setLastNameError] = useState('');
-    const [usernameError, setUsernameError] = useState('');
-    const [emailError, setEmailError] = useState('');
-    const [passwordError, setPasswordError] = useState('');
-    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+    const [addressError, setAddressError] = useState('');
+    const [cityError, setCityError] = useState('');
+    const [stateError, setStateError] = useState('');
+    const [countryError, setCountryError] = useState('');
+    const [zipcodeError, setZipcodeError] = useState('');
+    const [priceError, setPriceError] = useState('');
+    const [ratingError, setRatingError] = useState('');
 
-    const checkingErrors = (firstNameError || lastNameError || usernameError || emailError || passwordError || confirmPasswordError);
+    const checkingErrors = (
+        addressError ||
+        cityError ||
+        stateError ||
+        countryError ||
+        zipcodeError ||
+        priceError ||
+        ratingError
+    );
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -79,9 +88,15 @@ const PlacesForm = ({ places }) => {
                                 type="text"
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateAddress(address)
+                                    if (error) setAddressError(error)
+                                }}
+                                onFocus={() => { setAddressError('') }}
                                 required
                             />
                         </label>
+                        {addressError && <div className="errors_style">{addressError}</div>}
                         <label className='places__label'>
                             City
                             <input
@@ -89,9 +104,15 @@ const PlacesForm = ({ places }) => {
                                 type="text"
                                 value={city}
                                 onChange={(e) => setCity(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateCity(city)
+                                    if (error) setCityError(error)
+                                }}
+                                onFocus={() => { setCityError('') }}
                                 required
                             />
                         </label>
+                        {cityError && <div className="errors_style">{cityError}</div>}
                         <label className='places__label'>
                             State
                             <input
@@ -99,9 +120,15 @@ const PlacesForm = ({ places }) => {
                                 type="text"
                                 value={state}
                                 onChange={(e) => setState(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateState(state)
+                                    if (error) setStateError(error)
+                                }}
+                                onFocus={() => { setStateError('') }}
                                 required
                             />
                         </label>
+                        {stateError && <div className="errors_style">{stateError}</div>}
                         <label className='places__label'>
                             Country
                             <input
@@ -119,9 +146,15 @@ const PlacesForm = ({ places }) => {
                                 type="number"
                                 value={zipcode}
                                 onChange={(e) => setZipcode(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateZipcode(zipcode)
+                                    if (error) setZipcodeError(error)
+                                }}
+                                onFocus={() => { setZipcodeError('') }}
                                 required
                             />
                         </label>
+                        {zipcodeError && <div className="errors_style">{zipcodeError}</div>}
                         <label className='places__label'>
                             Price
                             <input
@@ -129,9 +162,15 @@ const PlacesForm = ({ places }) => {
                                 type="number"
                                 value={price}
                                 onChange={(e) => setPrice(e.target.value)}
+                                onBlur={() => {
+                                    const error = validatePrice(price)
+                                    if (error) setPriceError(error)
+                                }}
+                                onFocus={() => { setPriceError('') }}
                                 required
                             />
                         </label>
+                        {priceError && <div className="errors_style">{priceError}</div>}
                         <label className='places__label'>
                             Rating
                             <input
@@ -139,11 +178,18 @@ const PlacesForm = ({ places }) => {
                                 type="number"
                                 value={rating}
                                 onChange={(e) => setRating(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateRating(rating)
+                                    if (error) setRatingError(error)
+                                }}
+                                onFocus={() => { setRatingError('') }}
                                 required
                             />
                         </label>
+                        {ratingError && <div className="errors_style">{ratingError}</div>}
                     </div>
-                    <button className='signup__button'
+                    <button className={checkingErrors ? 'places__button__disabled' : 'places__button'}
+                        disabled={checkingErrors}
                         type="submit">Create Haunted Place</button>
                 </div>
             </form >
