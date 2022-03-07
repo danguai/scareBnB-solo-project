@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 
+import { validateFirstName, validateLastName, validateUsername, validateEmail, validatePassword, validateConfirmPassword } from '../../utils/validation';
+
 import * as sessionActions from '../../store/session';
 
 import './SignUpForm.css';
 
-const SignupFormPage = () => {
+const SignupFormPage = ({ user }) => {
     const dispatch = useDispatch();
     // const history = useHistory();
 
@@ -20,6 +22,15 @@ const SignupFormPage = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
+    const [firstNameError, setFirstNameError] = useState('');
+    const [lastNameError, setLastNameError] = useState('');
+    const [usernameError, setUsernameError] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+    const checkingErrors = (firstNameError || lastNameError || usernameError || emailError || passwordError || confirmPasswordError);
+
     if (sessionUser) return <Redirect to='/' />;
 
     const handleSubmit = e => {
@@ -29,9 +40,10 @@ const SignupFormPage = () => {
             setErrors([]);
 
             return dispatch(sessionActions.signUp({ firstName, lastName, username, email, password }))
-                .catch(async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) setErrors(data.errors);
+                .catch(async (data) => {
+                    setErrors(data.errors)
+                    // const data = await res.json();
+                    // if (data && data.errors) setErrors(data.errors);
                 });
         }
         return setErrors(['Confirm Password should match Password']);
@@ -39,7 +51,7 @@ const SignupFormPage = () => {
     return (
         <div className='signup__form__container'>
             <form onSubmit={handleSubmit}>
-                <ul>
+                <ul className="errors">
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <div className='signup__box'>
@@ -57,9 +69,15 @@ const SignupFormPage = () => {
                                 type="text"
                                 value={firstName}
                                 onChange={(e) => setFirstName(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateFirstName(firstName)
+                                    if (error) setFirstNameError(error)
+                                }}
+                                onFocus={() => { setFirstNameError('') }}
                                 required
                             />
                         </label>
+                        {firstNameError && <p>{firstNameError}</p>}
                         <label className='signup__label'>
                             Last Name
                             <input
@@ -67,9 +85,15 @@ const SignupFormPage = () => {
                                 type="text"
                                 value={lastName}
                                 onChange={(e) => setLastName(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateLastName(lastName)
+                                    if (error) setLastNameError(error)
+                                }}
+                                onFocus={() => { setLastNameError('') }}
                                 required
                             />
                         </label>
+                        {lastNameError && <p>{lastNameError}</p>}
                         <label className='signup__label'>
                             Username
                             <input
@@ -77,9 +101,16 @@ const SignupFormPage = () => {
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateUsername(username)
+                                    if (error) setUsernameError(error)
+                                }}
+                                onFocus={() => { setUsernameError('') }}
                                 required
                             />
                         </label>
+                        {usernameError && <p>{usernameError}</p>}
+
                         <label className='signup__label'>
                             Email
                             <input
@@ -87,9 +118,15 @@ const SignupFormPage = () => {
                                 type="text"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateEmail(email)
+                                    if (error) setEmailError(error)
+                                }}
+                                onFocus={() => { setEmailError('') }}
                                 required
                             />
                         </label>
+                        {emailError && <p>{emailError}</p>}
                         <label className='signup__label'>
                             Password
                             <input
@@ -97,9 +134,15 @@ const SignupFormPage = () => {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                onBlur={() => {
+                                    const error = validatePassword(password)
+                                    if (error) setPasswordError(error)
+                                }}
+                                onFocus={() => { setPasswordError('') }}
                                 required
                             />
                         </label>
+                        {passwordError && <p>{passwordError}</p>}
                         <label className='signup__label'>
                             Confirm Password
                             <input
@@ -107,11 +150,20 @@ const SignupFormPage = () => {
                                 type="password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateConfirmPassword(password, confirmPassword)
+                                    if (error) setConfirmPasswordError(error)
+                                }}
+                                onFocus={() => { setConfirmPasswordError('') }}
                                 required
                             />
                         </label>
+                        {confirmPasswordError && <p>{confirmPasswordError}</p>}
+
                     </div>
-                    <button className='signup__button' type="submit">Sign Up</button>
+                    <button className={checkingErrors ? 'signup__button__disabled' : 'signup__button'}
+                        disabled={checkingErrors}
+                        type="submit">Sign Up</button>
                 </div>
             </form >
         </div >

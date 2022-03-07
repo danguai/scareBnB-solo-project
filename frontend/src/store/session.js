@@ -2,6 +2,7 @@ import { csrfFetch } from './csrf';
 
 const SET_USER = 'session/setUser';
 const REMOVE_USER = 'session/removeUser';
+const DISPLAY_MODAL = 'session/displayModal';
 
 const setUser = user => {
     return {
@@ -13,6 +14,17 @@ const setUser = user => {
 const removeUser = () => {
     return {
         type: REMOVE_USER,
+    };
+};
+
+// D I S P L A Y   M O D A L
+export const displayModal = () => {
+    return (dispatch, getState) => {
+        const shouldDisplay = getState().displayModal;
+        return dispatch({
+            type: DISPLAY_MODAL,
+            displayModal: !shouldDisplay
+        });
     };
 };
 
@@ -30,6 +42,7 @@ export const login = user => async dispatch => {
     dispatch(setUser(data.user));
     return response;
 };
+
 
 //  R E S T O R E   U S E R
 export const restoreUser = () => async dispatch => {
@@ -51,10 +64,17 @@ export const signUp = user => async dispatch => {
             email,
             password
         })
-    });
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
+    }).catch(e => console.log('BEFORE DATA', e));
+    if (response.ok) {
+        const data = await response.json();
+        if (data.errors) {
+            return Promise.reject(data);
+        }
+        dispatch(setUser(data.user));
+        console.log('AFTER DISPATCH', data);
+        return response;
+    }
+    return Promise.reject();
 };
 
 //  L O G   O U T
@@ -78,6 +98,10 @@ const sessionReducer = (state = initialState, action) => {
         case REMOVE_USER:
             newState = Object.assign({}, state);
             newState.user = null;
+            return newState;
+        case DISPLAY_MODAL:
+            newState = Object.assign({}, state);
+            newState.displayModal = action.displayModal;
             return newState;
         default:
             return state;
