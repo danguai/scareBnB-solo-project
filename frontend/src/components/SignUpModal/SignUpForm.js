@@ -41,7 +41,7 @@ const SignupForm = ({ user }) => {
 
             return dispatch(sessionActions.signUp({ firstName, lastName, username, email, password }))
                 .catch(async (data) => {
-                    setErrors(data.errors)
+                    setErrors(data.errors);
                     // const data = await res.json();
                     // if (data && data.errors) setErrors(data.errors);
                 });

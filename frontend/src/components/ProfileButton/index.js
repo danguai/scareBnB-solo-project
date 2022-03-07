@@ -45,11 +45,10 @@ const ProfileButton = ({ user }) => {
                 </li>
                 <li className='dropdown__menu__element'>
                     <button onClick={() => dispatch(sessionActions.displayModal())}>Sign Up</button>
-
                     {/* <NavLink to="/signup">Sign Up</NavLink> */}
                 </li>
                 <li className='dropdown__menu__element'>
-                    <NavLink to='/'>Demo User</NavLink>
+                    <button to='/'>Demo User</button>
                 </li>
             </>
         );
