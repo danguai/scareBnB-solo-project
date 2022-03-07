@@ -2,6 +2,7 @@
 
 const { faker } = require('@faker-js/faker');
 
+const randomUserId = num => Math.floor(Math.random() * Math.floor(num) + 1);
 const randomRating = num => Math.floor(Math.random() * Math.floor(num));
 
 module.exports = {
@@ -18,6 +19,7 @@ module.exports = {
         zipcode: faker.address.zipCode().split('').slice(0, 5).join(''),
         price: faker.commerce.price(),
         rating: randomRating(5),
+        userId: randomUserId(10),
         createdAt: faker.date.past(),
         updatedAt: faker.date.recent(),
       };
