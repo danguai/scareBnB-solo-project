@@ -13,14 +13,6 @@ const Splashpage = () => {
 
     return (
         <div>
-            <div className='reviews__container'>
-                <li>
-                    <NavLink className="temp__solution" to='/'>Places To Stay</NavLink>
-                </li>
-                <li>
-                    <NavLink className="temp__solution" to='/'>Haunting experiences</NavLink>
-                </li>
-            </div>
             <div className='search__bar__container'>
                 <div className='search__bar__options'>
                     <div>
@@ -46,7 +38,7 @@ const Splashpage = () => {
                 </div>
             </div>
             {shouldDisplay && <SignupForm />}
-            {/* {shouldDisplay && <LoginForm />} */}
+            {shouldDisplay && <LoginForm />}
         </div>
     )
 };

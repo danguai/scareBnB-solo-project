@@ -1,9 +1,9 @@
 .navigation__bar {
     /* top: 0; */
     height: 50px;
-    /* width: 100%; */
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     /* background-color: red; */
 }
@@ -23,11 +23,9 @@
 }
 
 .scareBnB__Logo {
-    background-image: url('../../images/LOGO.svg');
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30px;
+    height: 38px;
     width: auto;
-    border-radius: 20px;
 }

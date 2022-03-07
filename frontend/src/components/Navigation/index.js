@@ -8,18 +8,23 @@ const Navigation = ({ isLoaded, sessionUser }) => {
 
     return (
         <div>
-            <div className="navigation__bar">
-                <ul className="navigation__bar">
-                    <li>
+            <div>
+                <nav className="navigation__bar">
+                    <a href='/'>
                         <img className='scareBnB__Logo' src={require('../../images/LOGO.png')} />
-                    </li>
-                    <li>
+                    </a>
+                    <div className="reviews__link" >
+                        <a>
+                            <NavLink className="temp__solution" to='/'>Haunting experiences</NavLink>
+                        </a>
+                    </div>
+                    <a>
                         <NavLink className="temp__solution" to='/'>Become a Ghost</NavLink>
-                    </li>
-                    <li>
+                    </a>
+                    <a>
                         {isLoaded && <ProfileButton user={sessionUser} />}
-                    </li>
-                </ul>
+                    </a>
+                </nav>
             </div>
         </div>
     )
