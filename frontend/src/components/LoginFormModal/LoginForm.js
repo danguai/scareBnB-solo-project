@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { validateCredentials, validatePassword } from '../../utils/validation';
 
 import * as sessionActions from '../../store/session';
 

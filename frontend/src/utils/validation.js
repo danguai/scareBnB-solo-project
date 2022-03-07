@@ -1,4 +1,9 @@
 
+
+// L O G   I N   V A L I D A T O R S
+
+
+// S I G N   U P   V A L I D A T O R S
 export const validateFirstName = (firstName) => {
     if (!firstName) return 'Please provide a First Name.';
 

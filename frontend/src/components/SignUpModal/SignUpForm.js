@@ -8,7 +8,7 @@ import * as sessionActions from '../../store/session';
 
 import './SignUpForm.css';
 
-const SignupFormPage = ({ user }) => {
+const SignupForm = ({ user }) => {
     const dispatch = useDispatch();
     // const history = useHistory();
 
@@ -170,4 +170,4 @@ const SignupFormPage = ({ user }) => {
     )
 };
 
-export default SignupFormPage;
+export default SignupForm;
