@@ -1,9 +1,12 @@
 import { csrfFetch } from './csrf';
 
-const SET_USER = 'session/setUser';
-const REMOVE_USER = 'session/removeUser';
-const DISPLAY_MODAL = 'session/displayModal';
+//  A C T I O N S
+const SET_USER = 'session/SET_USER';
+const REMOVE_USER = 'session/REMOVE_USER';
 
+const DISPLAY_MODAL = 'session/DISPLAY_MODAL';
+
+//  S E T   U S E R
 const setUser = user => {
     return {
         type: SET_USER,
@@ -11,13 +14,14 @@ const setUser = user => {
     };
 };
 
+//  R E M O V E   U S E R
 const removeUser = () => {
     return {
         type: REMOVE_USER,
     };
 };
 
-// D I S P L A Y   M O D A L
+//  D I S P L A Y   M O D A L
 export const displayModal = () => {
     return (dispatch, getState) => {
         const shouldDisplay = getState().displayModal;
@@ -71,7 +75,7 @@ export const signUp = user => async dispatch => {
             return Promise.reject(data);
         }
         dispatch(setUser(data.user));
-        console.log('AFTER DISPATCH', data);
+        // console.log('AFTER DISPATCH', data);
         return response;
     }
     return Promise.reject();

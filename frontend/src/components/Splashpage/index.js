@@ -9,7 +9,7 @@ import './Splashpage.css';
 
 const Splashpage = () => {
 
-    const shouldDisplay = useSelector(state => console.log('YESYESYESYS', state) || state.session.displayModal);
+    const shouldDisplay = useSelector(state => state.session.displayModal);
 
     return (
         <div>
@@ -38,8 +38,22 @@ const Splashpage = () => {
                 </div>
             </div>
             {shouldDisplay && <SignupForm />}
-            {shouldDisplay && <LoginForm />}
+            {/* {shouldDisplay && <LoginForm />} */}
         </div>
     )
 };
 export default Splashpage;
+
+
+// {/* Modals */ }
+//         <ModalOne
+//           closeFn={closeModal}
+//           open={modalOpen === 'modal-one'} />
+
+//         <ModalTwo
+//           closeFn={closeModal}
+//           open={modalOpen === 'modal-two'} />
+
+//         <ModalThree
+//           closeFn={closeModal}
+//           open={modalOpen === 'modal-three'} />
