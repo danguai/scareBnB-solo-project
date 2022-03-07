@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Users' }
       },
-      PlaceId: {
+      placeId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: { model: 'Places' }
