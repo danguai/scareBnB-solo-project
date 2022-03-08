@@ -136,9 +136,15 @@ const PlacesForm = ({ places }) => {
                                 type="text"
                                 value={country}
                                 onChange={(e) => setCountry(e.target.value)}
+                                onBlur={() => {
+                                    const error = validateCountry(country``)
+                                    if (error) setCountryError(error)
+                                }}
+                                onFocus={() => { setCountryError('') }}
                                 required
                             />
                         </label>
+                        {countryError && <div className="errors_style">{countryError}</div>}
                         <label className='places__label'>
                             Zipcode
                             <input

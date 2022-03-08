@@ -7,6 +7,7 @@ import Navigation from "./components/Navigation";
 import Splashpage from "./components/Splashpage";
 import BookingFormPage from "./components/BookingFormPage";
 import PlacesPage from "./components/PlacesPage";
+import OnePlacePage from "./components/OnePlacePage";
 import PlacesForm from "./components/PlacesForm";
 
 import * as sessionActions from './store/session';
@@ -34,6 +35,12 @@ function App() {
           </Route>
           <Route path='/places-form'>
             <PlacesForm />
+          </Route>
+          <Route path='/places/:id'>
+            <OnePlacePage />
+          </Route>
+          <Route exact path='/places'>
+            <PlacesPage />
           </Route>
         </Switch>
       )}

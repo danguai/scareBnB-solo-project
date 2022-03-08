@@ -1,0 +1,188 @@
+#places {
+    margin-top: 50px;;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.places__container {
+    display: flex;
+    flex-direction: column;
+    color: rgb(255, 255, 255, 1);
+    width: 800px;
+    height: auto;
+}
+
+.info__place {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: rgb(255, 255, 255, 1);
+}
+
+.info__place > li {
+    font-size: 14px;
+    font-weight: lighter;
+    list-style-type: none;
+}
+
+#place__photos__container {
+    display: grid;
+    width: 800px;
+    height: 400px;
+    grid-template-areas: "photo1 photo2 photo3"
+                         "photo1 photo4 photo5" ;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 195px 195px;
+    margin-top: 20px;
+    gap: 10px;
+    border-radius: 20px;
+
+
+}
+
+#place__photos__container > .place__photo__01 {
+    grid-area: photo1;
+    width: 380px;
+    height: 400px;
+}
+
+.place__photo__02 {
+    grid-area: photo2;
+    width: 195px;
+    height: 195px;
+
+}
+.place__photo__03 {
+    grid-area: photo3;
+    width: 195px;
+    height: 195px;
+
+}
+
+.place__photo__04 {
+    grid-area: photo4;
+    width: 195px;
+    height: 195px;
+
+}
+
+.place__photo__05 {
+    grid-area: photo5;
+    width: 195px;
+    height: 195px;
+}
+
+.description__reservation {
+    display: flex;
+    justify-content: space-between;
+    width: 800px;
+    margin-top: 20px;
+}
+
+.place__description {
+    color: white;
+}
+
+.disamenities > li {
+    font-weight: lighter;
+}
+
+.reserve__form__container {
+    /* background-color: white; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reserve__box {
+    background-color: white;
+    width : 300px;
+    height : auto;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.reserve__button {
+    margin-top: 20px;
+    background : linear-gradient(180deg, rgba(194, 68, 84, 1) 0%, rgba(128, 42, 71, 1) 100%);
+    width : 240px;
+    height : 50px;
+    border-radius : 8px;
+    border: 2px;
+    border-color: black;
+    color: white;
+}
+
+.reserve__button__disabled {
+    margin-top: 20px;
+    cursor: not-allowed;
+    background : linear-gradient(180deg, rgba(194, 68, 84, 0.25) 0%, rgba(128, 42, 71, 0.25) 100%);
+    width : 240px;
+    height : 50px;
+    border-radius : 8px;
+    border: 2px;
+    border-color: black;
+    color: white;
+}
+
+.reserve__button:hover {
+    background : linear-gradient(0deg, rgba(194, 68, 84, 1) 0%, rgba(128, 42, 71, 1) 100%);
+}
+
+.reserve__label {
+    font-size: 12px;
+    color : rgb(21, 39, 62, 0.5);
+    padding: 3px;
+    margin: 0 20px;
+}
+
+.errors_style  {
+    font-size: 9px;
+    color: red
+}
+
+.info__reserve__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px #15273E solid;
+    border-radius: 16px;
+    width: 240px;
+    padding: 10px 0;
+}
+
+.input__reserve__box {
+    width : 204px;
+    height : 30px;
+    border: 0;
+    border-bottom : 1px #15273E solid;
+}
+
+
+.reserve__title {
+    font-weight : bold;
+    font-size : 40px;
+    color : rgb(21, 39, 62, 0.3);
+    margin-bottom: 30px;
+}
+
+.reserve__welcome {
+    font-size: 24px;
+    color: #15273E;
+    width : 240px;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 0;
+}
+
+.errors {
+    color: red;
+}
