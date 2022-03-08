@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ProfileButton from "../ProfileButton";
 
 import './Navigation.css';
@@ -14,13 +14,10 @@ const Navigation = ({ isLoaded, sessionUser }) => {
                         <img className='scareBnB__Logo' src={require('../../images/LOGO.png')} />
                     </a>
                     <div className="reviews__link" >
-                        <a>
-                            <NavLink className="temp__solution" to='/'>Haunting experiences</NavLink>
-                        </a>
+                        <Link className="temp__solution" to='/'>Haunting experiences</Link>
+
+                        <Link className="temp__solution" to='/'>Become a Ghost</Link>
                     </div>
-                    <a>
-                        <NavLink className="temp__solution" to='/'>Become a Ghost</NavLink>
-                    </a>
                     <a>
                         {isLoaded && <ProfileButton user={sessionUser} />}
                     </a>

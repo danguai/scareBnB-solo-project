@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { validateCredential, validateUsername, validateEmail, validatePassword } from '../../utils/validation';
 
@@ -15,26 +16,33 @@ const LoginForm = () => {
     const [errors, setErrors] = useState([]);
 
     const [credentialError, setCredentialError] = useState('');
+    const [usernameError, setUsernameError] = useState('');
+    const [emailError, setEmailError] = useState('');
     const [passwordError, setPasswordError] = useState('');
 
-    const checkingErrors = (credentialError || passwordError);
+    const checkingErrors = (credentialError || usernameError || emailError || passwordError);
 
     const handleSubmit = e => {
         e.preventDefault();
 
+        // const history = useHistory();
+
         setErrors([]);
+
+        // history.push('/');
 
         return dispatch(sessionActions.login({ credential, password }))
             .catch(async (data) => {
                 setErrors(data.errors);
             });
+
     };
     return (
-        <div className='login__form__container'>
+        <div className='login__form__container' style={{ 'borderRadius': '20px' }}>
             <form onSubmit={handleSubmit}>
-                <ul>
+                {/* <ul>
                     {errors.map((error, id) => <li key={id}>{error}</li>)}
-                </ul>
+                </ul> */}
                 <div className='login__box'>
                     <div className='login__title'>
                         Login
@@ -50,11 +58,11 @@ const LoginForm = () => {
                                 type="text"
                                 value={credential}
                                 onChange={(e) => setCredential(e.target.value)}
-                                onBlur={() => {
-                                    const error = validateCredential(credential)
-                                    if (error) setCredential(error)
-                                }}
-                                onFocus={() => { setCredentialError('') }}
+                                // onBlur={() => {
+                                //     const error = validateCredential(credential)
+                                //     if (error) setCredential(error)
+                                // }}
+                                // onFocus={() => { setCredentialError('') }}
                                 required
                             />
                         </label>
@@ -65,16 +73,18 @@ const LoginForm = () => {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                onBlur={() => {
-                                    const error = validatePassword(password)
-                                    if (error) setPasswordError(error)
-                                }}
-                                onFocus={() => { setPasswordError('') }}
+                                // onBlur={() => {
+                                //     const error = validatePassword(password)
+                                //     if (error) setPasswordError(error)
+                                // }}
+                                // onFocus={() => { setPasswordError('') }}
                                 required
                             />
                         </label>
                     </div>
-                    <button className='login__button' type="submit">Log In</button>
+                    <button className={checkingErrors ? 'login__button__disabled' : 'login__button'}
+                        disabled={checkingErrors}
+                        type="submit">Log In</button>
                 </div>
             </form >
         </div >

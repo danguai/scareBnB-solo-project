@@ -9,7 +9,9 @@ import './Splashpage.css';
 
 const Splashpage = () => {
 
-    const shouldDisplay = useSelector(state => console.log('YESYESYESYS', state) || state.session.displayModal);
+    const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
+
+    const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
 
     return (
         <div>
@@ -37,9 +39,23 @@ const Splashpage = () => {
                     <img className='splash__temp__image' src={require('../../images/HauntedHouse.png')} />
                 </div>
             </div>
-            {shouldDisplay && <SignupForm />}
-            {shouldDisplay && <LoginForm />}
+            {shouldDisplaySignup && <SignupForm />}
+            {shouldDisplayLogin && <LoginForm />}
         </div>
     )
 };
 export default Splashpage;
+
+
+// {/* Modals */ }
+//         <ModalOne
+//           closeFn={closeModal}
+//           open={modalOpen === 'modal-one'} />
+
+//         <ModalTwo
+//           closeFn={closeModal}
+//           open={modalOpen === 'modal-two'} />
+
+//         <ModalThree
+//           closeFn={closeModal}
+//           open={modalOpen === 'modal-three'} />

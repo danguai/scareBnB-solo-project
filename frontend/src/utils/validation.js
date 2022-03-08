@@ -47,3 +47,46 @@ export const validatePassword = (password) => {
 export const validateConfirmPassword = (password, confirmPassword) => {
     if (password !== confirmPassword) return `Confirm Password doesn't match Password.`;
 };
+
+
+//  C R E A T E   P L A C E   V A L I D A T O R S
+export const validateAddress = (address) => {
+    if (!address) return 'Please provide an Address.';
+
+    if (address.lenght > 255) return 'Address should be less than 255 characters';
+    return '';
+};
+
+export const validateCity = (city) => {
+    if (!city) return 'Please provide a City.';
+
+    if (city.lenght > 85) return 'City should be less than 85 characters';
+    return '';
+};
+
+export const validateState = (state) => {
+    if (!state) return 'Please provide a State.';
+
+    if (state.length > 60) return 'State should be less than 60 characters';
+    return '';
+};
+
+export const validateCountry = (country) => {
+    if (!country) return 'Please provide a Country.';
+
+    if (country.length > 60) return 'Country should be less than 60 characters';
+};
+
+export const validateZipcode = (zipcode) => {
+    if (!zipcode) return 'Please provide a Zipcode.';
+};
+
+export const validatePrice = (price) => {
+    if (!price) return `Please provide the Price.`;
+};
+
+export const validateRating = (rating) => {
+    if (!rating) return `Please provide a rating`;
+
+    if (rating < 0 || rating > 5) return `Please provide a rating between 0 and 5.`;
+};

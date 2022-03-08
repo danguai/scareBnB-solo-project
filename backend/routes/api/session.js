@@ -21,6 +21,7 @@ const validateLogin = [
     handleValidationErrors
 ];
 
+
 //  L O G   I N
 router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
     const { credential, password } = req.body;
@@ -39,11 +40,13 @@ router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
     return res.json({ user });
 }));
 
+
 //  L O G   O U T
 router.delete('/', (_req, res) => {
     res.clearCookie('token');
     return res.json({ message: 'success' });
 });
+
 
 //  R E S T O R E   S E S S I O N   U S E R
 router.get('/', restoreUser, (req, res) => {
@@ -52,7 +55,5 @@ router.get('/', restoreUser, (req, res) => {
         return res.json({ user: user.toSafeObject() });
     } else return res.json({});
 });
-
-
 
 module.exports = router;

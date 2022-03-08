@@ -7,19 +7,19 @@ module.exports = (sequelize, DataTypes) => {
     city: DataTypes.STRING,
     state: DataTypes.STRING,
     country: DataTypes.STRING,
-    zipcode: DataTypes.INTEGER,
+    zipcode: DataTypes.STRING,
     price: DataTypes.INTEGER,
     rating: DataTypes.INTEGER,
     userId: DataTypes.INTEGER
   }, {});
 
   Place.associate = function (models) {
-    Place.belongsTo(models.Users, { foreignKey: 'userId' });
+    Place.belongsTo(models.User, { foreignKey: 'userId' });
 
-    Place.hasMany(models.Bookings, { foreignKey: 'placeId' });
-    Place.hasMany(models.Reviews, { foreignKey: 'placeId' });
+    Place.hasMany(models.Booking, { foreignKey: 'placeId' });
+    Place.hasMany(models.Review, { foreignKey: 'placeId' });
 
-    Place.hasOne(models.Favorites, { foreignKey: 'placeId' });
+    Place.hasOne(models.Favorite, { foreignKey: 'placeId' });
   };
   return Place;
 };

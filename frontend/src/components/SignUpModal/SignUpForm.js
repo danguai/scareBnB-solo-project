@@ -20,6 +20,8 @@ const SignupForm = ({ user }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    // ERRORS
     const [errors, setErrors] = useState([]);
 
     const [firstNameError, setFirstNameError] = useState('');
@@ -41,15 +43,18 @@ const SignupForm = ({ user }) => {
 
             return dispatch(sessionActions.signUp({ firstName, lastName, username, email, password }))
                 .catch(async (data) => {
+                    console.log('DATDADATDA', data);
                     setErrors(data.errors);
                     // const data = await res.json();
                     // if (data && data.errors) setErrors(data.errors);
                 });
         }
         return setErrors(['Confirm Password should match Password']);
+
+
     };
     return (
-        <div className='signup__form__container'>
+        <div className='signup__form__container' style={{ 'borderRadius': '20px' }}>
             <form onSubmit={handleSubmit}>
                 <ul className="errors">
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
