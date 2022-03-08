@@ -82,6 +82,20 @@ router.post('/', validateNewPlace, asyncHandler(async (req, res) => {
     return res.json({ place });
 }));
 
+// U P D A T E   P L A C E
+router.put('/:id', validateNewPlace, asyncHandler(async (req, res) => {
+    const id = req.body.id;
+    delete req.body.id;
+    await Places.update(req.body, {
+        where: { id },
+        returning: true,
+        plain: true,
+    });
+
+    const place = await Places.scope('detailed').findByPk(id);
+
+    return res.json(place);
+}));
 
 // D E L E T E   P L A C E
 router.delete(`/places/:id(\\d+)/delete`, asyncHandler(async (req, res) => {
