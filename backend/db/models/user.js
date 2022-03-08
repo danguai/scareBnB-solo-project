@@ -37,16 +37,22 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     });
+
+    console.log('user', user, user.validatePassword(password));
+
     if (user && user.validatePassword(password)) {
       return await User.scope('currentUser').findByPk(user.id);
     }
   };
 
-  User.signup = async function ({ username, email, password }) {
+  User.signup = async function ({ firstName, lastName, username, email, imageProfile, password }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
+      firstName,
+      lastName,
       username,
       email,
+      imageProfile,
       hashedPassword
     });
     return await User.scope('currentUser').findByPk(user.id);

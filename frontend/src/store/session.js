@@ -4,7 +4,8 @@ import { csrfFetch } from './csrf';
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 
-const DISPLAY_MODAL = 'session/DISPLAY_MODAL';
+const DISPLAY_MODAL_LOGIN = 'session/DISPLAY_MODAL_LOGIN';
+const DISPLAY_MODAL_SIGNUP = 'session/DISPLAY_MODAL_SIGNUP';
 
 //  S E T   U S E R
 const setUser = user => {
@@ -21,16 +22,28 @@ const removeUser = () => {
     };
 };
 
-//  D I S P L A Y   M O D A L
-export const displayModal = () => {
+//  D I S P L A Y   M O D A L  L O G I N
+export const displayModalLogin = () => {
     return (dispatch, getState) => {
-        const shouldDisplay = getState().session.displayModal;
+        const shouldDisplayLogin = getState().session.shouldDisplayLogin;
         return dispatch({
-            type: DISPLAY_MODAL,
-            displayModal: !shouldDisplay
+            type: DISPLAY_MODAL_LOGIN,
+            shouldDisplayLogin: !shouldDisplayLogin
         });
     };
 };
+
+//  D I S P L A Y   M O D A L  S I G N U P
+export const displayModalSignup = () => {
+    return (dispatch, getState) => {
+        const shouldDisplaySignup = getState().session.shouldDisplaySignup;
+        return dispatch({
+            type: DISPLAY_MODAL_SIGNUP,
+            shouldDisplaySignup: !shouldDisplaySignup
+        });
+    };
+};
+
 
 //  L O G I N   U S E R
 export const login = user => async dispatch => {
@@ -103,9 +116,13 @@ const sessionReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             newState.user = null;
             return newState;
-        case DISPLAY_MODAL:
+        case DISPLAY_MODAL_LOGIN:
             newState = Object.assign({}, state);
-            newState.displayModal = action.displayModal;
+            newState.shouldDisplayLogin = action.shouldDisplayLogin;
+            return newState;
+        case DISPLAY_MODAL_SIGNUP:
+            newState = Object.assign({}, state);
+            newState.shouldDisplaySignup = action.shouldDisplaySignup;
             return newState;
         default:
             return state;

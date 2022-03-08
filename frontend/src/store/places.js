@@ -50,7 +50,7 @@ export const createPlace = place => async dispatch => {
             return Promise.reject(data);
         }
         dispatch(addOnePlace(data.place));
-        console.log('AFTER DISPATCH', data);
+        console.log('AFTER DISPATCH', data, response);
         return response;
     }
     return Promise.reject();

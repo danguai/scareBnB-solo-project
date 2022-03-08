@@ -53,7 +53,7 @@ router.get('/', asyncHandler(async (_req, res) => {
 }));
 
 //  C R E A T E   P L A C E
-router.post('/places', validateNewPlace, asyncHandler(async (req, res) => {
+router.post('/', validateNewPlace, asyncHandler(async (req, res) => {
     const {
         address,
         city,
@@ -61,7 +61,8 @@ router.post('/places', validateNewPlace, asyncHandler(async (req, res) => {
         country,
         zipcode,
         price,
-        rating
+        rating,
+        userId
     } = req.body;
 
     const place = await Place.create(
@@ -72,11 +73,12 @@ router.post('/places', validateNewPlace, asyncHandler(async (req, res) => {
             country,
             zipcode,
             price,
-            rating
+            rating,
+            userId
         }).catch(e => console.log('backend', e));
 
     await setTokenCookie(res, place);
-
+    console.log('palce', place);
     return res.json({ place });
 }));
 

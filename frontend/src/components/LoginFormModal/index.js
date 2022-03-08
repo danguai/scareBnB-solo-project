@@ -5,24 +5,23 @@ import { useDispatch } from 'react-redux';
 import { Modal } from '../../context/Modal';
 import LoginForm from './LoginForm';
 
-import { displayModal } from '../../store/session';
+import { displayModalLogin } from '../../store/session';
 
 const LoginFormModal = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         const handleClick = e => {
-            dispatch(displayModal());
+            dispatch(displayModalLogin());
         };
 
         document.querySelector('#modal__background').addEventListener('click', handleClick);
 
-        return () => document.querySelector('#modal__background').removeEventListener('click', handleClick);
     }, []);
 
     return (
         <>
-            <Modal onClose={() => dispatch(displayModal())}>
+            <Modal onClose={() => dispatch(displayModalLogin())}>
                 <LoginForm />
             </Modal>
         </>

@@ -41,10 +41,10 @@ const ProfileButton = ({ user }) => {
         sessionLinks = (
             <>
                 <li className='dropdown__menu__element'>
-                    <button onClick={() => dispatch(sessionActions.displayModal())}>Log In</button>
+                    <button onClick={() => dispatch(sessionActions.displayModalLogin())}>Log In</button>
                 </li>
                 <li className='dropdown__menu__element'>
-                    <button onClick={() => dispatch(sessionActions.displayModal())}>Sign Up</button>
+                    <button onClick={() => dispatch(sessionActions.displayModalSignup())}>Sign Up</button>
                     {/* <NavLink to="/signup">Sign Up</NavLink> */}
                 </li>
                 <li className='dropdown__menu__element'>
