@@ -35,6 +35,9 @@ function App() {
           <Route path='/places-form'>
             <PlacesForm />
           </Route>
+          <Route path='/places'>
+            <PlacesPage />
+          </Route>
         </Switch>
       )}
     </>
