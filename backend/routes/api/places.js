@@ -82,15 +82,39 @@ router.post('/', validateNewPlace, asyncHandler(async (req, res) => {
     return res.json({ place });
 }));
 
+//  R E A D   P L A C E
+
+router.get('/:id', asyncHandler(async (req, res) => {
+    const id = +req.params.id;
+    const place = await Places.scope('detailed').findByPk(id);
+    return res.json(place);
+})
+);
+
+// U P D A T E   P L A C E
+router.put('/:id', validateNewPlace, asyncHandler(async (req, res) => {
+    const id = req.body.id;
+    delete req.body.id;
+    await Places.update(req.body, {
+        where: { id },
+        returning: true,
+        plain: true,
+    });
+
+    const place = await Places.scope('detailed').findByPk(id);
+
+    return res.json(place);
+}));
 
 // D E L E T E   P L A C E
-router.delete(`/places/:id(\\d+)/delete`, asyncHandler(async (req, res) => {
-    const id = req.params.id;
-    const place = await Places.findByPk(id);
+router.delete('/:id', asyncHandler(async (req, res) => {
+    const place = await Places.findByPk(req.params.id);
+    if (!place) throw new Error('Cannot find item');
 
-    await place.destroy();
+    await Place.destroy({ where: { id: place.id } });
 
-    res.json({ message: 'Place Deleted' });
-}));
+    return res.json({ id: place.id });
+})
+);
 
 module.exports = router;

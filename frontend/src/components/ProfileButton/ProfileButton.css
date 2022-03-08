@@ -42,3 +42,12 @@
 .dropdown__menu__element {
     padding: 10px;
 }
+
+.user__button {
+    position: relative;
+    /* margin-right: 100px; */
+    width: 120px;
+    height: 35px;
+    border-radius: 10px;
+
+}

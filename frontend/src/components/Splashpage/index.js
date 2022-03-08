@@ -27,7 +27,7 @@ const Splashpage = () => {
                         End Date
                     </div>
                     <div>
-                        Guests
+                        Ghosts
                     </div>
                 </div>
             </div>

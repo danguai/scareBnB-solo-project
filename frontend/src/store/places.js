@@ -56,7 +56,6 @@ export const createPlace = place => async dispatch => {
     return Promise.reject();
 };
 
-
 //  U P D A T E   P L A C E
 export const updatePlace = data => async dispatch => {
     const response = await fetch(`/api/places/${data.id}`, {
