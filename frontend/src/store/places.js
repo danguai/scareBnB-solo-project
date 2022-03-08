@@ -1,11 +1,13 @@
 import { csrfFetch } from './csrf';
 
 //  A C T I O N S
-const GET_PLACE = 'places/GET_PLACE';
-const GET_PLACES = 'places/GET_PLACES';
+
 const CREATE_PLACE = 'places/CREATE_PLACE';
+const READ_PLACE = 'places/READ_PLACE';
 const UPDATE_PLACE = 'places/UPDATE_PLACE';
-const REMOVE_PLACE = 'places/REMOVE_PLACE';
+const DELETE_PLACE = 'places/DELETE_PLACE';
+
+const READ_PLACES = 'places/READ_PLACES';
 
 // C R E A T E   P L A C E   A C T I O N
 const createPlaceAction = place => {
@@ -18,7 +20,7 @@ const createPlaceAction = place => {
 // R E A D   P L A C E   A C T I O N
 const getOnePlaceAction = place => {
     return {
-        type: GET_PLACE,
+        type: READ_PLACE,
         payload: place,
     };
 };
@@ -26,7 +28,7 @@ const getOnePlaceAction = place => {
 // R E A D   P L A C E   A C T I O N
 const getPlacesAction = places => {
     return {
-        type: GET_PLACES,
+        type: READ_PLACES,
         payload: places,
     };
 };
@@ -42,9 +44,10 @@ const updateOnePlaceAction = place => {
 //  R E M O V E   P L A C E   A C T I O N
 const removeOnePlaceAction = () => {
     return {
-        type: REMOVE_PLACE,
+        type: DELETE_PLACE,
     };
 };
+
 
 //  C R E A T E   P L A C E
 export const createPlace = place => async dispatch => {
@@ -85,16 +88,6 @@ export const getPlace = id => async dispatch => {
     }
 };
 
-//   R E A D  A L L   P L A C E
-export const getPlaces = () => async dispatch => {
-    const response = await fetch(`/api/place`);
-
-    if (response.ok) {
-        const places = await response.json();
-        dispatch(getPlacesAction(places));
-    }
-};
-
 //  U P D A T E   P L A C E
 export const updatePlace = data => async dispatch => {
     const response = await fetch(`/api/places/${data.id}`, {
@@ -121,7 +114,27 @@ export const deletePlace = () => async dispatch => {
     return response;
 };
 
+
+//   R E A D  A L L   P L A C E
+export const getPlaces = () => async dispatch => {
+    const response = await fetch(`/api/place`);
+
+    if (response.ok) {
+        const places = await response.json();
+        dispatch(getPlacesAction(places));
+    }
+};
+
+//   R E D U C E R S
 const initialState = { place: null };
+
+const sorPlaces = places => {
+    return places
+        .sort((placeA, placeB) => {
+            return placeA.number - placeB.number;
+        })
+        .map(place => place.id);
+};
 
 const placesReducer = (state = initialState, action) => {
     let newState;
@@ -130,17 +143,31 @@ const placesReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             newState.place = action.payload;
             return newState;
+        case READ_PLACE:
+            newState = Object.assign({}, state);
+            return newState;
         case UPDATE_PLACE:
             newState = Object.assign({}, state);
             newState.place = action.payload;
             return newState;
-        case REMOVE_PLACE:
+        case DELETE_PLACE:
             newState = Object.assign({}, state);
             newState.place = null;
             return newState;
+        // case READ_PLACES:
+        // const allPlaces = {};
+        // action.places.forEach(place => {
+        //     allPlaces[place.id] = place;
+        // });
+        // return {
+        //     ...allPlaces,
+        //     ...state,
+        //     places: sorPlaces(action.places)
+        // };
         default:
             return state;
     }
 };
+
 
 export default placesReducer;
