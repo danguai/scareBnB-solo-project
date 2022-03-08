@@ -53,7 +53,7 @@ router.get('/', asyncHandler(async (_req, res) => {
 }));
 
 //  C R E A T E   P L A C E
-router.post('/', validateNewPlace, asyncHandler(async (req, res) => {
+router.post('/places', validateNewPlace, asyncHandler(async (req, res) => {
     const {
         address,
         city,
@@ -81,14 +81,14 @@ router.post('/', validateNewPlace, asyncHandler(async (req, res) => {
 }));
 
 
-
-router.delete(`/answers/:id(\\d+)/delete`, asyncHandler(async (req, res) => {
+// D E L E T E   P L A C E
+router.delete(`/places/:id(\\d+)/delete`, asyncHandler(async (req, res) => {
     const id = req.params.id;
-    const answer = await db.Answer.findByPk(id);
+    const place = await Places.findByPk(id);
 
-    await answer.destroy();
+    await place.destroy();
 
-    res.json({ message: 'Answer Deleted' });
+    res.json({ message: 'Place Deleted' });
 }));
 
 module.exports = router;

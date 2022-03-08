@@ -24,7 +24,7 @@ const removeUser = () => {
 //  D I S P L A Y   M O D A L
 export const displayModal = () => {
     return (dispatch, getState) => {
-        const shouldDisplay = getState().displayModal;
+        const shouldDisplay = getState().session.displayModal;
         return dispatch({
             type: DISPLAY_MODAL,
             displayModal: !shouldDisplay
