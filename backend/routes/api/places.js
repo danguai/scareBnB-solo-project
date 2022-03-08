@@ -40,6 +40,18 @@ const validateNewPlace = [
     handleValidationErrors
 ];
 
+//  R E A D   A L L   P L A C E S
+router.get('/', asyncHandler(async (_req, res) => {
+    console.log(Place);
+    const places = await Place.findAll({
+        // include: [Favorite, Reviews, Images]
+    });
+
+    // await setTokenCookie(res, place);
+
+    return res.json(places);
+}));
+
 //  C R E A T E   P L A C E
 router.post('/', validateNewPlace, asyncHandler(async (req, res) => {
     const {
@@ -68,16 +80,15 @@ router.post('/', validateNewPlace, asyncHandler(async (req, res) => {
     return res.json({ place });
 }));
 
-//  R E A D   P L A C E
-router.get('/', asyncHandler(async (req, res) => {
-    const place = await Place.findAll({
-        include: [Favorite, Reviews, Images]
-    });
 
-    await setTokenCookie(res, place);
 
-    return res.json({ place });
+router.delete(`/answers/:id(\\d+)/delete`, asyncHandler(async (req, res) => {
+    const id = req.params.id;
+    const answer = await db.Answer.findByPk(id);
+
+    await answer.destroy();
+
+    res.json({ message: 'Answer Deleted' });
 }));
-
 
 module.exports = router;

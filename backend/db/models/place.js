@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   Place.associate = function (models) {
-    // Place.belongsTo(models.Users, { foreignKey: 'userId' });
+    Place.belongsTo(models.Users, { foreignKey: 'userId' });
 
     // Place.hasMany(models.Bookings, { foreignKey: 'placeId' });
     // Place.hasMany(models.Reviews, { foreignKey: 'placeId' });
