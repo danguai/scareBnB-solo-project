@@ -39,6 +39,9 @@ function App() {
           <Route path='/places/:id'>
             <OnePlacePage />
           </Route>
+          <Route exact path='/places'>
+            <PlacesPage />
+          </Route>
         </Switch>
       )}
     </>
