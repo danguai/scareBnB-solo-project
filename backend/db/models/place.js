@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   Place.associate = function (models) {
-    Place.belongsTo(models.Users, { foreignKey: 'userId' });
+    Place.belongsTo(models.User, { foreignKey: 'userId' });
 
-    // Place.hasMany(models.Bookings, { foreignKey: 'placeId' });
-    // Place.hasMany(models.Reviews, { foreignKey: 'placeId' });
+    Place.hasMany(models.Booking, { foreignKey: 'placeId' });
+    Place.hasMany(models.Review, { foreignKey: 'placeId' });
 
-    // Place.hasOne(models.Favorites, { foreignKey: 'placeId' });
+    Place.hasOne(models.Favorite, { foreignKey: 'placeId' });
   };
   return Place;
 };
