@@ -112,6 +112,7 @@ router.delete('/:id', asyncHandler(async (req, res) => {
     if (!place) throw new Error('Cannot find item');
 
     await Place.destroy({ where: { id: place.id } });
+
     return res.json({ id: place.id });
 })
 );
