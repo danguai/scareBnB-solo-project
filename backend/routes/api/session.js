@@ -50,7 +50,7 @@ router.delete('/', (_req, res) => {
 
 //  R E S T O R E   S E S S I O N   U S E R
 router.get('/', restoreUser, (req, res) => {
-    console.log('THIS IS SESSIONS');
+    // console.log('THIS IS SESSIONS');
     const { user } = req;
     if (user) {
         return res.json({ user: user.toSafeObject() });

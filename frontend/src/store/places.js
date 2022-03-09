@@ -9,6 +9,8 @@ const DELETE_PLACE = 'places/DELETE_PLACE';
 
 const READ_PLACES = 'places/READ_PLACES';
 
+const DISPLAY_MODAL_PLACE_FORM = 'places/DISPLAY_MODAL_PLACE_FORM';
+
 // C R E A T E   P L A C E
 const createPlaceAction = place => {
     return {
@@ -48,6 +50,17 @@ const removeOnePlaceAction = () => {
     };
 };
 
+
+//  D I S P L A Y   M O D A L  P L A C E S   F O R M
+export const displayModalPlaceForm = () => {
+    return (dispatch, getState) => {
+        const shouldDisplayPlaceForm = getState().session.shouldDisplayPlaceForm;
+        return dispatch({
+            type: DISPLAY_MODAL_PLACE_FORM,
+            shouldDisplayPlaceForm: !shouldDisplayPlaceForm
+        });
+    };
+};
 
 //  C R E A T E   P L A C E
 export const createPlace = place => async dispatch => {
@@ -163,6 +176,10 @@ const placesReducer = (state = initialState, action) => {
         case DELETE_PLACE:
             newState = Object.assign({}, state);
             newState.place = null;
+            return newState;
+        case DISPLAY_MODAL_PLACE_FORM:
+            newState = Object.assign({}, state);
+            newState.shouldDisplayPlaceForm = action.shouldDisplayPlaceForm;
             return newState;
         case READ_PLACES:
             const allPlaces = {};

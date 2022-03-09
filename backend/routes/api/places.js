@@ -78,7 +78,6 @@ router.post('/', requireAuth, validateNewPlace, asyncHandler(async (req, res) =>
 
 //  R E A D   P L A C E
 router.get('/:id', asyncHandler(async (req, res) => {
-    // console.log('REQUEST', req);
     try {
 
         const id = +req.params.id;
@@ -93,15 +92,15 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 //  R E A D   A L L   P L A C E S
 router.get('/', asyncHandler(async (req, res) => {
-    console.log('BEFORE AWAIT');
-    const places = await Place.findAll();
-    //     {
-    //     include: [Favorite, Reviews, Images]
-    // });
+    try {
 
-    // await setTokenCookie(res, place);
-    console.log('ALL PLACES', places);
-    return res.json(places);
+        const places = await Place.findAll();
+
+        console.log('ALL PLACES', places);
+        return res.json(places);
+    } catch (e) {
+        console.log(e);
+    }
 }));
 
 // U P D A T E   P L A C E

@@ -1,9 +1,11 @@
 import React from 'react';
-import { NavLink } from "react-router-dom";
+
 import { useSelector } from 'react-redux';
 
 import LoginForm from '../LoginFormModal/';
 import SignupForm from '../SignUpModal/';
+
+import PlaceForm from '../PlaceFormModal';
 
 import './Splashpage.css';
 
@@ -12,6 +14,9 @@ const Splashpage = () => {
     const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
 
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
+
+    const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
+
 
     return (
         <div>
@@ -41,6 +46,7 @@ const Splashpage = () => {
             </div>
             {shouldDisplaySignup && <SignupForm />}
             {shouldDisplayLogin && <LoginForm />}
+            {shouldDisplayPlaceForm && <PlaceForm />}
         </div>
     )
 };

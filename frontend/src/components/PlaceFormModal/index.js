@@ -4,16 +4,16 @@ import { useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { Modal } from '../../context/Modal';
-import LoginForm from './LoginForm';
+import PlaceForm from './PlaceForm';
 
-import { displayModalLogin } from '../../store/session';
+import { displayModalPlaceForm } from '../../store/places';
 
-const LoginFormModal = () => {
+const PlacesFormModal = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         const handleClick = e => {
-            dispatch(displayModalLogin());
+            dispatch(displayModalPlaceForm());
         };
 
         document.querySelector('#modal__background').addEventListener('click', handleClick);
@@ -22,11 +22,11 @@ const LoginFormModal = () => {
 
     return (
         <>
-            <Modal onClose={() => dispatch(displayModalLogin())}>
-                <LoginForm />
+            <Modal onClose={() => dispatch(displayModalPlaceForm())}>
+                <PlaceForm />
             </Modal>
         </>
     );
 }
 
-export default LoginFormModal;
+export default PlacesFormModal;

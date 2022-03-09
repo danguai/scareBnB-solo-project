@@ -7,7 +7,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
 
-import { getPlace } from '../../store/places';
+
+import { restoreUser } from '../../store/session';
+import { getPlace, updatePlace, deletePlace } from '../../store/places';
 
 
 
@@ -32,6 +34,8 @@ const OnePlacePage = () => {
     const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
 
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
+
+    const shouldDisplayPlacesForm = useSelector(state => state.places.shouldDisplayPlacesForm);
 
 
     if (!place) return null;

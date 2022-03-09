@@ -16,9 +16,9 @@ import {
 
 import { createPlace, updatePlace, deletePlace } from '../../store/places';
 
-import './PlacesForm.css';
+import './PlaceForm.css';
 
-const PlacesForm = ({ places }) => {
+const PlaceForm = ({ places }) => {
     const dispatch = useDispatch();
 
     const [address, setAddress] = useState('');
@@ -203,4 +203,4 @@ const PlacesForm = ({ places }) => {
     )
 };
 
-export default PlacesForm;
+export default PlaceForm;
