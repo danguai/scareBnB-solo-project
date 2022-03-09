@@ -25,7 +25,7 @@ const PlacesForm = ({ places }) => {
     const [city, setCity] = useState('');
     const [state, setState] = useState('');
     const [country, setCountry] = useState('');
-    const [zipcode, setZipcode] = useState(0);
+    const [zipcode, setZipcode] = useState('');
     const [price, setPrice] = useState(0);
     const [rating, setRating] = useState(0);
     const [errors, setErrors] = useState([]);

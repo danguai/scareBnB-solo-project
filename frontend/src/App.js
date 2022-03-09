@@ -11,7 +11,7 @@ import OnePlacePage from "./components/OnePlacePage";
 import PlacesForm from "./components/PlacesForm";
 
 import * as sessionActions from './store/session';
-// import * as placesActions from './store/places';
+
 
 function App() {
   const dispatch = useDispatch();

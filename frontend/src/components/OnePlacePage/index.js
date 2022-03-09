@@ -2,14 +2,28 @@ import React from "react";
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
 
+import { getPlace } from '../../store/places';
+
+
+
 import './OnePlacePage.css';
 
-const OnePlacePage = ({ places }) => {
+const OnePlacePage = () => {
+
+    const { id } = useParams();
+
+    const dispatch = useDispatch();
+
+    const place = useSelector(state => state.places.place);
+
+    useEffect(() => {
+        dispatch(getPlace(id));
+    }, [dispatch]);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -19,10 +33,14 @@ const OnePlacePage = ({ places }) => {
 
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
 
+
+    if (!place) return null;
+
+    console.log('HERE');
     return (
         <div id="places">
             <div className="places__container">
-                <h1>Title</h1>
+                <h1>{place.address}</h1>
                 <div>
                     <ul className="info__place">
                         <li>Rating</li>

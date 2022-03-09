@@ -78,13 +78,13 @@ router.post('/', requireAuth, validateNewPlace, asyncHandler(async (req, res) =>
 
 //  R E A D   P L A C E
 router.get('/:id', asyncHandler(async (req, res) => {
-    console.log('REQUEST', req);
+    // console.log('REQUEST', req);
     try {
 
         const id = +req.params.id;
-        const place = await Places.scope('detailed').findByPk(id);
+        const place = await Place.findByPk(id);
 
-        console.log('ONE PLACE', place);
+        // console.log('ONE PLACE', place);
         return res.json(place);
     } catch (e) {
         console.log('ERROR', e);
@@ -93,7 +93,7 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 //  R E A D   A L L   P L A C E S
 router.get('/', asyncHandler(async (req, res) => {
-    console.log('req & res BEFORE AWAIT', req, res);
+    console.log('BEFORE AWAIT');
     const places = await Place.findAll();
     //     {
     //     include: [Favorite, Reviews, Images]
@@ -114,7 +114,7 @@ router.put('/:id', requireAuth, validateNewPlace, asyncHandler(async (req, res) 
         plain: true,
     });
 
-    const place = await Places.scope('detailed').findByPk(id);
+    const place = await Places.findByPk(id);
 
     return res.json(place);
 }));
