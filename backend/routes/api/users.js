@@ -56,6 +56,7 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
         lastName,
         username,
         email,
+        imageProfile,
         password
     } = req.body;
 
@@ -65,6 +66,7 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
             lastName,
             username,
             email,
+            imageProfile,
             password
         }).catch(e => console.log('backend', e));
 
