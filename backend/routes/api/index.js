@@ -12,6 +12,7 @@ router.use('/places', placesRouter);
 // GET /api/set-token-cookie
 const asyncHandler = require('express-async-handler');
 const { setTokenCookie } = require('../../utils/auth.js');
+
 const { User } = require('../../db/models');
 
 router.get('/set-token-cookie', asyncHandler(async (_req, res) => {
@@ -29,16 +30,14 @@ const { restoreUser } = require('../../utils/auth.js');
 
 router.get('/restore-user', restoreUser, (req, res) => {
     return res.json(req.user);
-}
-);
+});
 
 // GET /api/require-auth
 const { requireAuth } = require('../../utils/auth.js');
 
 router.get('/require-auth', requireAuth, (req, res) => {
     return res.json(req.user);
-}
-);
+});
 
 
 

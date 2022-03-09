@@ -1,8 +1,10 @@
 const express = require('express');
 const asyncHandler = require('express-async-handler');
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { requireAuth } = require('../../utils/auth');
+
 const { Place } = require('../../db/models');
+
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
@@ -40,19 +42,6 @@ const validateNewPlace = [
     handleValidationErrors
 ];
 
-//  R E A D   A L L   P L A C E S
-router.get('/', asyncHandler(async (req, res) => {
-    console.log('req & res BEFORE AWAIT', req, res);
-    const places = await Place.findAll()
-    //     {
-    //     include: [Favorite, Reviews, Images]
-    // });
-
-    // await setTokenCookie(res, place);
-    console.log('ALL PLACES', places);
-    return res.json(places);
-}));
-
 //  C R E A T E   P L A C E
 router.post('/', requireAuth, validateNewPlace, asyncHandler(async (req, res) => {
     const {
@@ -88,16 +77,35 @@ router.post('/', requireAuth, validateNewPlace, asyncHandler(async (req, res) =>
 }));
 
 //  R E A D   P L A C E
-
 router.get('/:id', asyncHandler(async (req, res) => {
-    const id = +req.params.id;
-    const place = await Places.scope('detailed').findByPk(id);
-    return res.json(place);
-})
-);
+    console.log('REQUEST', req);
+    try {
+
+        const id = +req.params.id;
+        const place = await Places.scope('detailed').findByPk(id);
+
+        console.log('ONE PLACE', place);
+        return res.json(place);
+    } catch (e) {
+        console.log('ERROR', e);
+    }
+}));
+
+//  R E A D   A L L   P L A C E S
+router.get('/', asyncHandler(async (req, res) => {
+    console.log('req & res BEFORE AWAIT', req, res);
+    const places = await Place.findAll();
+    //     {
+    //     include: [Favorite, Reviews, Images]
+    // });
+
+    // await setTokenCookie(res, place);
+    console.log('ALL PLACES', places);
+    return res.json(places);
+}));
 
 // U P D A T E   P L A C E
-router.put('/:id', validateNewPlace, asyncHandler(async (req, res) => {
+router.put('/:id', requireAuth, validateNewPlace, asyncHandler(async (req, res) => {
     const id = req.body.id;
     delete req.body.id;
     await Places.update(req.body, {
@@ -119,7 +127,6 @@ router.delete('/:id', asyncHandler(async (req, res) => {
     await Place.destroy({ where: { id: place.id } });
 
     return res.json({ id: place.id });
-})
-);
+}));
 
 module.exports = router;
