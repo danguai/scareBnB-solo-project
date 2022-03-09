@@ -18,8 +18,9 @@ const SignupForm = ({ user }) => {
     const [lastName, setLastName] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
+    const [imageProfile, setImageProfile] = useState('');
     const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState('');
 
     // ERRORS
     const [errors, setErrors] = useState([]);
@@ -28,6 +29,7 @@ const SignupForm = ({ user }) => {
     const [lastNameError, setLastNameError] = useState('');
     const [usernameError, setUsernameError] = useState('');
     const [emailError, setEmailError] = useState('');
+    // const [imageProfileError, setImageProfileError] = useState('');
     const [passwordError, setPasswordError] = useState('');
     const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
@@ -115,7 +117,6 @@ const SignupForm = ({ user }) => {
                             />
                         </label>
                         {usernameError && <p className="errors_style">{usernameError}</p>}
-
                         <label className='signup__label'>
                             Email
                             <input
@@ -132,6 +133,22 @@ const SignupForm = ({ user }) => {
                             />
                         </label>
                         {emailError && <p className="errors_style">{emailError}</p>}
+                        <label className='signup__label'>
+                            Image Profile
+                            <input
+                                className='input__signup__box'
+                                type="text"
+                                value={imageProfile}
+                                onChange={(e) => setImageProfile(e.target.value)}
+                            // onBlur={() => {
+                            //     const error = validateImageProfile(imageProfile)
+                            //     if (imageProfile) setImageProfileError(error)
+                            // }}
+                            // onFocus={() => { setImageProfile('') }}
+                            // required
+                            />
+                        </label>
+                        {/* {imageProfileError && <p className="errors_style">{imageProfileError}</p>} */}
                         <label className='signup__label'>
                             Password
                             <input

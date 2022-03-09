@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     });
 
-    console.log('user', user, user.validatePassword(password));
+    // console.log('user', user, user.validatePassword(password));
 
     if (user && user.validatePassword(password)) {
       return await User.scope('currentUser').findByPk(user.id);
@@ -74,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
     return bcrypt.compareSync(password, this.hashedPassword.toString());
   };
 
-  User.getCurrentUserById = async function (id) {
+  User.prototype.getCurrentUserById = async function (id) {
     return await User.scope('currentUser').findByPk(id);
   };
 

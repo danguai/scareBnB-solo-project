@@ -41,19 +41,20 @@ const validateNewPlace = [
 ];
 
 //  R E A D   A L L   P L A C E S
-router.get('/', asyncHandler(async (_req, res) => {
-    console.log(Place);
-    const places = await Place.findAll({
-        // include: [Favorite, Reviews, Images]
-    });
+router.get('/', asyncHandler(async (req, res) => {
+    console.log('req & res BEFORE AWAIT', req, res);
+    const places = await Place.findAll()
+    //     {
+    //     include: [Favorite, Reviews, Images]
+    // });
 
     // await setTokenCookie(res, place);
-
+    console.log('ALL PLACES', places);
     return res.json(places);
 }));
 
 //  C R E A T E   P L A C E
-router.post('/', validateNewPlace, asyncHandler(async (req, res) => {
+router.post('/', requireAuth, validateNewPlace, asyncHandler(async (req, res) => {
     const {
         address,
         city,
@@ -61,25 +62,29 @@ router.post('/', validateNewPlace, asyncHandler(async (req, res) => {
         country,
         zipcode,
         price,
-        rating,
-        userId
+        rating
     } = req.body;
 
-    const place = await Place.create(
-        {
-            address,
-            city,
-            state,
-            country,
-            zipcode,
-            price,
-            rating,
-            userId
-        }).catch(e => console.log('backend', e));
+    const userId = req.user.id;
+    try {
 
-    await setTokenCookie(res, place);
-    console.log('palce', place);
-    return res.json({ place });
+        const place = await Place.create(
+            {
+                address,
+                city,
+                state,
+                country,
+                zipcode,
+                price,
+                rating,
+                userId
+            });
+
+        console.log('PLACEPLACE', place);
+        return res.json({ place });
+    } catch (e) {
+        console.log(e);
+    }
 }));
 
 //  R E A D   P L A C E

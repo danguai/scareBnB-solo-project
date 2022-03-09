@@ -10,8 +10,7 @@ module.exports = {
       },
       address: {
         allowNull: false,
-        type: Sequelize.STRING(255),
-        unique: true
+        type: Sequelize.STRING(255)
       },
       city: {
         allowNull: false,

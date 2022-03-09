@@ -21,6 +21,8 @@ const PlacesPage = ({ places }) => {
 
     return (
         <div>
+
+            THIS IS FOR ALL PLACES
         </div >
     )
 };

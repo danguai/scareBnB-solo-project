@@ -25,7 +25,7 @@ const getOnePlaceAction = place => {
     };
 };
 
-// R E A D   P L A C E   A C T I O N
+// R E A D   P L A C E S   A C T I O N
 const getPlacesAction = places => {
     return {
         type: READ_PLACES,
@@ -53,27 +53,33 @@ const removeOnePlaceAction = () => {
 export const createPlace = place => async dispatch => {
     const { address, city, state, country, zipcode, price, rating, userId } = place;
     console.log('PLACEPLACEPLACE', place);
-    const response = await csrfFetch('/api/places', {
-        method: 'POST',
-        body: JSON.stringify({
-            address,
-            city,
-            state,
-            country,
-            zipcode,
-            price,
-            rating,
-            userId
-        })
-    }).catch(e => console.log('BEFORE DATA', e));
-    if (response.ok) {
-        const data = await response.json();
-        if (data.errors) {
-            return Promise.reject(data);
+    try {
+
+        const response = await csrfFetch('/api/places', {
+            method: 'POST',
+            body: JSON.stringify({
+                address,
+                city,
+                state,
+                country,
+                zipcode,
+                price,
+                rating,
+                userId
+            })
+        });
+        console.log('RESPONSE', response);
+        if (response.ok) {
+            const data = await response.json();
+            if (data.errors) {
+                return Promise.reject(data);
+            }
+            dispatch(createPlaceAction(data.place));
+            console.log('AFTER DISPATCH', data, response);
+            return response;
         }
-        dispatch(createPlaceAction(data.place));
-        console.log('AFTER DISPATCH', data, response);
-        return response;
+    } catch (e) {
+        console.log('ERROR', e);
     }
     return Promise.reject();
 };
@@ -114,10 +120,12 @@ export const deletePlace = () => async dispatch => {
     return response;
 };
 
-
-//   R E A D  A L L   P L A C E
+//   R E A D  A L L  P L A C E S
 export const getPlaces = () => async dispatch => {
-    const response = await fetch(`/api/place`);
+    const response = await fetch(`/api/places`);
+
+    console.log('PLACEPLACEPLACE', response);
+
 
     if (response.ok) {
         const places = await response.json();
@@ -154,16 +162,16 @@ const placesReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             newState.place = null;
             return newState;
-        // case READ_PLACES:
-        // const allPlaces = {};
-        // action.places.forEach(place => {
-        //     allPlaces[place.id] = place;
-        // });
-        // return {
-        //     ...allPlaces,
-        //     ...state,
-        //     places: sorPlaces(action.places)
-        // };
+        case READ_PLACES:
+            const allPlaces = {};
+            action.places.forEach(place => {
+                allPlaces[place.id] = place;
+            });
+            return {
+                ...allPlaces,
+                ...state,
+                places: sorPlaces(action.places)
+            };
         default:
             return state;
     }

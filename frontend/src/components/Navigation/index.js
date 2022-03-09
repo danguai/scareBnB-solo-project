@@ -18,9 +18,9 @@ const Navigation = ({ isLoaded, sessionUser }) => {
 
                         <Link className="temp__solution" to='/'>Become a Ghost</Link>
                     </div>
-                    <a>
+                    <div>
                         {isLoaded && <ProfileButton user={sessionUser} />}
-                    </a>
+                    </div>
                 </nav>
             </div>
         </div>
