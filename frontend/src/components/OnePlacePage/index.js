@@ -6,6 +6,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
+import PlaceForm from "../PlaceFormModal";
 
 
 import { restoreUser } from '../../store/session';
@@ -35,12 +36,11 @@ const OnePlacePage = () => {
 
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
 
-    const shouldDisplayPlacesForm = useSelector(state => state.places.shouldDisplayPlacesForm);
+    const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlacesForm);
 
 
     if (!place) return null;
 
-    console.log('HERE');
     return (
         <div id="places">
             <div className="places__container">
@@ -61,8 +61,6 @@ const OnePlacePage = () => {
                 <img className='place__photo__03' src={require('../../images/HauntedHouse-3.png')} />
                 <img className='place__photo__04' src={require('../../images/HauntedHouse-4.png')} />
                 <img className='place__photo__05' src={require('../../images/HauntedHouse-5.png')} />
-                {shouldDisplaySignup && <SignupForm />}
-                {shouldDisplayLogin && <LoginForm />}
             </div>
             <div className="description__reservation">
                 <div className="place__description">
@@ -126,6 +124,9 @@ const OnePlacePage = () => {
                     </form >
                 </div>
             </div>
+            {shouldDisplaySignup && <SignupForm />}
+            {shouldDisplayLogin && <LoginForm />}
+            {shouldDisplayPlaceForm && <PlaceForm />}
         </div >
     )
 };

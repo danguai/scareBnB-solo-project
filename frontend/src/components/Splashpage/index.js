@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import LoginForm from '../LoginFormModal/';
 import SignupForm from '../SignUpModal/';
 
-import PlaceForm from '../PlaceFormModal';
+import PlaceForm from '../PlaceFormModal/';
 
 import './Splashpage.css';
 
@@ -51,17 +51,3 @@ const Splashpage = () => {
     )
 };
 export default Splashpage;
-
-
-// {/* Modals */ }
-//         <ModalOne
-//           closeFn={closeModal}
-//           open={modalOpen === 'modal-one'} />
-
-//         <ModalTwo
-//           closeFn={closeModal}
-//           open={modalOpen === 'modal-two'} />
-
-//         <ModalThree
-//           closeFn={closeModal}
-//           open={modalOpen === 'modal-three'} />

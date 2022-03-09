@@ -43,6 +43,23 @@
 
 .places__button:hover {
     background : linear-gradient(0deg, rgba(194, 68, 84, 1) 0%, rgba(128, 42, 71, 1) 100%);
+
+}
+
+.places__cancel__button {
+    margin-top: 20px;
+    background : linear-gradient(180deg, rgba(200, 200, 200, 1) 0%, rgba(100, 100, 100, 1) 100%);
+    width : 586px;
+    height : 50px;
+    border-radius : 8px;
+    border: 2px;
+    border-color: black;
+    color: white;
+}
+
+.places__cancel__button:hover {
+    color: black;
+    background : linear-gradient(0deg, rgba(200, 200, 200, 1) 0%, rgba(100, 100, 100, 1) 100%);
 }
 
 .places__label {

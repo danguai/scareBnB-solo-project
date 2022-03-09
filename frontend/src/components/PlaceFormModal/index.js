@@ -8,7 +8,7 @@ import PlaceForm from './PlaceForm';
 
 import { displayModalPlaceForm } from '../../store/places';
 
-const PlacesFormModal = () => {
+const PlaceFormModal = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -29,4 +29,4 @@ const PlacesFormModal = () => {
     );
 }
 
-export default PlacesFormModal;
+export default PlaceFormModal;

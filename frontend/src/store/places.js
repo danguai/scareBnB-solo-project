@@ -52,12 +52,14 @@ const removeOnePlaceAction = () => {
 
 
 //  D I S P L A Y   M O D A L  P L A C E S   F O R M
-export const displayModalPlaceForm = () => {
+export const displayModalPlaceForm = (placeToEdit = null) => {
     return (dispatch, getState) => {
-        const shouldDisplayPlaceForm = getState().session.shouldDisplayPlaceForm;
+        const shouldDisplayPlaceForm = getState().places.shouldDisplayPlaceForm;
+
         return dispatch({
             type: DISPLAY_MODAL_PLACE_FORM,
-            shouldDisplayPlaceForm: !shouldDisplayPlaceForm
+            shouldDisplayPlaceForm: !shouldDisplayPlaceForm,
+            placeToEdit,
         });
     };
 };
@@ -180,6 +182,7 @@ const placesReducer = (state = initialState, action) => {
         case DISPLAY_MODAL_PLACE_FORM:
             newState = Object.assign({}, state);
             newState.shouldDisplayPlaceForm = action.shouldDisplayPlaceForm;
+            newState.placeToEdit = action.placeToEdit;
             return newState;
         case READ_PLACES:
             const allPlaces = {};
