@@ -1,10 +1,5 @@
 'use strict';
 
-// const { faker } = require('@faker-js/faker');å;
-
-// const randomIndex = num => Math.floor(Math.random() * Math.floor(num));
-
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
 
@@ -19,7 +14,18 @@ module.exports = {
       updatedAt: new Date(),
     };
 
-    return queryInterface.bulkInsert('Users', [demoUser], {});
+    let dbUser = {
+      firstName: 'Daniel',
+      lastName: 'Blanco',
+      email: 'db@gmail.com',
+      username: 'danguai',
+      imageProfile: '',
+      hashedPassword: '$2a$12$b56Z0fkkc5xeK6jbRFmQquYBG5hnc0ih/BCbblr7Exx/wxdp0N7ui',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    return queryInterface.bulkInsert('Users', [demoUser, dbUser], {});
   },
 
   down: (queryInterface, Sequelize) => {

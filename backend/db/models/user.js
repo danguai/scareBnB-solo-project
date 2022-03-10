@@ -38,8 +38,6 @@ module.exports = (sequelize, DataTypes) => {
       }
     });
 
-    // console.log('user', user, user.validatePassword(password));
-
     if (user && user.validatePassword(password)) {
       return await User.scope('currentUser').findByPk(user.id);
     }
@@ -61,8 +59,6 @@ module.exports = (sequelize, DataTypes) => {
   User.associate = function (models) {
     User.hasMany(models.Place, { foreignKey: 'userId' });
     User.hasMany(models.Review, { foreignKey: 'userId' });
-    // User.hasMany(models.Favorite, { foreignKey: 'userId' });
-    // User.hasMany(models.Booking, { foreignKey: 'userId' });
   };
 
   User.prototype.toSafeObject = function () { // remember, this cannot be an arrow function

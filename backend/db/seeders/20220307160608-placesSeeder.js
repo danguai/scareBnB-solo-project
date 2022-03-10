@@ -1,14 +1,22 @@
 'use strict';
 
-// const { faker } = require('@faker-js/faker');
-
-// const randomUserId = num => Math.floor(Math.random() * Math.floor(num) + 1);
-// const randomRating = num => Math.floor(Math.random() * Math.floor(num));
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
 
     let demoPlace = {
+      address: '74 Dana St',
+      city: 'Providence',
+      state: 'Rhode Island',
+      country: 'USA',
+      zipcode: '02906',
+      price: 100,
+      rating: 3,
+      userId: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    let dbPlace = {
       address: '19 Fisher St',
       city: 'Providence',
       state: 'Rhode Island',
@@ -16,12 +24,12 @@ module.exports = {
       zipcode: '02906',
       price: 123,
       rating: 5,
-      userId: 1,
+      userId: 2,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
 
-    return queryInterface.bulkInsert('Places', [demoPlace], {});
+    return queryInterface.bulkInsert('Places', [demoPlace, dbPlace], {});
   },
 
   down: (queryInterface, Sequelize) => {

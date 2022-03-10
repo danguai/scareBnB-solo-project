@@ -16,20 +16,21 @@ const router = express.Router();
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const {
         title,
-        review
+        review,
+        score,
     } = req.body;
 
     const userId = req.user.id;
-    const placeId = req.place.id;
-    try {
+    const placeId = req.params.placeId;
 
-        const reviewObj = await Review.create(
-            {
-                title,
-                review,
-                userId,
-                placeId
-            });
+    try {
+        const reviewObj = await Review.create({
+            title,
+            review,
+            score,
+            userId,
+            placeId
+        });
 
         return res.json({ reviewObj });
     } catch (e) {
@@ -37,36 +38,34 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
     }
 }));
 
-//  R E A D   R E V I E W
-router.get('/:id', asyncHandler(async (req, res) => {
+//  R E A D   R E V I E W S
+router.get('/', asyncHandler(async (req, res) => {
     try {
-        const id = +req.params.id;
-        const review = await Review.findByPk(id);
-
-        return res.json(review);
+        const reviews = await Review.findAll();
+        return res.json(reviews);
     } catch (e) {
-        console.log('ERROR', e);
+        console.log(e);
     }
 }));
 
 // U P D A T E   R E V I E W
-router.put('/:id', requireAuth, asyncHandler(async (req, res) => {
-    const id = req.body.id;
+router.put('/:reviewId', requireAuth, asyncHandler(async (req, res) => {
+    const id = req.params.reviewId;
     delete req.body.id;
-    await Review.update(req.body, {
+    const [_updateCount, review] = await Review.update(req.body, {
         where: { id },
         returning: true,
         plain: true,
     });
 
-    const review = await Review.findByPk(id);
+    // const review = await Review.findByPk(id);
 
     return res.json(review);
 }));
 
 // D E L E T E   R E V I E W
-router.delete('/:id', asyncHandler(async (req, res) => {
-    const review = await Review.findByPk(req.params.id);
+router.delete('/:reviewId', asyncHandler(async (req, res) => {
+    const review = await Review.findByPk(req.params.reviewId);
     if (!review) throw new Error('Cannot find item');
 
     await Review.destroy({ where: { id: review.id } });
