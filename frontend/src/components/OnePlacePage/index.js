@@ -1,18 +1,17 @@
 import React from "react";
 
-import { useEffect, useState } from 'react';
+import { useEffect, } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
 import PlaceForm from "../PlaceFormModal";
+import ReviewForm from "../ReviewForm";
 
-import { getPlace, updatePlace, deletePlace } from '../../store/places';
+import { getPlace, deletePlace } from '../../store/places';
 
 import { displayModalPlaceForm } from "../../store/places";
-
-
 
 import './OnePlacePage.css';
 
@@ -31,17 +30,11 @@ const OnePlacePage = () => {
         dispatch(getPlace(id));
     }, [dispatch]);
 
-    const handleSubmit = e => {
-        e.preventDefault();
-    };
-
 
     const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
 
-    // if (sessionUser) return <Redirect to={`/places/${place.id}`} />;
-    console.log('PLACE', place);
     if (!place) return null;
 
     let editMode;
@@ -100,59 +93,10 @@ const OnePlacePage = () => {
                             <li>Creepy Basement</li>
                         </ul>
                     </div>
-                    <div className="booking__place">
-                        <form onSubmit={handleSubmit}>
-                            <ul className="errors">
-                                {/* {errors.map((error, idx) => <li key={idx}>{error}</li>)} */}
-                            </ul>
-                            <div className='reserve__box'>
-                                <div className='reserve__title'>
-                                    Reservation
-                                </div>
-                                <div className='reserve__welcome'>
-                                    $100 / Night
-                                </div>
-                                <div className='info__reserve__box'>
 
-                                    <label className='reserve__label'>
-                                        Check in
-                                        <input
-                                            className='input__reserve__box'
-                                            type="date"
-                                            // value={lastName}
-                                            // onChange={(e) => setLastName(e.target.value)}
-                                            required
-                                        />
-                                    </label>
-                                    <label className='reserve__label'>
-                                        Checkout
-                                        <input
-                                            className='input__reserve__box'
-                                            type="date"
-                                            // value={username}
-                                            // onChange={(e) => setUsername(e.target.value)}
-                                            required
-                                        />
-                                    </label>
-                                    <label className='reserve__label'>
-                                        Ghosts
-                                        <input
-                                            className='input__reserve__box'
-                                            type="number"
-                                            // value={email}
-                                            // onChange={(e) => setEmail(e.target.value)}
-                                            required
-                                        />
-                                    </label>
-
-                                </div>
-                                <button className="reserve__button" type="submit">Reserve</button>
-                            </div>
-                        </form >
-                    </div>
                 </div>
                 <div className="reviews__container">
-                    R E V I E W S   W I L L   B E   H E R E
+                    {<ReviewForm />}
                 </div>
             </div>
             {shouldDisplaySignup && <SignupForm />}

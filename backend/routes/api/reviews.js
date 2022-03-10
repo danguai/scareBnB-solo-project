@@ -16,35 +16,61 @@ const router = express.Router();
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const {
         title,
-        review
+        message,
+        score,
+        placeId
     } = req.body;
 
     const userId = req.user.id;
-    const placeId = req.place.id;
+
     try {
+        const review = await Review.create({
+            title,
+            message,
+            score,
+            userId,
+            placeId
+        });
 
-        const reviewObj = await Review.create(
-            {
-                title,
-                review,
-                userId,
-                placeId
-            });
-
-        return res.json({ reviewObj });
+        return res.json({ review });
     } catch (e) {
         console.log(e);
     }
 }));
 
-//  R E A D   A L L   R E V I E W S
+//  R E A D   R E V I E W S
 router.get('/', asyncHandler(async (req, res) => {
     try {
-
         const reviews = await Review.findAll();
-
         return res.json(reviews);
     } catch (e) {
         console.log(e);
     }
 }));
+
+// U P D A T E   R E V I E W
+router.put('/:reviewId', requireAuth, asyncHandler(async (req, res) => {
+    const id = req.params.reviewId;
+    delete req.body.id;
+    const [_updateCount, review] = await Review.update(req.body, {
+        where: { id },
+        returning: true,
+        plain: true,
+    });
+
+    // const review = await Review.findByPk(id);
+
+    return res.json(review);
+}));
+
+// D E L E T E   R E V I E W
+router.delete('/:reviewId', asyncHandler(async (req, res) => {
+    const review = await Review.findByPk(req.params.reviewId);
+    if (!review) throw new Error('Cannot find item');
+
+    await Review.destroy({ where: { id: review.id } });
+
+    return res.json({ id: review.id });
+}));
+
+module.exports = router;
