@@ -16,7 +16,9 @@ module.exports = {
       zipcode: '02906',
       price: 123,
       rating: 5,
-      userId: 1
+      userId: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     return queryInterface.bulkInsert('Places', [demoPlace], {});
