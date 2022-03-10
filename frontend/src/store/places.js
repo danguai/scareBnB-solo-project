@@ -1,7 +1,5 @@
 import { csrfFetch } from './csrf';
 
-//   S
-
 const CREATE_PLACE = 'places/CREATE_PLACE';
 const READ_PLACE = 'places/READ_PLACE';
 const UPDATE_PLACE = 'places/UPDATE_PLACE';
@@ -151,7 +149,7 @@ export const getPlaces = () => async dispatch => {
 //   R E D U C E R S
 const initialState = { place: null };
 
-const sorPlaces = places => {
+const sortPlaces = places => {
     return places
         .sort((placeA, placeB) => {
             return placeA.number - placeB.number;
@@ -192,7 +190,7 @@ const placesReducer = (state = initialState, action) => {
             return {
                 ...allPlaces,
                 ...state,
-                places: sorPlaces(action.places)
+                places: sortPlaces(action.places)
             };
         default:
             return state;

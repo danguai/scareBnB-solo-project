@@ -38,9 +38,22 @@
     margin-top: 20px;
     gap: 10px;
     border-radius: 20px;
-
-
 }
+
+.tittle__bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons__bar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logged__in__button {
+    margin: 10px;
+}
+
 
 #place__photos__container > .place__photo__01 {
     grid-area: photo1;

@@ -3,14 +3,11 @@ import { useDispatch } from "react-redux";
 
 import { Switch, Route } from 'react-router-dom';
 
-
 import Navigation from "./components/Navigation";
 import Splashpage from "./components/Splashpage";
 import BookingFormPage from "./components/BookingFormPage";
 import PlacesPage from "./components/PlacesPage";
 import OnePlacePage from "./components/OnePlacePage";
-import EditOnePlacePage from "./components/PlaceFormModal";
-// import PlacesForm from "./components/PlacesForm";
 
 import * as sessionActions from './store/session';
 
