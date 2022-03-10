@@ -2,7 +2,7 @@ import React from "react";
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, Redirect } from 'react-router-dom';
 
 import {
     validateAddress,
@@ -19,6 +19,7 @@ import { createPlace, updatePlace, deletePlace } from '../../store/places';
 import './PlaceForm.css';
 
 const PlaceForm = ({ places }) => {
+    // const history = useHistory();
     const dispatch = useDispatch();
 
     const [address, setAddress] = useState('');
@@ -51,12 +52,14 @@ const PlaceForm = ({ places }) => {
 
     const placeToEdit = useSelector(state => state.places.placeToEdit);
 
-    console.log('THIS IS THE PLACE TO EDIT', placeToEdit);
+    // console.log('THIS IS THE PLACE TO EDIT', placeToEdit);
 
     const isEditMode = Boolean(placeToEdit);
 
     const handleSubmit = e => {
         e.preventDefault();
+
+        // history.push(`/places/${placeToEdit.id}`);
 
         if (isEditMode) {
             return dispatch(updatePlace({
@@ -87,7 +90,6 @@ const PlaceForm = ({ places }) => {
                     if (data && data.errors) setErrors(data.errors);
                 });
         }
-
     };
 
     if (placeToEdit) {
@@ -101,6 +103,7 @@ const PlaceForm = ({ places }) => {
     }
 
 
+
     return (
         <div className='create__place__container' style={{ 'borderRadius': '20px' }}>
             <form onSubmit={handleSubmit}>
@@ -111,9 +114,14 @@ const PlaceForm = ({ places }) => {
                     <div className='places__title'>
                         Place
                     </div>
-                    <div className='places__welcome'>
+                    {!isEditMode && <div className='places__welcome'>
                         New Haunted Place
                     </div>
+                    }
+                    {isEditMode && <div className='places__welcome'>
+                        Edit Haunted Place
+                    </div>
+                    }
                     <div className='user__pass__box'>
                         <label className='places__label'>
                             Address

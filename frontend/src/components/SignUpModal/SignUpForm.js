@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect, useHistory } from "react-router-dom";
 
-import { validateFirstName, validateLastName, validateUsername, validateEmail, validatePassword, validateConfirmPassword } from '../../utils/validation';
+import {
+    validateFirstName,
+    validateLastName,
+    validateUsername,
+    validateEmail,
+    validatePassword,
+    validateConfirmPassword
+} from '../../utils/validation';
 
 import * as sessionActions from '../../store/session';
 

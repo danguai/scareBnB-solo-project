@@ -2,15 +2,15 @@ import React from "react";
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 
 import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
 import PlaceForm from "../PlaceFormModal";
 
-
-import { restoreUser } from '../../store/session';
 import { getPlace, updatePlace, deletePlace } from '../../store/places';
+
+import { displayModalPlaceForm } from "../../store/places";
 
 
 
@@ -24,6 +24,8 @@ const OnePlacePage = () => {
 
     const place = useSelector(state => state.places.place);
 
+    const sessionUser = useSelector(state => state.session.user);
+
     useEffect(() => {
         dispatch(getPlace(id));
     }, [dispatch]);
@@ -32,22 +34,42 @@ const OnePlacePage = () => {
         e.preventDefault();
     };
 
+    // console.log('SESSIONID', sessionUser.id, 'USERID', place.userId);
+
     const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
-
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
-
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlacesForm);
 
+    // if (sessionUser) return <Redirect to={`/places/${place.id}`} />;
+
+    let editMode;
+    if (place.userId === sessionUser.id) {
+        editMode = true;
+    }
 
     if (!place) return null;
 
     return (
         <div id="places">
             <div className="places__container">
-                <h1>{place.address}</h1>
+                <div className="tittle__bar">
+                    <h1>{place.address}</h1>
+                    <div className="buttons__bar">
+                        {editMode && <button
+                            className='user__button logged__in__button'
+                            onClick={() => dispatch(displayModalPlaceForm())}
+                        >Edit Place
+                        </button>}
+                        {editMode && <button
+                            className='user__button logged__in__button'
+                            onClick={() => dispatch(displayModalPlaceForm())}
+                        >Delete Place
+                        </button>}
+                    </div>
+                </div>
                 <div>
                     <ul className="info__place">
-                        <li>Rating</li>
+                        <li>Rating: {place.rating}</li>
                         <li>Reviews</li>
                         <li>Location</li>
                         <li>Share</li>
