@@ -10,6 +10,7 @@ const DELETE_PLACE = 'places/DELETE_PLACE';
 const READ_PLACES = 'places/READ_PLACES';
 
 const DISPLAY_MODAL_PLACE_FORM = 'places/DISPLAY_MODAL_PLACE_FORM';
+const SET_PLACE_TO_EDIT = 'places/SET_PLACE_TO_EDIT';
 
 // C R E A T E   P L A C E
 const createPlaceAction = place => {
@@ -39,6 +40,14 @@ const getPlacesAction = places => {
 const updateOnePlaceAction = place => {
     return {
         type: UPDATE_PLACE,
+        payload: place,
+    };
+};
+
+// S E T    P L A C E  T O   ED I T
+const setPlaceToEditAction = place => {
+    return {
+        type: SET_PLACE_TO_EDIT,
         payload: place,
     };
 };
@@ -111,7 +120,7 @@ export const getPlace = id => async dispatch => {
 
 //  U P D A T E   P L A C E
 export const updatePlace = data => async dispatch => {
-    const response = await fetch(`/api/places/${data.id}`, {
+    const response = await csrfFetch(`/api/places/${data.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -126,9 +135,14 @@ export const updatePlace = data => async dispatch => {
     }
 };
 
+export const setPlaceToEditValue = data => dispatch => {
+    dispatch(setPlaceToEditAction(data));
+    return data;
+};
+
 //  D E L E T E   P L A C E
-export const deletePlace = () => async dispatch => {
-    const response = await csrfFetch('/api/places', {
+export const deletePlace = id => async dispatch => {
+    const response = await csrfFetch(`/api/places/${id}`, {
         method: 'DELETE'
     });
     dispatch(removeOnePlaceAction());
@@ -174,6 +188,13 @@ const placesReducer = (state = initialState, action) => {
         case UPDATE_PLACE:
             newState = Object.assign({}, state);
             newState.place = action.payload;
+            return newState;
+        case SET_PLACE_TO_EDIT:
+            newState = Object.assign({}, state);
+            newState.placeToEdit = {
+                ...newState.placeToEdit,
+                ...action.payload,
+            };
             return newState;
         case DELETE_PLACE:
             newState = Object.assign({}, state);

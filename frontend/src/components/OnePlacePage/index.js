@@ -6,6 +6,7 @@ import { useHistory, useParams } from 'react-router-dom';
 
 import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
+
 import PlaceForm from "../PlaceFormModal";
 
 
@@ -36,7 +37,7 @@ const OnePlacePage = () => {
 
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
 
-    const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlacesForm);
+    const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
 
 
     if (!place) return null;

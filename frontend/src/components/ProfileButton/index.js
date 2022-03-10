@@ -20,6 +20,8 @@ const ProfileButton = ({ user }) => {
         dispatch(logOut());
     };
 
+    const currentPlace = useSelector(state => state.places.place);
+    console.log('CURRENT', currentPlace);
     let sessionLinks;
 
     if (sessionUser) {
@@ -38,7 +40,7 @@ const ProfileButton = ({ user }) => {
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
-                        onClick={() => dispatch(displayModalPlaceForm())}>New Place</button>
+                        onClick={() => dispatch(displayModalPlaceForm(currentPlace))}>New Place</button>
                 </li>
                 <li className='dropdown__menu__element'>
                     <button onClick={logout}>Log Out</button>
