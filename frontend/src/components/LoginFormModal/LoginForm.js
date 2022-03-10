@@ -10,6 +10,7 @@ import './LoginForm.css';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [credential, setCredential] = useState('');
     const [password, setPassword] = useState('');
@@ -22,19 +23,18 @@ const LoginForm = () => {
 
     const checkingErrors = (credentialError || usernameError || emailError || passwordError);
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // const history = useHistory();
-
         setErrors([]);
+        try {
 
-        // history.push('/');
+            await dispatch(sessionActions.login({ credential, password }))
+            history.push('/');
+        } catch (e) {
+            console.error(e);
+        }
 
-        return dispatch(sessionActions.login({ credential, password }))
-            .catch(async (data) => {
-                setErrors(data.errors);
-            });
 
     };
     return (
