@@ -40,8 +40,6 @@ const OnePlacePage = () => {
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
 
-    // if (sessionUser) return <Redirect to={`/places/${place.id}`} />;
-    console.log('PLACE', place);
     if (!place) return null;
 
     let editMode;

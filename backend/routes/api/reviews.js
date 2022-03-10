@@ -16,7 +16,7 @@ const router = express.Router();
 router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const {
         title,
-        review,
+        message,
         score,
     } = req.body;
 
@@ -24,15 +24,15 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const placeId = req.params.placeId;
 
     try {
-        const reviewObj = await Review.create({
+        const review = await Review.create({
             title,
-            review,
+            message,
             score,
             userId,
             placeId
         });
 
-        return res.json({ reviewObj });
+        return res.json({ review });
     } catch (e) {
         console.log(e);
     }

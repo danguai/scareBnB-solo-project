@@ -29,9 +29,9 @@ function App() {
           <Route exact path='/'>
             <Splashpage />
           </Route>
-          <Route path='/booking'>
+          {/* <Route path='/booking'>
             <BookingFormPage />
-          </Route>
+          </Route> */}
           <Route path='/places/:id'>
             <OnePlacePage />
           </Route>

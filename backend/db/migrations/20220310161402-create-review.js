@@ -12,7 +12,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING(255),
       },
-      review: {
+      message: {
         allowNull: false,
         type: Sequelize.TEXT
       },

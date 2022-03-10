@@ -5,7 +5,7 @@ module.exports = {
 
     const reviewOne = {
       title: 'what a unique place',
-      review: 'this is the best place this is the best place this is the best place this is the best place',
+      message: 'this is the best place this is the best place this is the best place this is the best place',
       score: 5,
       userId: 2,
       placeId: 1,
@@ -15,7 +15,7 @@ module.exports = {
 
     const reviewTwo = {
       title: 'How DEAR YOU',
-      review: 'WHUT>>>>>>??????',
+      message: 'WHUT>>>>>>??????',
       score: 2,
       userId: 1,
       placeId: 2,

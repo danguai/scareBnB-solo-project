@@ -16,14 +16,14 @@ const createReviewAction = review => {
 
 //  C R E A T E   R E V I E W
 export const createPlace = review => async dispatch => {
-    const { title, review, score, userId, placeId } = review;
+    const { title, message, score, userId, placeId } = review;
     try {
 
-        const response = await csrfFetch(`/api/places/${placeId}reviews`, {
+        const response = await csrfFetch(`/api/places/${placeId}/reviews`, {
             method: 'POST',
             body: JSON.stringify({
                 title,
-                review,
+                message,
                 score,
                 userId,
                 placeId
@@ -35,7 +35,7 @@ export const createPlace = review => async dispatch => {
             if (data.errors) {
                 return Promise.reject(data);
             }
-            dispatch(createReviewAction(data.place));
+            dispatch(createReviewAction(data.review));
             return response;
         }
     } catch (e) {
@@ -46,64 +46,27 @@ export const createPlace = review => async dispatch => {
 
 
 //   R E D U C E R S
-const initialState = { place: null };
+const initialState = { review: null };
 
-const sorPlaces = places => {
-    return places
-        .sort((placeA, placeB) => {
-            return placeA.number - placeB.number;
-        })
-        .map(place => place.id);
-};
+// const sortReviews = reviews => {
+//     return reviews
+//         .sort((reviewA, reviewB) => {
+//             return reviewA.number - reviewB.number;
+//         })
+//         .map(review => review.id);
+// };
 
-const placesReducer = (state = initialState, action) => {
+const reviewsReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
-        case CREATE_PLACE:
-            newState = Object.assign({}, state);
-            newState.place = action.payload;
-            newState.shouldDisplayPlaceForm = false;
-            return newState;
-        case READ_PLACE:
-            console.log('ACTION', action);
+        case CREATE_REVIEW:
             newState = Object.assign({}, state);
             newState.place = action.payload;
             return newState;
-        case UPDATE_PLACE:
-            newState = Object.assign({}, state);
-            newState.place = action.payload;
-            newState.shouldDisplayPlaceForm = false;
-            return newState;
-        case SET_PLACE_TO_EDIT:
-            newState = Object.assign({}, state);
-            newState.placeToEdit = {
-                ...newState.placeToEdit,
-                ...action.payload,
-            };
-            return newState;
-        case DELETE_PLACE:
-            newState = Object.assign({}, state);
-            newState.place = null;
-            return newState;
-        case DISPLAY_MODAL_PLACE_FORM:
-            newState = Object.assign({}, state);
-            newState.shouldDisplayPlaceForm = action.shouldDisplayPlaceForm;
-            newState.placeToEdit = action.placeToEdit;
-            return newState;
-        case READ_PLACES:
-            const allPlaces = {};
-            action.places.forEach(place => {
-                allPlaces[place.id] = place;
-            });
-            return {
-                ...allPlaces,
-                ...state,
-                places: sorPlaces(action.places)
-            };
         default:
             return state;
     }
 };
 
 
-export default placesReducer;
+export default reviewsReducer;
