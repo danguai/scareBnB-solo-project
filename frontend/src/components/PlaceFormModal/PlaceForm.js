@@ -2,7 +2,9 @@ import React from "react";
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+
+
 
 import {
     validateAddress,
@@ -14,21 +16,21 @@ import {
     validateRating
 } from '../../utils/validation';
 
-import { createPlace, updatePlace, deletePlace } from '../../store/places';
+import { createPlace, updatePlace, deletePlace, setPlaceToEditValue } from '../../store/places';
 
 import './PlaceForm.css';
 
-const PlaceForm = ({ places }) => {
-    // const history = useHistory();
+const PlaceForm = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [country, setCountry] = useState('');
-    const [zipcode, setZipcode] = useState('');
-    const [price, setPrice] = useState(0);
-    const [rating, setRating] = useState(0);
+    // const [address, setAddress] = useState('');
+    // const [city, setCity] = useState('');
+    // const [state, setState] = useState('');
+    // const [country, setCountry] = useState('');
+    // const [zipcode, setZipcode] = useState('');
+    // const [price, setPrice] = useState(0);
+    // const [rating, setRating] = useState(0);
     const [errors, setErrors] = useState([]);
 
     // ERRORS
@@ -50,58 +52,42 @@ const PlaceForm = ({ places }) => {
         ratingError
     );
 
-    const placeToEdit = useSelector(state => state.places.placeToEdit);
+    let placeToEdit = useSelector(state => state.places.placeToEdit);
 
-    // console.log('THIS IS THE PLACE TO EDIT', placeToEdit);
+    console.log('THIS IS THE PLACE TO EDIT', placeToEdit);
 
-    const isEditMode = Boolean(placeToEdit);
+    const isEditMode = Boolean(placeToEdit?.id);
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // history.push(`/places/${placeToEdit.id}`);
+        try {
+            if (isEditMode) {
+                const place = await dispatch(updatePlace(placeToEdit));
+                history.push(`/places/${place.id}`);
 
-        if (isEditMode) {
-            return dispatch(updatePlace({
-                address,
-                city,
-                state,
-                country,
-                zipcode,
-                price,
-                rating
-            }))
-                .catch(async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) setErrors(data.errors);
-                });
-        } else {
-            return dispatch(createPlace({
-                address,
-                city,
-                state,
-                country,
-                zipcode,
-                price,
-                rating
-            }))
-                .catch(async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) setErrors(data.errors);
-                });
+            } else {
+                const place = await dispatch(createPlace(placeToEdit));
+                // console.log('PLACE', place);
+                history.push(`/places/${place.id}`);
+
+            }
+        } catch (error) {
+            console.error(error);
         }
     };
 
-    if (placeToEdit) {
-        setAddress(placeToEdit.address);
-        setCity(placeToEdit.city);
-        setState(placeToEdit.state);
-        setCountry(placeToEdit.country);
-        setZipcode(placeToEdit.zipcode);
-        setPrice(placeToEdit.price);
-        setRating(placeToEdit.rating);
+    if (!placeToEdit) {
+        placeToEdit = {
+            address: '',
+            city: '',
+            state: '',
+            country: '',
+            zipcode: '',
+            price: '',
+            rating: '',
+        };
     }
-
 
 
     return (
@@ -114,24 +100,19 @@ const PlaceForm = ({ places }) => {
                     <div className='places__title'>
                         Place
                     </div>
-                    {!isEditMode && <div className='places__welcome'>
+                    <div className='places__welcome'>
                         New Haunted Place
                     </div>
-                    }
-                    {isEditMode && <div className='places__welcome'>
-                        Edit Haunted Place
-                    </div>
-                    }
                     <div className='user__pass__box'>
                         <label className='places__label'>
                             Address
                             <input
                                 className='input__places__box'
                                 type="text"
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
+                                value={placeToEdit.address}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ address: e.target.value }))}
                                 onBlur={() => {
-                                    const error = validateAddress(address)
+                                    const error = validateAddress(placeToEdit.address)
                                     if (error) setAddressError(error)
                                 }}
                                 onFocus={() => { setAddressError('') }}
@@ -144,10 +125,10 @@ const PlaceForm = ({ places }) => {
                             <input
                                 className='input__places__box'
                                 type="text"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
+                                value={placeToEdit.city}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ city: e.target.value }))}
                                 onBlur={() => {
-                                    const error = validateCity(city)
+                                    const error = validateCity(placeToEdit.city)
                                     if (error) setCityError(error)
                                 }}
                                 onFocus={() => { setCityError('') }}
@@ -160,10 +141,10 @@ const PlaceForm = ({ places }) => {
                             <input
                                 className='input__places__box'
                                 type="text"
-                                value={state}
-                                onChange={(e) => setState(e.target.value)}
+                                value={placeToEdit.state}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ state: e.target.value }))}
                                 onBlur={() => {
-                                    const error = validateState(state)
+                                    const error = validateState(placeToEdit.state)
                                     if (error) setStateError(error)
                                 }}
                                 onFocus={() => { setStateError('') }}
@@ -176,10 +157,10 @@ const PlaceForm = ({ places }) => {
                             <input
                                 className='input__places__box'
                                 type="text"
-                                value={country}
-                                onChange={(e) => setCountry(e.target.value)}
+                                value={placeToEdit.country}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ country: e.target.value }))}
                                 onBlur={() => {
-                                    const error = validateCountry(country``)
+                                    const error = validateCountry(placeToEdit.country)
                                     if (error) setCountryError(error)
                                 }}
                                 onFocus={() => { setCountryError('') }}
@@ -192,10 +173,10 @@ const PlaceForm = ({ places }) => {
                             <input
                                 className='input__places__box'
                                 type="number"
-                                value={zipcode}
-                                onChange={(e) => setZipcode(e.target.value)}
+                                value={placeToEdit.zipcode}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ zipcode: e.target.value }))}
                                 onBlur={() => {
-                                    const error = validateZipcode(zipcode)
+                                    const error = validateZipcode(placeToEdit.zipcode)
                                     if (error) setZipcodeError(error)
                                 }}
                                 onFocus={() => { setZipcodeError('') }}
@@ -208,10 +189,10 @@ const PlaceForm = ({ places }) => {
                             <input
                                 className='input__places__box'
                                 type="number"
-                                value={price}
-                                onChange={(e) => setPrice(e.target.value)}
+                                value={placeToEdit.price}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ price: e.target.value }))}
                                 onBlur={() => {
-                                    const error = validatePrice(price)
+                                    const error = validatePrice(placeToEdit.price)
                                     if (error) setPriceError(error)
                                 }}
                                 onFocus={() => { setPriceError('') }}
@@ -224,10 +205,10 @@ const PlaceForm = ({ places }) => {
                             <input
                                 className='input__places__box'
                                 type="number"
-                                value={rating}
-                                onChange={(e) => setRating(e.target.value)}
+                                value={placeToEdit.rating}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ rating: e.target.value }))}
                                 onBlur={() => {
-                                    const error = validateRating(rating)
+                                    const error = validateRating(placeToEdit.rating)
                                     if (error) setRatingError(error)
                                 }}
                                 onFocus={() => { setRatingError('') }}
@@ -252,14 +233,17 @@ const PlaceForm = ({ places }) => {
                         >Edit Haunted Place
                         </button>
                     }
-                    {isEditMode &&
+                    {/* {isEditMode &&
 
                         <button
                             className='places__cancel__button'
-                            onClick={() => dispatch(deletePlace(placeToEdit.id))}
+                            onClick={e => {
+                                e.preventDefault();
+                                dispatch(deletePlace(placeToEdit.id))
+                            }}
                         >Delete Haunted Place
                         </button>
-                    }
+                    } */}
                 </div>
             </form >
         </div >

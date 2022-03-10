@@ -21,6 +21,7 @@ const OnePlacePage = () => {
     const { id } = useParams();
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const place = useSelector(state => state.places.place);
 
@@ -34,20 +35,20 @@ const OnePlacePage = () => {
         e.preventDefault();
     };
 
-    // console.log('SESSIONID', sessionUser.id, 'USERID', place.userId);
 
     const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
 
     // if (sessionUser) return <Redirect to={`/places/${place.id}`} />;
-
-    // let editMode;
-    // if (place.userId === sessionUser.id) {
-    //     editMode = true;
-    // }
-
+    console.log('PLACE', place);
     if (!place) return null;
+
+    let editMode;
+    if (place.userId === sessionUser.id) {
+        editMode = true;
+    }
+
 
     return (
         <div id="places">
@@ -56,16 +57,19 @@ const OnePlacePage = () => {
                     <div className="tittle__bar">
                         <h1>{place.address}</h1>
                         <div className="buttons__bar">
-                            {/* {editMode && <button
-                            className='user__button logged__in__button'
-                            onClick={() => dispatch(displayModalPlaceForm())}
-                        >Edit Place
-                        </button>}
-                        {editMode && <button
-                            className='user__button logged__in__button'
-                            onClick={() => dispatch(displayModalPlaceForm())}
-                        >Delete Place
-                        </button>} */}
+                            {editMode && <button
+                                className='user__button logged__in__button'
+                                onClick={() => dispatch(displayModalPlaceForm(place))}
+                            >Edit Place
+                            </button>}
+                            {editMode && <button
+                                className='user__button logged__in__button'
+                                onClick={() => {
+                                    dispatch(deletePlace(place.id))
+                                    history.push(`/`);
+                                }}
+                            >Delete Place
+                            </button>}
                         </div>
                     </div>
                     <div>

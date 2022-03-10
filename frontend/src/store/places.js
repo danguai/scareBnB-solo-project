@@ -1,5 +1,7 @@
 import { csrfFetch } from './csrf';
 
+//   S
+
 const CREATE_PLACE = 'places/CREATE_PLACE';
 const READ_PLACE = 'places/READ_PLACE';
 const UPDATE_PLACE = 'places/UPDATE_PLACE';
@@ -8,6 +10,7 @@ const DELETE_PLACE = 'places/DELETE_PLACE';
 const READ_PLACES = 'places/READ_PLACES';
 
 const DISPLAY_MODAL_PLACE_FORM = 'places/DISPLAY_MODAL_PLACE_FORM';
+const SET_PLACE_TO_EDIT = 'places/SET_PLACE_TO_EDIT';
 
 // C R E A T E   P L A C E
 const createPlaceAction = place => {
@@ -41,6 +44,14 @@ const updateOnePlaceAction = place => {
     };
 };
 
+// S E T    P L A C E  T O   ED I T
+const setPlaceToEditAction = place => {
+    return {
+        type: SET_PLACE_TO_EDIT,
+        payload: place,
+    };
+};
+
 //  R E M O V E   P L A C E
 const removeOnePlaceAction = () => {
     return {
@@ -51,7 +62,6 @@ const removeOnePlaceAction = () => {
 
 //  D I S P L A Y   M O D A L  P L A C E S   F O R M
 export const displayModalPlaceForm = (placeToEdit = null) => {
-    // console.log('ESTA PASANDO POR ACA????');
     return (dispatch, getState) => {
         const shouldDisplayPlaceForm = getState().places.shouldDisplayPlaceForm;
 
@@ -89,8 +99,8 @@ export const createPlace = place => async dispatch => {
                 return Promise.reject(data);
             }
             dispatch(createPlaceAction(data.place));
-            console.log('AFTER DISPATCH', data, response);
-            return response;
+            // console.log('AFTER DISPATCH', data, response);
+            return data.place;
         }
     } catch (e) {
         console.log('ERROR', e);
@@ -110,7 +120,7 @@ export const getPlace = id => async dispatch => {
 
 //  U P D A T E   P L A C E
 export const updatePlace = data => async dispatch => {
-    const response = await fetch(`/api/places/${data.id}`, {
+    const response = await csrfFetch(`/api/places/${data.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -125,9 +135,14 @@ export const updatePlace = data => async dispatch => {
     }
 };
 
+export const setPlaceToEditValue = data => dispatch => {
+    dispatch(setPlaceToEditAction(data));
+    return data;
+};
+
 //  D E L E T E   P L A C E
-export const deletePlace = () => async dispatch => {
-    const response = await csrfFetch('/api/places', {
+export const deletePlace = id => async dispatch => {
+    const response = await csrfFetch(`/api/places/${id}`, {
         method: 'DELETE'
     });
     dispatch(removeOnePlaceAction());
@@ -138,9 +153,7 @@ export const deletePlace = () => async dispatch => {
 export const getPlaces = () => async dispatch => {
     const response = await fetch(`/api/places`);
 
-    console.log('PLACEPLACEPLACE', response);
-
-
+    // console.log('PLACEPLACEPLACE', response);
     if (response.ok) {
         const places = await response.json();
         dispatch(getPlacesAction(places));
@@ -150,7 +163,7 @@ export const getPlaces = () => async dispatch => {
 //   R E D U C E R S
 const initialState = { place: null };
 
-const sortPlaces = places => {
+const sorPlaces = places => {
     return places
         .sort((placeA, placeB) => {
             return placeA.number - placeB.number;
@@ -164,6 +177,7 @@ const placesReducer = (state = initialState, action) => {
         case CREATE_PLACE:
             newState = Object.assign({}, state);
             newState.place = action.payload;
+            newState.shouldDisplayPlaceForm = false;
             return newState;
         case READ_PLACE:
             console.log('ACTION', action);
@@ -173,6 +187,14 @@ const placesReducer = (state = initialState, action) => {
         case UPDATE_PLACE:
             newState = Object.assign({}, state);
             newState.place = action.payload;
+            newState.shouldDisplayPlaceForm = false;
+            return newState;
+        case SET_PLACE_TO_EDIT:
+            newState = Object.assign({}, state);
+            newState.placeToEdit = {
+                ...newState.placeToEdit,
+                ...action.payload,
+            };
             return newState;
         case DELETE_PLACE:
             newState = Object.assign({}, state);
@@ -191,7 +213,7 @@ const placesReducer = (state = initialState, action) => {
             return {
                 ...allPlaces,
                 ...state,
-                places: sortPlaces(action.places)
+                places: sorPlaces(action.places)
             };
         default:
             return state;
