@@ -10,7 +10,7 @@ router.use('/users', usersRouter);
 
 router.use('/places', placesRouter);
 
-// router.use('/reviews', reviewsRouter);
+router.use('/places/:id/reviews', reviewsRouter);
 
 // GET /api/set-token-cookie
 const asyncHandler = require('express-async-handler');

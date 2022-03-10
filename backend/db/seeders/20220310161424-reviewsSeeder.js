@@ -7,7 +7,9 @@ module.exports = {
       title: 'what a unique place',
       review: 'this is the best place',
       userId: 1,
-      placeId: 1
+      placeId: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }], {});
 
   },
