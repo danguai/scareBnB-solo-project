@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 // import * as sessionActions from '../../store/session';
 
-import { logOut, displayModalLogin, displayModalSignup } from "../../store/session";
+import { logOut, displayModalLogin, displayModalSignup, login } from "../../store/session";
 import { displayModalPlaceForm } from "../../store/places";
 
 import './ProfileButton.css';
@@ -33,6 +33,7 @@ const ProfileButton = ({ user }) => {
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
+
                     >Your Places</button>
                 </li>
                 <li className='dropdown__menu__element'>
@@ -62,7 +63,9 @@ const ProfileButton = ({ user }) => {
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
-                        to='/'>Demo User</button>
+                        onClick={() => dispatch(login({ credential: 'freddy', password: 'password' }))}
+                    >Demo User
+                    </button>
                 </li>
             </>
         );

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { Switch, Route } from 'react-router-dom';
 
+
 import Navigation from "./components/Navigation";
 import Splashpage from "./components/Splashpage";
 import BookingFormPage from "./components/BookingFormPage";
@@ -34,15 +35,9 @@ function App() {
           <Route path='/booking'>
             <BookingFormPage />
           </Route>
-          {/* <Route path='/places-form'>
-            <PlacesForm />
-          </Route> */}
           <Route path='/places/:id'>
             <OnePlacePage />
           </Route>
-          {/* <Route path='/places/:id/edit'>
-            <EditOnePlacePage />
-          </Route> */}
           <Route exact path='/places'>
             <PlacesPage />
           </Route>
