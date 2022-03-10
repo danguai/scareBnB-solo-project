@@ -18,19 +18,12 @@ module.exports = {
       review: 'WHUT>>>>>>??????',
       score: 2,
       userId: 1,
-<<<<<<< HEAD
-      placeId: 1,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }], {});
-=======
       placeId: 2,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
 
     return queryInterface.bulkInsert('Reviews', [reviewOne, reviewTwo], {});
->>>>>>> main
 
   },
 

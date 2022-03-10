@@ -16,14 +16,15 @@ const createReviewAction = review => {
 
 //  C R E A T E   R E V I E W
 export const createPlace = review => async dispatch => {
-    const { review, userId, placeId } = place;
+    const { title, review, score, userId, placeId } = review;
     try {
 
-        const response = await csrfFetch('/api/reviews', {
+        const response = await csrfFetch(`/api/places/${placeId}reviews`, {
             method: 'POST',
             body: JSON.stringify({
                 title,
                 review,
+                score,
                 userId,
                 placeId
             })
