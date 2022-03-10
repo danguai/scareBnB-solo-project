@@ -15,6 +15,7 @@ import { restoreCSRF, csrfFetch } from './store/csrf';
 
 import * as sessionActions from './store/session';
 import * as placesActions from './store/places';
+import * as reviewsActions from './store/reviews';
 
 const store = configureStore();
 
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV !== 'production') {
   window.store = store;
   window.sessionActions = sessionActions;
   window.placesActions = placesActions;
+  window.reviewsActions = reviewsActions;
 }
 
 function Root() {

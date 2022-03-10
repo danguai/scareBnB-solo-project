@@ -18,10 +18,10 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
         title,
         message,
         score,
+        placeId
     } = req.body;
 
     const userId = req.user.id;
-    const placeId = req.params.placeId;
 
     try {
         const review = await Review.create({

@@ -15,7 +15,7 @@ const createReviewAction = review => {
 
 
 //  C R E A T E   R E V I E W
-export const createPlace = review => async dispatch => {
+export const createReview = review => async dispatch => {
     const { title, message, score, userId, placeId } = review;
     try {
 
@@ -46,7 +46,7 @@ export const createPlace = review => async dispatch => {
 
 
 //   R E D U C E R S
-const initialState = { review: null };
+const initialState = { reviewsList: [] };
 
 // const sortReviews = reviews => {
 //     return reviews
@@ -61,7 +61,7 @@ const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
         case CREATE_REVIEW:
             newState = Object.assign({}, state);
-            newState.place = action.payload;
+            newState.reviewsList.push(action.payload);
             return newState;
         default:
             return state;
