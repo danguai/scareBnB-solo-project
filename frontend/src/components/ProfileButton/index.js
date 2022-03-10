@@ -33,16 +33,21 @@ const ProfileButton = ({ user }) => {
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
-
                     >Your Places</button>
                 </li>
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
-                        onClick={() => dispatch(displayModalPlaceForm())}>New Place</button>
+                        onClick={() => dispatch(displayModalPlaceForm())}
+                    >New Place
+                    </button>
                 </li>
                 <li className='dropdown__menu__element'>
-                    <button onClick={logout}>Log Out</button>
+                    <button
+                        className='user__button'
+                        onClick={logout}
+                    >Log Out
+                    </button>
                 </li>
 
             </>
@@ -53,17 +58,24 @@ const ProfileButton = ({ user }) => {
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
-                        onClick={() => dispatch(displayModalLogin())}>Log In</button>
+                        onClick={() => dispatch(displayModalLogin())}
+                    >Log In
+                    </button>
                 </li>
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
-                        onClick={() => dispatch(displayModalSignup())}>Sign Up</button>
+                        onClick={() => dispatch(displayModalSignup())}
+                    >Sign Up
+                    </button>
                 </li>
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
-                        onClick={() => dispatch(login({ credential: 'freddy', password: 'password' }))}
+                        onClick={() => dispatch(login({
+                            credential: 'freddy',
+                            password: 'password'
+                        }))}
                     >Demo User
                     </button>
                 </li>
@@ -91,8 +103,10 @@ const ProfileButton = ({ user }) => {
     return (
         <>
             <div className="user__menu__box">
-                <button className="user__menu__button" onClick={openMenu}>
-                    User
+                <button
+                    className="user__menu__button"
+                    onClick={openMenu}
+                >User
                 </button>
                 <div>
                     {showMenu && (
