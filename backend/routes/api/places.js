@@ -78,13 +78,12 @@ router.post('/', requireAuth, validateNewPlace, asyncHandler(async (req, res) =>
 
 //  R E A D   P L A C E
 router.get('/:id', asyncHandler(async (req, res) => {
-    console.log('REQUEST', req);
     try {
 
         const id = +req.params.id;
-        const place = await Places.scope('detailed').findByPk(id);
+        const place = await Place.findByPk(id);
 
-        console.log('ONE PLACE', place);
+        // console.log('ONE PLACE', place);
         return res.json(place);
     } catch (e) {
         console.log('ERROR', e);
@@ -93,35 +92,35 @@ router.get('/:id', asyncHandler(async (req, res) => {
 
 //  R E A D   A L L   P L A C E S
 router.get('/', asyncHandler(async (req, res) => {
-    console.log('req & res BEFORE AWAIT', req, res);
-    const places = await Place.findAll();
-    //     {
-    //     include: [Favorite, Reviews, Images]
-    // });
+    try {
 
-    // await setTokenCookie(res, place);
-    console.log('ALL PLACES', places);
-    return res.json(places);
+        const places = await Place.findAll();
+
+        console.log('ALL PLACES', places);
+        return res.json(places);
+    } catch (e) {
+        console.log(e);
+    }
 }));
 
 // U P D A T E   P L A C E
 router.put('/:id', requireAuth, validateNewPlace, asyncHandler(async (req, res) => {
     const id = req.body.id;
     delete req.body.id;
-    await Places.update(req.body, {
+    await Place.update(req.body, {
         where: { id },
         returning: true,
         plain: true,
     });
 
-    const place = await Places.scope('detailed').findByPk(id);
+    const place = await Place.findByPk(id);
 
     return res.json(place);
 }));
 
 // D E L E T E   P L A C E
 router.delete('/:id', asyncHandler(async (req, res) => {
-    const place = await Places.findByPk(req.params.id);
+    const place = await Place.findByPk(req.params.id);
     if (!place) throw new Error('Cannot find item');
 
     await Place.destroy({ where: { id: place.id } });

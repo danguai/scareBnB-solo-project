@@ -9,9 +9,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   Review.associate = function (models) {
-    Review.belongsTo(models.User, { foreignKey: 'userId' });
+    Review.belongsTo(models.User, { foreignKey: 'userId', onDelete: "cascade", foreignKeyConstraint: true });
 
-    Review.belongsTo(models.Place, { foreignKey: 'placeId' });
+    Review.belongsTo(models.Place, { foreignKey: 'placeId', onDelete: "cascade", foreignKeyConstraint: true });
 
   };
   return Review;

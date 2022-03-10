@@ -30,10 +30,10 @@ const setTokenCookie = (res, user) => {
 const restoreUser = (req, res, next) => {
     // token parsed from cookies
     const { token } = req.cookies;
-
+    // console.log('TOKEN', token);
     return jwt.verify(token, secret, async (err, jwtPayload) => {
         if (err) {
-            console.error('EL TOKEN NO ESTA EN LOS COOKIES', err);
+            // console.error('EL TOKEN NO ESTA EN LOS COOKIES', err);
             return next();
         }
 

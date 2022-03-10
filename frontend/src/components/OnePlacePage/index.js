@@ -2,14 +2,31 @@ import React from "react";
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
+import PlaceForm from "../PlaceFormModal";
+
+
+import { restoreUser } from '../../store/session';
+import { getPlace, updatePlace, deletePlace } from '../../store/places';
+
+
 
 import './OnePlacePage.css';
 
-const OnePlacePage = ({ places }) => {
+const OnePlacePage = () => {
+
+    const { id } = useParams();
+
+    const dispatch = useDispatch();
+
+    const place = useSelector(state => state.places.place);
+
+    useEffect(() => {
+        dispatch(getPlace(id));
+    }, [dispatch]);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -19,10 +36,15 @@ const OnePlacePage = ({ places }) => {
 
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
 
+    const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlacesForm);
+
+
+    if (!place) return null;
+
     return (
         <div id="places">
             <div className="places__container">
-                <h1>Title</h1>
+                <h1>{place.address}</h1>
                 <div>
                     <ul className="info__place">
                         <li>Rating</li>
@@ -39,8 +61,6 @@ const OnePlacePage = ({ places }) => {
                 <img className='place__photo__03' src={require('../../images/HauntedHouse-3.png')} />
                 <img className='place__photo__04' src={require('../../images/HauntedHouse-4.png')} />
                 <img className='place__photo__05' src={require('../../images/HauntedHouse-5.png')} />
-                {shouldDisplaySignup && <SignupForm />}
-                {shouldDisplayLogin && <LoginForm />}
             </div>
             <div className="description__reservation">
                 <div className="place__description">
@@ -104,6 +124,9 @@ const OnePlacePage = ({ places }) => {
                     </form >
                 </div>
             </div>
+            {shouldDisplaySignup && <SignupForm />}
+            {shouldDisplayLogin && <LoginForm />}
+            {shouldDisplayPlaceForm && <PlaceForm />}
         </div >
     )
 };

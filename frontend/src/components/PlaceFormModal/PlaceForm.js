@@ -1,8 +1,8 @@
 import React from "react";
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+// import { useHistory, useParams } from 'react-router-dom';
 
 import {
     validateAddress,
@@ -16,9 +16,9 @@ import {
 
 import { createPlace, updatePlace, deletePlace } from '../../store/places';
 
-import './PlacesForm.css';
+import './PlaceForm.css';
 
-const PlacesForm = ({ places }) => {
+const PlaceForm = ({ places }) => {
     const dispatch = useDispatch();
 
     const [address, setAddress] = useState('');
@@ -49,24 +49,58 @@ const PlacesForm = ({ places }) => {
         ratingError
     );
 
+    const placeToEdit = useSelector(state => state.places.placeToEdit);
+
+    console.log('THIS IS THE PLACE TO EDIT', placeToEdit);
+
+    const isEditMode = Boolean(placeToEdit);
+
     const handleSubmit = e => {
         e.preventDefault();
 
-        return dispatch(createPlace({
-            address,
-            city,
-            state,
-            country,
-            zipcode,
-            price,
-            rating
-        }))
-            .catch(async (res) => {
-                const data = await res.json();
-                if (data && data.errors) setErrors(data.errors);
-            });
+        if (isEditMode) {
+            return dispatch(updatePlace({
+                address,
+                city,
+                state,
+                country,
+                zipcode,
+                price,
+                rating
+            }))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                });
+        } else {
+            return dispatch(createPlace({
+                address,
+                city,
+                state,
+                country,
+                zipcode,
+                price,
+                rating
+            }))
+                .catch(async (res) => {
+                    const data = await res.json();
+                    if (data && data.errors) setErrors(data.errors);
+                });
+        }
 
     };
+
+    if (placeToEdit) {
+        setAddress(placeToEdit.address);
+        setCity(placeToEdit.city);
+        setState(placeToEdit.state);
+        setCountry(placeToEdit.country);
+        setZipcode(placeToEdit.zipcode);
+        setPrice(placeToEdit.price);
+        setRating(placeToEdit.rating);
+    }
+
+
     return (
         <div className='create__place__container' style={{ 'borderRadius': '20px' }}>
             <form onSubmit={handleSubmit}>
@@ -194,13 +228,34 @@ const PlacesForm = ({ places }) => {
                         </label>
                         {ratingError && <div className="errors_style">{ratingError}</div>}
                     </div>
-                    <button className={checkingErrors ? 'places__button__disabled' : 'places__button'}
-                        disabled={checkingErrors}
-                        type="submit">Create Haunted Place</button>
+                    {!isEditMode &&
+                        <button
+                            className={checkingErrors ? 'places__button__disabled' : 'places__button'}
+                            disabled={checkingErrors}
+                            type="submit"
+                        >Create Haunted Place
+                        </button>
+                    }
+                    {isEditMode &&
+                        <button
+                            className={checkingErrors ? 'places__button__disabled' : 'places__button'}
+                            disabled={checkingErrors}
+                            type="submit"
+                        >Edit Haunted Place
+                        </button>
+                    }
+                    {isEditMode &&
+
+                        <button
+                            className='places__cancel__button'
+                            onClick={() => dispatch(deletePlace(placeToEdit.id))}
+                        >Delete Haunted Place
+                        </button>
+                    }
                 </div>
             </form >
         </div >
     )
 };
 
-export default PlacesForm;
+export default PlaceForm;

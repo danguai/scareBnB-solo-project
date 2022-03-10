@@ -1,6 +1,6 @@
 import { csrfFetch } from './csrf';
 
-//  A C T I O N S
+//   S
 
 const CREATE_PLACE = 'places/CREATE_PLACE';
 const READ_PLACE = 'places/READ_PLACE';
@@ -9,7 +9,9 @@ const DELETE_PLACE = 'places/DELETE_PLACE';
 
 const READ_PLACES = 'places/READ_PLACES';
 
-// C R E A T E   P L A C E   A C T I O N
+const DISPLAY_MODAL_PLACE_FORM = 'places/DISPLAY_MODAL_PLACE_FORM';
+
+// C R E A T E   P L A C E
 const createPlaceAction = place => {
     return {
         type: CREATE_PLACE,
@@ -17,7 +19,7 @@ const createPlaceAction = place => {
     };
 };
 
-// R E A D   P L A C E   A C T I O N
+// R E A D   P L A C E
 const getOnePlaceAction = place => {
     return {
         type: READ_PLACE,
@@ -25,7 +27,7 @@ const getOnePlaceAction = place => {
     };
 };
 
-// R E A D   P L A C E S   A C T I O N
+// R E A D   P L A C E S
 const getPlacesAction = places => {
     return {
         type: READ_PLACES,
@@ -33,7 +35,7 @@ const getPlacesAction = places => {
     };
 };
 
-// U P D A T E   P L A C E   A C T I O N
+// U P D A T E   P L A C E
 const updateOnePlaceAction = place => {
     return {
         type: UPDATE_PLACE,
@@ -41,13 +43,26 @@ const updateOnePlaceAction = place => {
     };
 };
 
-//  R E M O V E   P L A C E   A C T I O N
+//  R E M O V E   P L A C E
 const removeOnePlaceAction = () => {
     return {
         type: DELETE_PLACE,
     };
 };
 
+
+//  D I S P L A Y   M O D A L  P L A C E S   F O R M
+export const displayModalPlaceForm = (placeToEdit = null) => {
+    return (dispatch, getState) => {
+        const shouldDisplayPlaceForm = getState().places.shouldDisplayPlaceForm;
+
+        return dispatch({
+            type: DISPLAY_MODAL_PLACE_FORM,
+            shouldDisplayPlaceForm: !shouldDisplayPlaceForm,
+            placeToEdit,
+        });
+    };
+};
 
 //  C R E A T E   P L A C E
 export const createPlace = place => async dispatch => {
@@ -152,7 +167,9 @@ const placesReducer = (state = initialState, action) => {
             newState.place = action.payload;
             return newState;
         case READ_PLACE:
+            console.log('ACTION', action);
             newState = Object.assign({}, state);
+            newState.place = action.payload;
             return newState;
         case UPDATE_PLACE:
             newState = Object.assign({}, state);
@@ -161,6 +178,11 @@ const placesReducer = (state = initialState, action) => {
         case DELETE_PLACE:
             newState = Object.assign({}, state);
             newState.place = null;
+            return newState;
+        case DISPLAY_MODAL_PLACE_FORM:
+            newState = Object.assign({}, state);
+            newState.shouldDisplayPlaceForm = action.shouldDisplayPlaceForm;
+            newState.placeToEdit = action.placeToEdit;
             return newState;
         case READ_PLACES:
             const allPlaces = {};

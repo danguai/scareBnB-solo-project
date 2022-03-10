@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
-import * as sessionActions from '../../store/session';
+// import * as sessionActions from '../../store/session';
+
+import { logOut, displayModalLogin, displayModalSignup } from "../../store/session";
+import { displayModalPlaceForm } from "../../store/places";
 
 import './ProfileButton.css';
 
@@ -14,7 +17,7 @@ const ProfileButton = ({ user }) => {
 
     const logout = (e) => {
         e.preventDefault();
-        dispatch(sessionActions.logOut());
+        dispatch(logOut());
     };
 
     let sessionLinks;
@@ -23,13 +26,19 @@ const ProfileButton = ({ user }) => {
         sessionLinks = (
             <>
                 <li className='dropdown__menu__element'>
-                    <NavLink to="/">{sessionUser.username}</NavLink>
+                    <button
+                        className='user__button'
+                    >Profile</button>
                 </li>
                 <li className='dropdown__menu__element'>
-                    <NavLink to="/">Notifications</NavLink>
+                    <button
+                        className='user__button'
+                    >Your Places</button>
                 </li>
                 <li className='dropdown__menu__element'>
-                    <NavLink to="/">Trips</NavLink>
+                    <button
+                        className='user__button'
+                        onClick={() => dispatch(displayModalPlaceForm())}>New Place</button>
                 </li>
                 <li className='dropdown__menu__element'>
                     <button onClick={logout}>Log Out</button>
@@ -43,12 +52,12 @@ const ProfileButton = ({ user }) => {
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
-                        onClick={() => dispatch(sessionActions.displayModalLogin())}>Log In</button>
+                        onClick={() => dispatch(displayModalLogin())}>Log In</button>
                 </li>
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
-                        onClick={() => dispatch(sessionActions.displayModalSignup())}>Sign Up</button>
+                        onClick={() => dispatch(displayModalSignup())}>Sign Up</button>
                 </li>
                 <li className='dropdown__menu__element'>
                     <button
