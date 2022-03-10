@@ -16,10 +16,10 @@ module.exports = (sequelize, DataTypes) => {
   Place.associate = function (models) {
     Place.belongsTo(models.User, { foreignKey: 'userId' });
 
-    Place.hasMany(models.Booking, { foreignKey: 'placeId' });
-    Place.hasMany(models.Review, { foreignKey: 'placeId' });
+    Place.hasMany(models.Booking, { foreignKey: 'placeId', onDelete: "cascade", foreignKeyConstraint: true });
+    Place.hasMany(models.Review, { foreignKey: 'placeId', onDelete: "cascade", foreignKeyConstraint: true });
 
-    Place.hasOne(models.Favorite, { foreignKey: 'placeId' });
+    Place.hasOne(models.Favorite, { foreignKey: 'placeId', onDelete: "cascade", foreignKeyConstraint: true });
   };
   return Place;
 };

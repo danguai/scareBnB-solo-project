@@ -7,7 +7,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
 
   Image.associate = function (models) {
-    Image.belongsTo(models.Place, { foreignKey: 'placeId' });
+    Image.belongsTo(models.Place, {
+      foreignKey: 'placeId', onDelete: "cascade", foreignKeyConstraint: true
+    });
 
   };
   return Image;

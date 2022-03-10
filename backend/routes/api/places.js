@@ -107,20 +107,20 @@ router.get('/', asyncHandler(async (req, res) => {
 router.put('/:id', requireAuth, validateNewPlace, asyncHandler(async (req, res) => {
     const id = req.body.id;
     delete req.body.id;
-    await Places.update(req.body, {
+    await Place.update(req.body, {
         where: { id },
         returning: true,
         plain: true,
     });
 
-    const place = await Places.findByPk(id);
+    const place = await Place.findByPk(id);
 
     return res.json(place);
 }));
 
 // D E L E T E   P L A C E
 router.delete('/:id', asyncHandler(async (req, res) => {
-    const place = await Places.findByPk(req.params.id);
+    const place = await Place.findByPk(req.params.id);
     if (!place) throw new Error('Cannot find item');
 
     await Place.destroy({ where: { id: place.id } });
