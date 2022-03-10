@@ -17,23 +17,46 @@ const Splashpage = () => {
 
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
 
+    const handleSubmit = e => {
+        e.preventDefault();
+    }
 
     return (
         <div>
             <div className='search__bar__container'>
-                <div className='search__bar__options'>
-                    <div>
-                        Location
-                    </div>
-                    <div>
-                        Start Date
-                    </div>
-                    <div>
-                        End Date
-                    </div>
-                    <div>
-                        Ghosts
-                    </div>
+                <div>
+                    <form
+                        className='search__bar__options'
+                        onSubmit={handleSubmit}
+                    >
+                        <label className='location__label'>
+                            Location
+                        </label>
+                        <label className='location__label'>
+                            Start Date
+                            <input
+                                className='input__date__box'
+                                type="date"
+                                required
+                            />
+                        </label>
+                        <label className='location__label'>
+                            End Date
+                            <input
+                                className='input__date__box'
+                                type="date"
+                                required
+                            />
+                        </label>
+                        <label className='location__label'>
+                            Ghosts
+                            <input
+                                className='input__ghosts__box'
+                                type="number"
+                                required
+                            />
+                        </label>
+                    </form>
                 </div>
             </div>
             <div className='splashpage__image__container'>

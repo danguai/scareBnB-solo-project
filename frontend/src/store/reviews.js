@@ -45,6 +45,7 @@ export const createPlace = review => async dispatch => {
         const response = await csrfFetch('/api/reviews', {
             method: 'POST',
             body: JSON.stringify({
+                title,
                 review,
                 userId,
                 placeId

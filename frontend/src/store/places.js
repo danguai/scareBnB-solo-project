@@ -51,6 +51,7 @@ const removeOnePlaceAction = () => {
 
 //  D I S P L A Y   M O D A L  P L A C E S   F O R M
 export const displayModalPlaceForm = (placeToEdit = null) => {
+    // console.log('ESTA PASANDO POR ACA????');
     return (dispatch, getState) => {
         const shouldDisplayPlaceForm = getState().places.shouldDisplayPlaceForm;
 
