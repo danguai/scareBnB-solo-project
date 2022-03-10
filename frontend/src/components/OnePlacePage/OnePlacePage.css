@@ -199,3 +199,17 @@
 .errors {
     color: red;
 }
+
+.places__and__reviews {
+    display: flex;
+    flex-direction: column;
+}
+
+.reviews__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: rgb(255, 255, 255, 1);
+    width: 800px;
+    height: auto;
+}
