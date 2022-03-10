@@ -2,7 +2,8 @@
 
 // const { faker } = require('@faker-js/faker');å;
 
-const randomIndex = num => Math.floor(Math.random() * Math.floor(num));
+// const randomIndex = num => Math.floor(Math.random() * Math.floor(num));
+
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -18,31 +19,6 @@ module.exports = {
       updatedAt: new Date(),
     };
 
-    // let usersArr = [demoUser];
-
-    // let imagesProfile = [
-    //   '', '',
-    //   faker.image.avatar(),
-    //   faker.image.avatar(),
-    //   faker.image.avatar(),
-    //   faker.image.avatar()
-    // ];
-
-    // let i = 0;
-    // while (i < 20) {
-    //   const user = {
-    //     firstName: faker.name.firstName(),
-    //     lastName: faker.name.lastName(),
-    //     email: faker.internet.email(),
-    //     username: faker.internet.userName(),
-    //     imageProfile: imagesProfile[randomIndex(5)],
-    //     hashedPassword: bcrypt.hashSync(faker.internet.password()),
-    //     createdAt: faker.date.past(),
-    //     updatedAt: faker.date.recent(),
-    //   };
-    //   usersArr.push(user);
-    //   i++;
-    // }
     return queryInterface.bulkInsert('Users', [demoUser], {});
   },
 
