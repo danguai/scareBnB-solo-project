@@ -11,11 +11,13 @@ module.exports = {
       title: {
         allowNull: false,
         type: Sequelize.STRING(255),
-
       },
       review: {
         allowNull: false,
         type: Sequelize.TEXT
+      },
+      score: {
+        type: Sequelize.INTEGER,
       },
       placeId: {
         allowNull: false,
