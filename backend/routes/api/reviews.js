@@ -36,3 +36,15 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
         console.log(e);
     }
 }));
+
+//  R E A D   A L L   R E V I E W S
+router.get('/', asyncHandler(async (req, res) => {
+    try {
+
+        const reviews = await Review.findAll();
+
+        return res.json(reviews);
+    } catch (e) {
+        console.log(e);
+    }
+}));
