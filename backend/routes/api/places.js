@@ -69,7 +69,7 @@ router.post('/', requireAuth, validateNewPlace, asyncHandler(async (req, res) =>
                 userId
             });
 
-        console.log('PLACEPLACE', place);
+        // console.log('PLACEPLACE', place);
         return res.json({ place });
     } catch (e) {
         console.log(e);

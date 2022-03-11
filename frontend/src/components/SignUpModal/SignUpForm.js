@@ -17,7 +17,7 @@ import './SignUpForm.css';
 
 const SignupForm = ({ user }) => {
     const dispatch = useDispatch();
-    // const history = useHistory();
+    const history = useHistory();
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -44,24 +44,28 @@ const SignupForm = ({ user }) => {
 
     if (sessionUser) return <Redirect to='/' />;
 
-    const handleSubmit = e => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (password === confirmPassword) {
-            setErrors([]);
+        try {
 
-            return dispatch(sessionActions.signUp({ firstName, lastName, username, email, password }))
-                .catch(async (data) => {
-                    console.log('DATDADATDA', data);
-                    setErrors(data.errors);
-                    // const data = await res.json();
-                    // if (data && data.errors) setErrors(data.errors);
-                });
+            if (password === confirmPassword) {
+                setErrors([]);
+                await dispatch(sessionActions.signUp({ firstName, lastName, username, email, password }));
+
+                history.push('/');
+            }
+            setErrors(errors);
+            await setErrors(['Confirm Password should match Password']);
+
+        } catch (e) {
+            console.error(e);
         }
-        return setErrors(['Confirm Password should match Password']);
 
 
     };
+
+
     return (
         <div className='signup__form__container' style={{ 'borderRadius': '20px' }}>
             <form onSubmit={handleSubmit}>

@@ -110,11 +110,23 @@ export const createPlace = place => async dispatch => {
 
 //   R E A D   O N E   P L A C E
 export const getPlace = id => async dispatch => {
-    const response = await fetch(`/api/places/${id}`);
+    const response = await csrfFetch(`/api/places/${id}`);
 
     if (response.ok) {
         const place = await response.json();
         dispatch(getOnePlaceAction(place));
+    }
+};
+
+//   R E A D   A L L   P L A C E S
+export const getPlaces = () => async dispatch => {
+    const response = await csrfFetch(`/api/places`);
+
+    console.log('RESPONSERESPONSERESPONSERESPONSE', response);
+    if (response.ok) {
+        const places = await response.json();
+        console.log('PLACESWHATINNEVITABLE', places);
+        dispatch(getPlacesAction(places));
     }
 };
 
@@ -135,23 +147,6 @@ export const updatePlace = data => async dispatch => {
     }
 };
 
-//   R E A D  A L L  P L A C E S
-export const getPlaces = () => async dispatch => {
-    const response = await fetch(`/api/places`);
-
-    // console.log('PLACEPLACEPLACE', response);
-    if (response.ok) {
-        const places = await response.json();
-        dispatch(getPlacesAction(places));
-    }
-};
-
-
-export const setPlaceToEditValue = data => dispatch => {
-    dispatch(setPlaceToEditAction(data));
-    return data;
-};
-
 //  D E L E T E   P L A C E
 export const deletePlace = id => async dispatch => {
     const response = await csrfFetch(`/api/places/${id}`, {
@@ -161,16 +156,21 @@ export const deletePlace = id => async dispatch => {
     return response;
 };
 
+export const setPlaceToEditValue = data => dispatch => {
+    dispatch(setPlaceToEditAction(data));
+    return data;
+};
+
 //   R E D U C E R S
 const initialState = { place: null };
 
-const sorPlaces = places => {
-    return places
-        .sort((placeA, placeB) => {
-            return placeA.number - placeB.number;
-        })
-        .map(place => place.id);
-};
+// const sorPlaces = places => {
+//     return places
+//         .sort((placeA, placeB) => {
+//             return placeA.number - placeB.number;
+//         })
+//         .map(place => place.id);
+// };
 
 const placesReducer = (state = initialState, action) => {
     let newState;
@@ -181,9 +181,15 @@ const placesReducer = (state = initialState, action) => {
             newState.shouldDisplayPlaceForm = false;
             return newState;
         case READ_PLACE:
-            console.log('ACTION', action);
             newState = Object.assign({}, state);
             newState.place = action.payload;
+            return newState;
+        case READ_PLACES:
+            newState = Object.assign({}, state);
+            newState.placesList = {
+                ...newState.placesList,
+                ...action.payload,
+            };
             return newState;
         case UPDATE_PLACE:
             newState = Object.assign({}, state);
@@ -206,16 +212,6 @@ const placesReducer = (state = initialState, action) => {
             newState.shouldDisplayPlaceForm = action.shouldDisplayPlaceForm;
             newState.placeToEdit = action.placeToEdit;
             return newState;
-        case READ_PLACES:
-            const allPlaces = {};
-            action.places.forEach(place => {
-                allPlaces[place.id] = place;
-            });
-            return {
-                ...allPlaces,
-                ...state,
-                places: sorPlaces(action.places)
-            };
         default:
             return state;
     }

@@ -24,12 +24,12 @@ const ReviewsList = () => {
     const sessionUser = useSelector(state => state.session.user);
 
     let reviewsList = [];
-
     reviews.forEach(review => {
         if (review.placeId === place.id) {
             reviewsList.push(review);
         }
     });
+    // console.log('ESTE Es MI ARRAY DE REVIEWS', reviewsList);
 
     useEffect(() => {
         dispatch(getReviews(place.id));
@@ -39,6 +39,12 @@ const ReviewsList = () => {
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
 
+    let userCanEdit;
+    reviewsList.forEach(review => {
+        if (review.userId === sessionUser.id) {
+            userCanEdit = true;
+        }
+    });
 
     return (
         <div className='reviews__list__container'>
@@ -61,18 +67,18 @@ const ReviewsList = () => {
                                     Score: {review.score}
                                 </div>
                                 <div className="logged__reviews__button">
-                                    <button
+                                    {userCanEdit && <button
                                         className='reviews__button__edit'
                                         onClick={() => dispatch(updateReview(review))}
                                         type="submit"
                                     >Edit
-                                    </button>
-                                    <button
+                                    </button>}
+                                    {userCanEdit && <button
                                         className='reviews__button__delete'
                                         onClick={() => dispatch(deleteReview(review))}
                                         type="submit"
                                     >Delete
-                                    </button>
+                                    </button>}
                                 </div>
                             </div>
                         </li>)}

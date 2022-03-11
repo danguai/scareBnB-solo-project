@@ -31,16 +31,15 @@ const OnePlacePage = () => {
         dispatch(getPlace(id));
     }, [dispatch]);
 
-
     const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
 
     if (!place) return null;
 
-    let editMode;
+    let userCanEdit;
     if (place.userId === sessionUser.id) {
-        editMode = true;
+        userCanEdit = true;
     }
 
 
@@ -51,12 +50,12 @@ const OnePlacePage = () => {
                     <div className="tittle__bar">
                         <h1>{place.address}</h1>
                         <div className="buttons__bar">
-                            {editMode && <button
+                            {userCanEdit && <button
                                 className='user__button logged__in__button'
                                 onClick={() => dispatch(displayModalPlaceForm(place))}
                             >Edit Place
                             </button>}
-                            {editMode && <button
+                            {userCanEdit && <button
                                 className='user__button logged__in__button'
                                 onClick={() => {
                                     dispatch(deletePlace(place.id))

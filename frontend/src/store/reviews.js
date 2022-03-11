@@ -74,6 +74,7 @@ export const getReviews = placeId => async dispatch => {
 
     if (response.ok) {
         const reviews = await response.json();
+
         dispatch(getReviewsAction(reviews));
     }
 };
