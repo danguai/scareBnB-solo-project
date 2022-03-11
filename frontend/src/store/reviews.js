@@ -160,7 +160,7 @@ const reviewsReducer = (state = initialState, action) => {
                     review = action.payload;
                 }
             });
-            // newState.shouldDisplayReviewForm = false;
+            newState.shouldDisplayReviewForm = false;
             return newState;
         case DELETE_REVIEW:
             newState = Object.assign({}, state);
@@ -168,9 +168,8 @@ const reviewsReducer = (state = initialState, action) => {
             return newState;
         case SET_REVIEW_TO_EDIT:
             newState = Object.assign({}, state);
-            newState.reviewsList = newState.reviewsList.forEach(review => {
-
-            })
+            // newState.reviewsList = newState.reviewsList.forEach(review => {
+            // })
             newState.reviewToEdit = {
                 ...newState.reviewToEdit,
                 ...action.payload,

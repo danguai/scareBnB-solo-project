@@ -3,12 +3,15 @@ import React from "react";
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { createReview } from '../../store/reviews';
+import { useHistory } from "react-router-dom";
+
+import { createReview, updateReview } from '../../store/reviews';
 
 import './ReviewForm.css';
 
 const Reviews = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [title, setTitle] = useState('');
     const [message, setMessage] = useState('');
@@ -17,59 +20,33 @@ const Reviews = () => {
     const place = useSelector(state => state.places.place);
     const sessionUser = useSelector(state => state.session.user);
 
+
     let reviewToEdit = useSelector(state => state.reviews.reviewToEdit);
 
-    console.log('THIS IS THE PLACE TO EDIT', reviewToEdit);
+    console.log('THIS IS THE REVIEW TO EDIT', reviewToEdit);
 
     const isEditMode = Boolean(reviewToEdit?.id);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // const reviewInfo = {
-        //     title,
-        //     message,
-        //     score,
-        //     placeId: place.id,
-        //     userId: sessionUser.id,
-        // };
-
-        // dispatch(createReview(reviewInfo));
-
-        // console.log(reviewInfo);
-
-        // setTitle('');
-        // setMessage('');
-        // setScore(0);
-
-        try {
-            if (isEditMode) {
-                const review = await dispatch(updateReview(reviewToEdit));
-
-                console.log('REVIEW IN EDIT MODE', review);
-                // history.push(`/places/${place.id}`);
-
-            } else {
-                const review = await dispatch(createReview(reviewToEdit));
-
-                console.log('REVIEW NO EDIT', review);
-
-                // history.push(`/places/${place.id}`);
-
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    if (!reviewToEdit) {
-        reviewToEdit = {
-            title: '',
-            message: '',
-            score: '',
+        const reviewInfo = {
+            title,
+            message,
+            score,
+            placeId: place.id,
+            userId: sessionUser.id,
         };
 
+        dispatch(createReview(reviewInfo));
+
+        console.log(reviewInfo);
+
+        setTitle('');
+        setMessage('');
+        setScore(0);
     }
+
 
     return (
         <div className='create__reviews__container'>

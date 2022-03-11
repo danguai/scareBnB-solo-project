@@ -7,7 +7,6 @@ import { useHistory, useParams } from 'react-router-dom';
 import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
 import PlaceForm from "../PlaceFormModal";
-import ReviewForm from "../ReviewForm";
 import ReviewsList from "../ReviewsList";
 
 import { getPlace, deletePlace } from '../../store/places';
@@ -25,7 +24,9 @@ const OnePlacePage = () => {
     const history = useHistory();
 
     const place = useSelector(state => state.places.place);
-    const reviews = useSelector(state => state.reviews.reviewsList);
+
+    let reviewToEdit = useSelector(state => state.reviews.reviewToEdit);
+
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -37,7 +38,7 @@ const OnePlacePage = () => {
     const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
-    const shouldDisplayReviewForm = useSelector(state => state.reviews.shouldDisplayReviewForm);
+    // const shouldDisplayReviewForm = useSelector(state => state.reviews.shouldDisplayReviewForm);
 
     if (!place) return null;
 
@@ -102,7 +103,7 @@ const OnePlacePage = () => {
                 <div className="reviews__container">
                     {!userCanEdit && <button
                         className='reviews__button__create'
-                        onClick={() => dispatch(displayModalReviewForm())}
+                        onClick={() => dispatch(displayModalReviewForm(reviewToEdit))}
                         type="submit"
                     >Create Review
                     </button>}
@@ -112,7 +113,6 @@ const OnePlacePage = () => {
             {shouldDisplaySignup && <SignupForm />}
             {shouldDisplayLogin && <LoginForm />}
             {shouldDisplayPlaceForm && <PlaceForm />}
-            {shouldDisplayReviewForm && <ReviewForm />}
         </div >
     )
 };
