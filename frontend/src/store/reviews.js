@@ -1,7 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const CREATE_REVIEW = 'reviews/CREATE_REVIEW';
-const GET_REVIEWS = 'reviews/GET_REVIEWS';
+const READ_REVIEWS = 'reviews/READ_REVIEWS';
 const UPDATE_REVIEW = 'reviews/UPDATE_REVIEW';
 const DELETE_REVIEW = 'reviews/DELETE_REVIEW';
 
@@ -19,7 +19,7 @@ const createReviewAction = review => {
 //   R E A D    R E V I E W S
 const getReviewsAction = reviews => {
     return {
-        type: GET_REVIEWS,
+        type: READ_REVIEWS,
         payload: reviews,
     };
 };
@@ -151,9 +151,14 @@ const reviewsReducer = (state = initialState, action) => {
             newState = Object.assign({}, state);
             newState.reviewsList.push(action.payload);
             return newState;
-        case GET_REVIEWS:
+        case READ_REVIEWS:
             newState = Object.assign({}, state);
             newState.reviewsList = action.payload;
+            return newState;
+        case UPDATE_REVIEW:
+            newState = Object.assign({}, state);
+            newState.reviewList = newState.reviewsList.forEach(review => review = action.payload)
+            // newState.shouldDisplayReviewForm = false;
             return newState;
         case DELETE_REVIEW:
             newState = Object.assign({}, state);
@@ -166,11 +171,11 @@ const reviewsReducer = (state = initialState, action) => {
         //         ...action.payload,
         //     };
         //     return newState;
-        case DISPLAY_MODAL_REVIEW_FORM:
-            newState = Object.assign({}, state);
-            newState.shouldDisplayReviewForm = action.shouldDisplayReviewForm;
-            newState.reviewToEdit = action.reviewToEdit;
-            return newState;
+        // case DISPLAY_MODAL_REVIEW_FORM:
+        //     newState = Object.assign({}, state);
+        //     newState.shouldDisplayReviewForm = action.shouldDisplayReviewForm;
+        //     newState.reviewToEdit = action.reviewToEdit;
+        //     return newState;
         default:
             return state;
     }

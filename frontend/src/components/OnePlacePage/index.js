@@ -34,7 +34,7 @@ const OnePlacePage = () => {
     const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
-    const shouldDisplayReviewForm = useSelector(state => state)
+    // const shouldDisplayReviewForm = useSelector(state => state)
 
     if (!place) return null;
 
