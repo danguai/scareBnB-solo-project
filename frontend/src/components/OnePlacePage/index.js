@@ -7,12 +7,12 @@ import { useHistory, useParams } from 'react-router-dom';
 import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
 import PlaceForm from "../PlaceFormModal";
-import ReviewForm from "../ReviewForm";
 import ReviewsList from "../ReviewsList";
 
 import { getPlace, deletePlace } from '../../store/places';
 
 import { displayModalPlaceForm } from "../../store/places";
+import { displayModalReviewForm } from "../../store/reviews";
 
 import './OnePlacePage.css';
 
@@ -25,7 +25,11 @@ const OnePlacePage = () => {
 
     const place = useSelector(state => state.places.place);
 
+    let reviewToEdit = useSelector(state => state.reviews.reviewToEdit);
+
+
     const sessionUser = useSelector(state => state.session.user);
+
 
     useEffect(() => {
         dispatch(getPlace(id));
@@ -34,7 +38,7 @@ const OnePlacePage = () => {
     const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
-    // const shouldDisplayReviewForm = useSelector(state => state)
+    // const shouldDisplayReviewForm = useSelector(state => state.reviews.shouldDisplayReviewForm);
 
     if (!place) return null;
 
@@ -97,7 +101,12 @@ const OnePlacePage = () => {
 
                 </div>
                 <div className="reviews__container">
-                    {<ReviewForm />}
+                    {!userCanEdit && <button
+                        className='reviews__button__create'
+                        onClick={() => dispatch(displayModalReviewForm(reviewToEdit))}
+                        type="submit"
+                    >Create Review
+                    </button>}
                     {<ReviewsList />}
                 </div>
             </div>
