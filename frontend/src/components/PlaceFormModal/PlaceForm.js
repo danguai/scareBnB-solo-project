@@ -24,13 +24,6 @@ const PlaceForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // const [address, setAddress] = useState('');
-    // const [city, setCity] = useState('');
-    // const [state, setState] = useState('');
-    // const [country, setCountry] = useState('');
-    // const [zipcode, setZipcode] = useState('');
-    // const [price, setPrice] = useState(0);
-    // const [rating, setRating] = useState(0);
     const [errors, setErrors] = useState([]);
 
     // ERRORS
@@ -53,8 +46,6 @@ const PlaceForm = () => {
     );
 
     let placeToEdit = useSelector(state => state.places.placeToEdit);
-
-    console.log('THIS IS THE PLACE TO EDIT', placeToEdit);
 
     const isEditMode = Boolean(placeToEdit?.id);
 

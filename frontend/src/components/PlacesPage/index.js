@@ -2,22 +2,32 @@ import React from "react";
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 import LoginForm from '../LoginFormModal/';
 import SignupForm from '../SignUpModal/';
 import PlaceForm from '../PlaceFormModal/';
 
-import getPlaces from '../../components/PlacesPage';
+import { getPlaces } from '../../store/places';
 
 import './PlacesPage.css';
 
-const PlacesPage = ({ places }) => {
+const PlacesPage = () => {
     const dispatch = useDispatch();
     // const history = useHistory();
+    // const { id } = useParams();
+    const sessionUser = useSelector(state => state.session.user);
+    const places = useSelector(state => state.places.placesList);
 
-    // const place = useSelector(state => state);
+    console.log('PLACES', places);
+    console.log('SESSION USER', sessionUser);
 
+    useEffect(() => {
+        dispatch(getPlaces());
+    }, [dispatch]);
+
+    // console.log('PLACE USER ID: ', sessionUser.id);
+    // console.log('SESSION USER: ', sessionUser);
     // let placesList = [];
 
     // places.forEach(place => {

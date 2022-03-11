@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useHistory } from "react-router-dom";
 
-import { createReview, updateReview } from '../../store/reviews';
+import { createReview, setReviewToEdit, updateReview } from '../../store/reviews';
 
 import './ReviewForm.css';
 
@@ -13,40 +13,33 @@ const Reviews = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [title, setTitle] = useState('');
-    const [message, setMessage] = useState('');
-    const [score, setScore] = useState(0);
+    const [errors, setErrors] = useState([]);
 
-    const place = useSelector(state => state.places.place);
-    const sessionUser = useSelector(state => state.session.user);
-
+    const placeId = useSelector(state => state.places.place.id);
 
     let reviewToEdit = useSelector(state => state.reviews.reviewToEdit);
-
-    console.log('THIS IS THE REVIEW TO EDIT', reviewToEdit);
 
     const isEditMode = Boolean(reviewToEdit?.id);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const reviewInfo = {
-            title,
-            message,
-            score,
-            placeId: place.id,
-            userId: sessionUser.id,
+        if (isEditMode) {
+            dispatch(updateReview(reviewToEdit));
+        } else {
+            dispatch(createReview(reviewToEdit));
+        }
+
+        reviewToEdit = null;
+    };
+
+    if (!reviewToEdit) {
+        reviewToEdit = {
+            title: '',
+            message: '',
+            score: 0,
         };
-
-        dispatch(createReview(reviewInfo));
-
-        console.log(reviewInfo);
-
-        setTitle('');
-        setMessage('');
-        setScore(0);
     }
-
 
     return (
         <div className='create__reviews__container'>
@@ -63,8 +56,8 @@ const Reviews = () => {
                             <input
                                 className='input__reviews__box input__reviews__title'
                                 type="text"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
+                                value={reviewToEdit.title}
+                                onChange={(e) => dispatch(setReviewToEdit({ title: e.target.value, placeId }))}
                                 required
                             />
                         </label>
@@ -72,8 +65,8 @@ const Reviews = () => {
                             Message
                             <textarea
                                 className='input__reviews__box input__reviews__message'
-                                value={message}
-                                onChange={(e) => setMessage(e.target.value)}
+                                value={reviewToEdit.message}
+                                onChange={(e) => dispatch(setReviewToEdit({ message: e.target.value, placeId }))}
                                 required
                             />
                         </label>
@@ -82,8 +75,8 @@ const Reviews = () => {
                             <input
                                 className='input__reviews__box input__reviews__score'
                                 type="number"
-                                value={score}
-                                onChange={(e) => setScore(e.target.value)}
+                                value={reviewToEdit.score}
+                                onChange={(e) => dispatch(setReviewToEdit({ score: e.target.value, placeId }))}
                                 required
                             />
                         </label>

@@ -54,10 +54,13 @@ export const displayModalReviewForm = (reviewToEdit = null) => {
 };
 
 // //   R E V I E W   T O   E D I T
-// export const setReviewToEditValue = data => dispatch => {
-//     dispatch(setReviewToEditAction(data));
-//     return data;
-// };
+export const setReviewToEdit = data => dispatch => {
+    dispatch({
+        type: SET_REVIEW_TO_EDIT,
+        payload: data
+    });
+    return data;
+};
 
 //   C R E A T E   R E V I E W
 export const createReview = review => async dispatch => {
@@ -126,13 +129,20 @@ export const deleteReview = review => async dispatch => {
     const response = await csrfFetch(`/api/places/${placeId}/reviews/${review.id}`, {
         method: 'DELETE'
     });
-    dispatch(removeOneReviewAction());
-    return response;
+
+    if (response) {
+        const resJson = await response.json();
+        dispatch(removeOneReviewAction(resJson));
+        return resJson;
+    }
 };
 
 
 //   R E D U C E R S
-const initialState = { reviewsList: [] };
+const initialState = {
+    reviewsList: [],
+    reviewToEdit: null
+};
 
 // const sortReviews = reviews => {
 //     return reviews
@@ -155,21 +165,20 @@ const reviewsReducer = (state = initialState, action) => {
             return newState;
         case UPDATE_REVIEW:
             newState = Object.assign({}, state);
-            newState.reviewList = newState.reviewsList.forEach(review => {
-                if (review.id === action.payload.id) {
-                    review = action.payload;
-                }
-            });
+
+            const index = newState.reviewsList.findIndex(r => r.id === action.payload.id);
+            newState.reviewsList[index] = action.payload;
+
             newState.shouldDisplayReviewForm = false;
             return newState;
         case DELETE_REVIEW:
             newState = Object.assign({}, state);
-            newState.reviewsList = newState.reviewsList.filter(review => action.payload.id !== review?.id);
+            newState.reviewsList = newState
+                .reviewsList
+                .filter(review => action.payload.id !== review.id);
             return newState;
         case SET_REVIEW_TO_EDIT:
             newState = Object.assign({}, state);
-            // newState.reviewsList = newState.reviewsList.forEach(review => {
-            // })
             newState.reviewToEdit = {
                 ...newState.reviewToEdit,
                 ...action.payload,
