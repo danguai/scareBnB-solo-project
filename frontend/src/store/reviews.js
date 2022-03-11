@@ -21,6 +21,15 @@ const getReviewsAction = reviews => {
     };
 };
 
+// U P D A T E   R E V I E W
+const updateOneReviewAction = review => {
+    return {
+        type: UPDATE_REVIEW,
+        payload: review,
+    };
+};
+
+
 //   R E M O V E   R E V I E W
 const removeOneReviewAction = review => {
     return {
@@ -69,12 +78,31 @@ export const getReviews = placeId => async dispatch => {
     }
 };
 
+//  U P D A T E   R E V I E W
+export const updateReview = review => async dispatch => {
+    const { placeId } = review;
+
+    const response = await csrfFetch(`/api/places/${placeId}/reviews/${review.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(review)
+    });
+
+    if (response) {
+        const review = await response.json();
+        dispatch(updateOneReviewAction(review));
+        return review;
+    }
+};
+
 //   D E L E T E   R E V I E W
 export const deleteReview = review => async dispatch => {
     const { placeId } = review;
 
     console.log('PLACE ID', placeId, "REVIEW ID", review.id);
-    const response = await csrfFetch(`/api/places/${placeId}/reviews/${review.id}`, {
+    const response = await csrfFetch(`/ api / places / ${placeId} / reviews / ${review.id}`, {
         method: 'DELETE'
     });
     dispatch(removeOneReviewAction());
