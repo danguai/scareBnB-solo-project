@@ -39,8 +39,6 @@ const OnePlacePage = () => {
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
     const shouldDisplayReviewForm = useSelector(state => state.reviews.shouldDisplayReviewForm);
 
-    // console.log('esTE ES MI REVIEW STATE: ', shouldDisplayReviewForm);
-
     if (!place) return null;
 
     let userCanEdit;
@@ -102,13 +100,12 @@ const OnePlacePage = () => {
 
                 </div>
                 <div className="reviews__container">
-                    <button
-                        className={sessionUser.id === place.userId ? 'reserve__button__create__disabled' : 'reviews__button__create'}
+                    {!userCanEdit && <button
+                        className='reviews__button__create'
                         onClick={() => dispatch(displayModalReviewForm())}
-                        disabled='true'
                         type="submit"
                     >Create Review
-                    </button>
+                    </button>}
                     {<ReviewsList />}
                 </div>
             </div>

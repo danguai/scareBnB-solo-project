@@ -164,15 +164,18 @@ const reviewsReducer = (state = initialState, action) => {
             return newState;
         case DELETE_REVIEW:
             newState = Object.assign({}, state);
-            newState.reviewsList = newState.reviewsList.filter(review => action.payload.id !== review.id);
+            newState.reviewsList = newState.reviewsList.filter(review => action.payload.id !== review?.id);
             return newState;
-        // case SET_REVIEW_TO_EDIT:
-        //     newState = Object.assign({}, state);
-        //     newState.reviewToEdit = {
-        //         ...newState.reviewToEdit,
-        //         ...action.payload,
-        //     };
-        //     return newState;
+        case SET_REVIEW_TO_EDIT:
+            newState = Object.assign({}, state);
+            newState.reviewsList = newState.reviewsList.forEach(review => {
+
+            })
+            newState.reviewToEdit = {
+                ...newState.reviewToEdit,
+                ...action.payload,
+            };
+            return newState;
         case DISPLAY_MODAL_REVIEW_FORM:
             newState = Object.assign({}, state);
             newState.shouldDisplayReviewForm = action.shouldDisplayReviewForm;
