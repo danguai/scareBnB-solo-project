@@ -5,7 +5,7 @@ const GET_REVIEWS = 'reviews/GET_REVIEWS';
 const UPDATE_REVIEW = 'reviews/UPDATE_REVIEW';
 const DELETE_REVIEW = 'reviews/DELETE_REVIEW';
 
-// C R E A T E   R E V I E W
+//   C R E A T E   R E V I E W
 const createReviewAction = review => {
     return {
         type: CREATE_REVIEW,
@@ -13,15 +13,15 @@ const createReviewAction = review => {
     };
 };
 
-// R E A D    R E V I E W S
-const getReviewsAction = review => {
+//   R E A D    R E V I E W S
+const getReviewsAction = reviews => {
     return {
         type: GET_REVIEWS,
-        payload: review,
+        payload: reviews,
     };
 };
 
-//  R E M O V E   R E V I E W
+//   R E M O V E   R E V I E W
 const removeOneReviewAction = review => {
     return {
         type: DELETE_REVIEW,
@@ -29,7 +29,7 @@ const removeOneReviewAction = review => {
     };
 };
 
-//  C R E A T E   R E V I E W
+//   C R E A T E   R E V I E W
 export const createReview = review => async dispatch => {
     const { title, message, score, userId, placeId } = review;
     try {
@@ -60,9 +60,7 @@ export const createReview = review => async dispatch => {
 };
 
 //   R E A D   A L L   R E V I E W S
-export const getReviews = review => async dispatch => {
-    const { placeId } = review;
-
+export const getReviews = placeId => async dispatch => {
     const response = await csrfFetch(`/api/places/${placeId}/reviews`);
 
     if (response.ok) {
@@ -71,11 +69,12 @@ export const getReviews = review => async dispatch => {
     }
 };
 
-//  D E L E T E   R E V I E W
-export const deleteReview = (review, id) => async dispatch => {
+//   D E L E T E   R E V I E W
+export const deleteReview = review => async dispatch => {
     const { placeId } = review;
 
-    const response = await csrfFetch(`/api/places/${placeId}/reviews/${id}`, {
+    console.log('PLACE ID', placeId, "REVIEW ID", review.id);
+    const response = await csrfFetch(`/api/places/${placeId}/reviews/${review.id}`, {
         method: 'DELETE'
     });
     dispatch(removeOneReviewAction());
@@ -107,7 +106,7 @@ const reviewsReducer = (state = initialState, action) => {
             return newState;
         case DELETE_REVIEW:
             newState = Object.assign({}, state);
-            newState.reviewsList = newState.reviewsList.filter(review => action.payload.id !== review.id);
+            newState.reviewsList = newState.reviewsList.filter(review => console.log('REVIEW ', review) || action.payload.id !== review.id);
             return newState;
         default:
             return state;

@@ -135,6 +135,18 @@ export const updatePlace = data => async dispatch => {
     }
 };
 
+//   R E A D  A L L  P L A C E S
+export const getPlaces = () => async dispatch => {
+    const response = await fetch(`/api/places`);
+
+    // console.log('PLACEPLACEPLACE', response);
+    if (response.ok) {
+        const places = await response.json();
+        dispatch(getPlacesAction(places));
+    }
+};
+
+
 export const setPlaceToEditValue = data => dispatch => {
     dispatch(setPlaceToEditAction(data));
     return data;
@@ -147,17 +159,6 @@ export const deletePlace = id => async dispatch => {
     });
     dispatch(removeOnePlaceAction());
     return response;
-};
-
-//   R E A D  A L L  P L A C E S
-export const getPlaces = () => async dispatch => {
-    const response = await fetch(`/api/places`);
-
-    // console.log('PLACEPLACEPLACE', response);
-    if (response.ok) {
-        const places = await response.json();
-        dispatch(getPlacesAction(places));
-    }
 };
 
 //   R E D U C E R S

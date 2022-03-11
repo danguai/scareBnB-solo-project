@@ -9,7 +9,7 @@ import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
 import PlaceForm from "../PlaceFormModal";
 
-import { getReviews } from '../../store/reviews';
+import { getReviews, deleteReview } from '../../store/reviews';
 
 import './ReviewsList.css';
 
@@ -68,6 +68,7 @@ const ReviewsList = () => {
                                     </button>
                                     <button
                                         className='reviews__button__delete'
+                                        onClick={() => dispatch(deleteReview(review))}
                                         type="submit"
                                     >Delete
                                     </button>

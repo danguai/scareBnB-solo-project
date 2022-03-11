@@ -51,6 +51,7 @@ router.get('/', asyncHandler(async (req, res) => {
 // U P D A T E   R E V I E W
 router.put('/:reviewId', requireAuth, asyncHandler(async (req, res) => {
     const id = req.params.reviewId;
+
     delete req.body.id;
     const [_updateCount, review] = await Review.update(req.body, {
         where: { id },
@@ -66,6 +67,7 @@ router.put('/:reviewId', requireAuth, asyncHandler(async (req, res) => {
 // D E L E T E   R E V I E W
 router.delete('/:reviewId', asyncHandler(async (req, res) => {
     const review = await Review.findByPk(req.params.reviewId);
+
     if (!review) throw new Error('Cannot find item');
 
     await Review.destroy({ where: { id: review.id } });
