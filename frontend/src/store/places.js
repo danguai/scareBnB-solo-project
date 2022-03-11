@@ -73,6 +73,12 @@ export const displayModalPlaceForm = (placeToEdit = null) => {
     };
 };
 
+//  P L A C E   T O   E D I T
+export const setPlaceToEditValue = data => dispatch => {
+    dispatch(setPlaceToEditAction(data));
+    return data;
+};
+
 //  C R E A T E   P L A C E
 export const createPlace = place => async dispatch => {
     const { address, city, state, country, zipcode, price, rating, userId } = place;
@@ -156,11 +162,6 @@ export const deletePlace = id => async dispatch => {
     return response;
 };
 
-export const setPlaceToEditValue = data => dispatch => {
-    dispatch(setPlaceToEditAction(data));
-    return data;
-};
-
 //   R E D U C E R S
 const initialState = { place: null };
 
@@ -196,16 +197,16 @@ const placesReducer = (state = initialState, action) => {
             newState.place = action.payload;
             newState.shouldDisplayPlaceForm = false;
             return newState;
+        case DELETE_PLACE:
+            newState = Object.assign({}, state);
+            newState.place = null;
+            return newState;
         case SET_PLACE_TO_EDIT:
             newState = Object.assign({}, state);
             newState.placeToEdit = {
                 ...newState.placeToEdit,
                 ...action.payload,
             };
-            return newState;
-        case DELETE_PLACE:
-            newState = Object.assign({}, state);
-            newState.place = null;
             return newState;
         case DISPLAY_MODAL_PLACE_FORM:
             newState = Object.assign({}, state);

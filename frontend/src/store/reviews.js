@@ -5,6 +5,9 @@ const GET_REVIEWS = 'reviews/GET_REVIEWS';
 const UPDATE_REVIEW = 'reviews/UPDATE_REVIEW';
 const DELETE_REVIEW = 'reviews/DELETE_REVIEW';
 
+const DISPLAY_MODAL_REVIEW_FORM = 'reviews/DISPLAY_MODAL_REVIEW_FORM';
+const SET_REVIEW_TO_EDIT = 'reviews/SET_REVIEW_TO_EDIT';
+
 //   C R E A T E   R E V I E W
 const createReviewAction = review => {
     return {
@@ -37,6 +40,25 @@ const removeOneReviewAction = review => {
         payload: review,
     };
 };
+
+//  D I S P L A Y   M O D A L   R E V I E W   F O R M
+export const displayModalReviewForm = (reviewToEdit = null) => {
+    return (dispatch, getState) => {
+        const shouldDisplayReviewForm = getState().reviews.shouldDisplayReviewForm;
+
+        return dispatch({
+            type: DISPLAY_MODAL_REVIEW_FORM,
+            shouldDisplayReviewForm: !shouldDisplayReviewForm,
+            reviewToEdit,
+        });
+    };
+};
+
+//  R E V I E W   T O   E D I T
+// export const setReviewToEditValue = data => dispatch => {
+//     dispatch(setReviewToEditAction(data));
+//     return data;
+// };
 
 //   C R E A T E   R E V I E W
 export const createReview = review => async dispatch => {
@@ -135,7 +157,19 @@ const reviewsReducer = (state = initialState, action) => {
             return newState;
         case DELETE_REVIEW:
             newState = Object.assign({}, state);
-            newState.reviewsList = newState.reviewsList.filter(review => console.log('REVIEW ', review) || action.payload.id !== review.id);
+            newState.reviewsList = newState.reviewsList.filter(review => action.payload.id !== review.id);
+            return newState;
+        // case SET_REVIEW_TO_EDIT:
+        //     newState = Object.assign({}, state);
+        //     newState.placeToEdit = {
+        //         ...newState.placeToEdit,
+        //         ...action.payload,
+        //     };
+        //     return newState;
+        case DISPLAY_MODAL_REVIEW_FORM:
+            newState = Object.assign({}, state);
+            newState.shouldDisplayReviewForm = action.shouldDisplayReviewForm;
+            newState.reviewToEdit = action.reviewToEdit;
             return newState;
         default:
             return state;
