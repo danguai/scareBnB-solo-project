@@ -32,7 +32,7 @@ const getOnePlaceAction = place => {
 const getPlacesAction = places => {
     return {
         type: READ_PLACES,
-        payload: places,
+        arrOfPlaces: places,
     };
 };
 
@@ -131,10 +131,11 @@ export const getPlaces = () => async dispatch => {
     console.log('RESPONSERESPONSERESPONSERESPONSE', response);
     if (response.ok) {
         const places = await response.json();
-        console.log('PLACESWHATINNEVITABLE', places);
+        // console.log('PLACESWHATINNEVITABLE', places);
         dispatch(getPlacesAction(places));
     }
 };
+
 
 //  U P D A T E   P L A C E
 export const updatePlace = data => async dispatch => {
@@ -187,10 +188,7 @@ const placesReducer = (state = initialState, action) => {
             return newState;
         case READ_PLACES:
             newState = Object.assign({}, state);
-            newState.placesList = {
-                ...newState.placesList,
-                ...action.payload,
-            };
+            newState.placesList = action.arrOfPlaces;
             return newState;
         case UPDATE_PLACE:
             newState = Object.assign({}, state);

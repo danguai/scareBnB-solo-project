@@ -7,6 +7,7 @@ const { Place } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const { user } = require('pg/lib/defaults');
 
 const router = express.Router();
 
@@ -93,7 +94,6 @@ router.get('/:id', asyncHandler(async (req, res) => {
 //  R E A D   A L L   P L A C E S
 router.get('/', asyncHandler(async (req, res) => {
     try {
-
         const places = await Place.findAll();
 
         console.log('ALL PLACES', places);

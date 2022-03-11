@@ -8,7 +8,7 @@ const { Review } = require('../../db/models');
 // const { check } = require('express-validator');
 // const { handleValidationErrors } = require('../../utils/validation');
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 //  C R E A T E   R E V I E W   V A L I D A T O R
 
@@ -17,11 +17,13 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const {
         title,
         message,
-        score,
-        placeId
+        score
     } = req.body;
 
+    console.log(req.params);
+
     const userId = req.user.id;
+    const placeId = req.params.placeId;
 
     try {
         const review = await Review.create({
