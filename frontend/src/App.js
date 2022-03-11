@@ -5,9 +5,10 @@ import { Switch, Route } from 'react-router-dom';
 
 import Navigation from "./components/Navigation";
 import Splashpage from "./components/Splashpage";
-import BookingFormPage from "./components/BookingFormPage";
+// import BookingFormPage from "./components/BookingFormPage";
 import PlacesPage from "./components/PlacesPage";
 import OnePlacePage from "./components/OnePlacePage";
+// import ReviewEditForm from "./components/ReviewEditForm";
 
 import * as sessionActions from './store/session';
 
@@ -31,6 +32,9 @@ function App() {
           </Route>
           {/* <Route path='/booking'>
             <BookingFormPage />
+          </Route> */}
+          {/* <Route path='/review-edit'>
+            <ReviewEditForm />
           </Route> */}
           <Route path='/places/:id'>
             <OnePlacePage />
