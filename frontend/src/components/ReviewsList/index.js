@@ -8,8 +8,12 @@ import { useHistory, useParams } from 'react-router-dom';
 import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
 import PlaceForm from "../PlaceFormModal";
+import ReviewForm from "../ReviewFormModal";
 
 import { getReviews, updateReview, deleteReview } from '../../store/reviews';
+
+import { displayModalReviewForm } from "../../store/reviews";
+
 
 import './ReviewsList.css';
 
@@ -38,6 +42,7 @@ const ReviewsList = () => {
     const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
+    const shouldDisplayReviewForm = useSelector(state => state.reviews.shouldDisplayReviewForm);
 
     let userCanEdit;
     reviewsList.forEach(review => {
@@ -45,6 +50,14 @@ const ReviewsList = () => {
             userCanEdit = true;
         }
     });
+
+    // let userCantEdit;
+    // reviewsList.forEach(review => {
+    //     if (review.userId !== sessionUser.id) {
+    //         userCantEdit = true;
+    //     }
+    // });
+
 
     return (
         <div className='reviews__list__container'>
@@ -69,7 +82,7 @@ const ReviewsList = () => {
                                 <div className="logged__reviews__button">
                                     {userCanEdit && <button
                                         className='reviews__button__edit'
-                                        onClick={() => dispatch(updateReview(review))}
+                                        onClick={() => dispatch(displayModalReviewForm(review))}
                                         type="submit"
                                     >Edit
                                     </button>}
@@ -87,6 +100,7 @@ const ReviewsList = () => {
             {shouldDisplaySignup && <SignupForm />}
             {shouldDisplayLogin && <LoginForm />}
             {shouldDisplayPlaceForm && <PlaceForm />}
+            {shouldDisplayReviewForm && <ReviewForm />}
         </div >
     )
 };

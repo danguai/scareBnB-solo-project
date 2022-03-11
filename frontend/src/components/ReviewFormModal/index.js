@@ -4,9 +4,9 @@ import { useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { Modal } from '../../context/Modal';
-import ReviewForm from './ReviewForm'
+import ReviewForm from './ReviewForm';
 
-import { displayModalPlaceForm } from '../../store/places';
+import { displayModalReviewForm } from '../../store/reviews';
 
 const ReviewFormModal = () => {
     const dispatch = useDispatch();
