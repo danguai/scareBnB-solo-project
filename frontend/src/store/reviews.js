@@ -103,7 +103,7 @@ export const deleteReview = review => async dispatch => {
     const { placeId } = review;
 
     console.log('PLACE ID', placeId, "REVIEW ID", review.id);
-    const response = await csrfFetch(`/ api / places / ${placeId} / reviews / ${review.id}`, {
+    const response = await csrfFetch(`/api/places/${placeId}/reviews/${review.id}`, {
         method: 'DELETE'
     });
     dispatch(removeOneReviewAction());
