@@ -2,7 +2,6 @@ import React from "react";
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
 
 import { createReview } from '../../store/reviews';
 
@@ -43,8 +42,11 @@ const Reviews = () => {
             <form onSubmit={handleSubmit}>
                 <ul className="errors">
                 </ul>
-                <div className="reviews__box__w__button" >
-                    <div className='reviews__box' >
+                <div className="reviews__box__w__button">
+                    <div className='reviews__box'>
+                        <div className="title__review">
+                            Review
+                        </div>
                         <label className='reviews__label'>
                             Title
                             <input
@@ -55,8 +57,6 @@ const Reviews = () => {
                                 required
                             />
                         </label>
-
-
                         <label className='reviews__label'>
                             Message
                             <textarea
@@ -76,14 +76,14 @@ const Reviews = () => {
                                 required
                             />
                         </label>
-
                     </div>
-                    <button
-                        className='places__button'
-
-                        type="submit"
-                    >Review Haunted Place
-                    </button>
+                    <div className="centering__review__button">
+                        <button
+                            className='places__button'
+                            type="submit"
+                        >Review Haunted Place
+                        </button>
+                    </div>
                 </div>
             </form>
         </div >
