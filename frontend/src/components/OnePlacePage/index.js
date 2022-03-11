@@ -8,6 +8,7 @@ import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
 import PlaceForm from "../PlaceFormModal";
 import ReviewForm from "../ReviewForm";
+import ReviewsList from "../ReviewsList";
 
 import { getPlace, deletePlace } from '../../store/places';
 
@@ -97,6 +98,7 @@ const OnePlacePage = () => {
                 </div>
                 <div className="reviews__container">
                     {<ReviewForm />}
+                    {<ReviewsList />}
                 </div>
             </div>
             {shouldDisplaySignup && <SignupForm />}

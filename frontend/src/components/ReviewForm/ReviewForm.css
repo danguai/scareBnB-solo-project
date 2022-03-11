@@ -7,7 +7,6 @@
 }
 
 .reviews__box {
-    background-color: white;
     width : 800px;
     height : auto;
     padding: 20px 0;
@@ -15,7 +14,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    border-radius: 20px;
 }
 
 .reviews__box__w__button {
@@ -23,6 +21,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: white;
+    border-radius: 20px;
+
 }
 
 .reviews__button {
@@ -118,4 +119,11 @@
     display: flex;
     justify-content: flex-start;
     padding: 10px 0;
+}
+
+.centering__review__button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
