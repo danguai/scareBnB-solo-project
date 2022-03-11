@@ -14,17 +14,18 @@ const createReviewAction = review => {
 };
 
 // R E A D    R E V I E W S
-const getReviewsAction = reviews => {
+const getReviewsAction = review => {
     return {
         type: GET_REVIEWS,
-        payload: reviews,
+        payload: review,
     };
 };
 
 //  R E M O V E   R E V I E W
-const removeOneReviewAction = () => {
+const removeOneReviewAction = review => {
     return {
         type: DELETE_REVIEW,
+        payload: review,
     };
 };
 
@@ -62,7 +63,7 @@ export const createReview = review => async dispatch => {
 export const getReviews = review => async dispatch => {
     const { placeId } = review;
 
-    const response = await fetch(`/api/places/${placeId}/reviews`);
+    const response = await csrfFetch(`/api/places/${placeId}/reviews`);
 
     if (response.ok) {
         const reviews = await response.json();
@@ -106,8 +107,7 @@ const reviewsReducer = (state = initialState, action) => {
             return newState;
         case DELETE_REVIEW:
             newState = Object.assign({}, state);
-            const review = newState.reviewsList.id; ~
-            // review = null;
+            newState.reviewsList = newState.reviewsList.filter(review => action.payload.id !== review.id);
             return newState;
         default:
             return state;

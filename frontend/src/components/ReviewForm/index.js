@@ -44,6 +44,9 @@ const Reviews = () => {
                 </ul>
                 <div className="reviews__box__w__button">
                     <div className='reviews__box'>
+                        <div className="title__review">
+                            Review
+                        </div>
                         <label className='reviews__label'>
                             Title
                             <input
