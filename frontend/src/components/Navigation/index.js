@@ -14,7 +14,7 @@ const Navigation = ({ isLoaded, sessionUser }) => {
                         <img className='scareBnB__Logo' src={require('../../images/LOGO.png')} />
                     </a>
                     <div className="reviews__link" >
-                        <Link className="temp__solution" to='/'>Haunting experiences</Link>
+                        <Link className="temp__solution" to='/places'>Find a Haunting experiences</Link>
 
                         <Link className="temp__solution" to='/'>Become a Ghost</Link>
                     </div>

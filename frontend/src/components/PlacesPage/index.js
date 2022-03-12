@@ -2,7 +2,7 @@ import React from "react";
 
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { NavLink, useHistory, useParams } from 'react-router-dom';
 
 import LoginForm from '../LoginFormModal/';
 import SignupForm from '../SignUpModal/';
@@ -26,29 +26,23 @@ const PlacesPage = () => {
         dispatch(getPlaces());
     }, [dispatch]);
 
-    // console.log('PLACE USER ID: ', sessionUser.id);
-    // console.log('SESSION USER: ', sessionUser);
-    // let placesList = [];
-
-    // places.forEach(place => {
-    //     if (place.placeId === place.id) {
-    //         placesList.push(place);
-    //     }
-    // });
-    // console.log('PLACES LIST', placesList);
-    // useEffect(() => {
-    //     dispatch(getPlaces(place.id));
-    // }, [dispatch]);
-
     const shouldDisplayLogin = useSelector(state => state.session.shouldDisplayLogin);
     const shouldDisplaySignup = useSelector(state => state.session.shouldDisplaySignup);
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
 
+    if (!places) return null;
+
     return (
         <div>
-            <div>
-                <ul>
-                    <li></li>
+            <div id="all__places">
+                <ul className="all__places__container">
+                    {places.map(place =>
+                        <li
+                            key={place.id}
+                            className='grid__item each__place__container'>
+                            <NavLink to={`/places/${place.id}`}>{place.address}
+                            </NavLink>
+                        </li>)}
                 </ul>
 
             </div>
