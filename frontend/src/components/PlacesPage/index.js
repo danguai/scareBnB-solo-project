@@ -40,8 +40,17 @@ const PlacesPage = () => {
                         <li
                             key={place.id}
                             className='grid__item each__place__container'>
-                            <NavLink to={`/places/${place.id}`}>{place.address}
+                            <NavLink to={`/places/${place.id}`}>
+                                <div className="find__your__place__photo">
+                                    <div>
+                                        <img className='place__photo' src={place.url_image_01} />
+                                    </div>
+                                    <div className="find__your__place__title">
+                                        {place.title}
+                                    </div>
+                                </div>
                             </NavLink>
+
                         </li>)}
                 </ul>
 

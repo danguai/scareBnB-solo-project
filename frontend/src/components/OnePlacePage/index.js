@@ -52,8 +52,8 @@ const OnePlacePage = () => {
         <div id="places">
             <div className="places__and__reviews">
                 <div className="places__container">
-                    <div className="tittle__bar">
-                        <h1>{place.address}</h1>
+                    <div className="title__bar">
+                        <h1>{place.title}</h1>
                         <div className="buttons__bar">
                             {userCanEdit && <button
                                 className='user__button logged__in__button'
@@ -81,11 +81,11 @@ const OnePlacePage = () => {
                     </div>
                 </div>
                 <div id='place__photos__container'>
-                    <img className='place__photo__01' src={require('../../images/HauntedHouse-1.png')} />
-                    <img className='place__photo__02' src={require('../../images/HauntedHouse-2.png')} />
-                    <img className='place__photo__03' src={require('../../images/HauntedHouse-3.png')} />
-                    <img className='place__photo__04' src={require('../../images/HauntedHouse-4.png')} />
-                    <img className='place__photo__05' src={require('../../images/HauntedHouse-5.png')} />
+                    <img className='place__photo__01' src={place.url_image_01} />
+                    <img className='place__photo__02' src={place.url_image_02} />
+                    <img className='place__photo__03' src={place.url_image_03} />
+                    <img className='place__photo__04' src={place.url_image_04} />
+                    <img className='place__photo__05' src={place.url_image_05} />
                 </div>
                 <div className="description__reservation">
                     <div className="place__description">

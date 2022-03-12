@@ -40,7 +40,7 @@
     border-radius: 20px;
 }
 
-.tittle__bar {
+.title__bar {
     display: flex;
     justify-content: space-between;
 }
@@ -65,8 +65,8 @@
     grid-area: photo2;
     width: 195px;
     height: 195px;
-
 }
+
 .place__photo__03 {
     grid-area: photo3;
     width: 195px;
