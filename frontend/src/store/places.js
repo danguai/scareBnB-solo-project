@@ -81,18 +81,49 @@ export const setPlaceToEditValue = data => dispatch => {
 
 //  C R E A T E   P L A C E
 export const createPlace = place => async dispatch => {
-    const { address, city, state, country, zipcode, price, rating, userId } = place;
+    const {
+        title,
+        address,
+        city,
+        state,
+        country,
+        zipcode,
+        url_image_01,
+        url_image_02,
+        url_image_03,
+        url_image_04,
+        url_image_05,
+        amenities_01,
+        amenities_02,
+        amenities_03,
+        amenities_04,
+        amenities_05,
+        price,
+        rating,
+        userId
+    } = place;
     console.log('PLACEPLACEPLACE', place);
     try {
 
         const response = await csrfFetch('/api/places', {
             method: 'POST',
             body: JSON.stringify({
+                title,
                 address,
                 city,
                 state,
                 country,
                 zipcode,
+                url_image_01,
+                url_image_02,
+                url_image_03,
+                url_image_04,
+                url_image_05,
+                amenities_01,
+                amenities_02,
+                amenities_03,
+                amenities_04,
+                amenities_05,
                 price,
                 rating,
                 userId

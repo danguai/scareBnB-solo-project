@@ -46,13 +46,24 @@ const validateNewPlace = [
 //  C R E A T E   P L A C E
 router.post('/', requireAuth, validateNewPlace, asyncHandler(async (req, res) => {
     const {
+        title,
         address,
         city,
         state,
         country,
         zipcode,
+        url_image_01,
+        url_image_02,
+        url_image_03,
+        url_image_04,
+        url_image_05,
+        amenities_01,
+        amenities_02,
+        amenities_03,
+        amenities_04,
+        amenities_05,
         price,
-        rating
+        rating,
     } = req.body;
 
     const userId = req.user.id;
@@ -60,11 +71,22 @@ router.post('/', requireAuth, validateNewPlace, asyncHandler(async (req, res) =>
 
         const place = await Place.create(
             {
+                title,
                 address,
                 city,
                 state,
                 country,
                 zipcode,
+                url_image_01,
+                url_image_02,
+                url_image_03,
+                url_image_04,
+                url_image_05,
+                amenities_01,
+                amenities_02,
+                amenities_03,
+                amenities_04,
+                amenities_05,
                 price,
                 rating,
                 userId

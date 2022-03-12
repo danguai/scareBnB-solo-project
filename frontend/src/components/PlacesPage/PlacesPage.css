@@ -1,0 +1,42 @@
+#all__places {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.all__places__container {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 300px 300px 300px;
+    grid-auto-flow: row dense;
+}
+
+.grid__item {
+
+}
+
+.each__place__container {
+    width: 300px;
+    height: 300px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.place__photo {
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+}
+
+.find__your__place__photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.find__your__place__title {
+    color: white;
+    text-decoration: none;
+}

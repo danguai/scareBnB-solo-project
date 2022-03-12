@@ -50,6 +50,13 @@ export const validateConfirmPassword = (password, confirmPassword) => {
 
 
 //  C R E A T E   P L A C E   V A L I D A T O R S
+export const validateTitle = (title) => {
+    if (!title) return 'Please provide an Title.';
+
+    if (title.lenght > 255) return 'Title should be less than 255 characters';
+    return '';
+};
+
 export const validateAddress = (address) => {
     if (!address) return 'Please provide an Address.';
 

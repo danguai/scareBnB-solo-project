@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 
 
 import {
+    validateTitle,
     validateAddress,
     validateCity,
     validateState,
@@ -27,6 +28,7 @@ const PlaceForm = () => {
     const [errors, setErrors] = useState([]);
 
     // ERRORS
+    const [titleError, setTitleError] = useState('');
     const [addressError, setAddressError] = useState('');
     const [cityError, setCityError] = useState('');
     const [stateError, setStateError] = useState('');
@@ -36,6 +38,7 @@ const PlaceForm = () => {
     const [ratingError, setRatingError] = useState('');
 
     const checkingErrors = (
+        titleError ||
         addressError ||
         cityError ||
         stateError ||
@@ -70,11 +73,22 @@ const PlaceForm = () => {
 
     if (!placeToEdit) {
         placeToEdit = {
+            title: '',
             address: '',
             city: '',
             state: '',
             country: '',
             zipcode: '',
+            url_image_01: '',
+            url_image_02: '',
+            url_image_03: '',
+            url_image_04: '',
+            url_image_05: '',
+            amenities_01: '',
+            amenities_02: '',
+            amenities_03: '',
+            amenities_04: '',
+            amenities_05: '',
             price: '',
             rating: '',
         };
@@ -95,6 +109,22 @@ const PlaceForm = () => {
                         New Haunted Place
                     </div>
                     <div className='user__pass__box'>
+                        <label className='places__label'>
+                            Title
+                            <input
+                                className='input__places__box'
+                                type="text"
+                                value={placeToEdit.title}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ title: e.target.value }))}
+                                onBlur={() => {
+                                    const error = validateTitle(placeToEdit.title)
+                                    if (error) setTitleError(error)
+                                }}
+                                onFocus={() => { setTitleError('') }}
+                                required
+                            />
+                        </label>
+                        {titleError && <div className="errors_style">{titleError}</div>}
                         <label className='places__label'>
                             Address
                             <input

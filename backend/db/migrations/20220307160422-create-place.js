@@ -8,6 +8,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      title: {
+        allowNull: false,
+        type: Sequelize.STRING(255)
+      },
       address: {
         allowNull: false,
         type: Sequelize.STRING(255)
@@ -27,6 +31,36 @@ module.exports = {
       zipcode: {
         allowNull: false,
         type: Sequelize.STRING(5)
+      },
+      url_image_01: {
+        type: Sequelize.TEXT
+      },
+      url_image_02: {
+        type: Sequelize.TEXT
+      },
+      url_image_03: {
+        type: Sequelize.TEXT
+      },
+      url_image_04: {
+        type: Sequelize.TEXT
+      },
+      url_image_05: {
+        type: Sequelize.TEXT
+      },
+      amenities_01: {
+        type: Sequelize.STRING(100)
+      },
+      amenities_02: {
+        type: Sequelize.STRING(100)
+      },
+      amenities_03: {
+        type: Sequelize.STRING(100)
+      },
+      amenities_04: {
+        type: Sequelize.STRING(100)
+      },
+      amenities_05: {
+        type: Sequelize.STRING(100)
       },
       price: {
         allowNull: false,
