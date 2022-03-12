@@ -1,12 +1,14 @@
 // L O G   I N   V A L I D A T O R S
-export const validateLoginUsername = (username, email) => {
-    if (!username) return 'Please provide a Username or Email.';
+export const validateLoginUsername = (username) => {
+    if (!username) return 'Please provide a Username.';
 
-    if (!email) return 'Please provide a Username or Email.';
+    if (username.length < 4 || username.lenght > 30) return 'Please use a valid uername';
+    return '';
 };
 
 export const validateLoginPassword = (password) => {
     if (!password) return `Please provide a valid Password`;
+    return '';
 };
 
 // S I G N   U P   V A L I D A T O R S
@@ -29,7 +31,7 @@ export const validateUsername = (username) => {
 
     if (username.includes('@')) return 'Username cannot be an email.';
 
-    if (username.length < 4 || username.lenght > 30) return 'Email should be between 4 and 50 characters long';
+    if (username.length < 4 || username.lenght > 30) return 'Username should be between 4 and 50 characters long';
     return '';
 };
 

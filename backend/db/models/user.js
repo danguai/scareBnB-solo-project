@@ -28,13 +28,13 @@ module.exports = (sequelize, DataTypes) => {
       }
     });
 
-  User.login = async function ({ credential, password }) {
+  User.login = async function ({ username, password }) {
     const { Op } = require('sequelize');
     const user = await User.scope('loginUser').findOne({
       where: {
         [Op.or]: {
-          username: credential,
-          email: credential
+          username
+          // email: credential
         }
       }
     });

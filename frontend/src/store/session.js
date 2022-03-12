@@ -112,6 +112,8 @@ const sessionReducer = (state = initialState, action) => {
         case SET_USER:
             newState = Object.assign({}, state);
             newState.user = action.payload;
+            newState.shouldDisplayLogin = false;
+            newState.shouldDisplaySignup = false;
             return newState;
         case REMOVE_USER:
             newState = Object.assign({}, state);

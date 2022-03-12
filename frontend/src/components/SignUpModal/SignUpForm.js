@@ -51,9 +51,9 @@ const SignupForm = ({ user }) => {
 
             if (password === confirmPassword) {
                 setErrors([]);
-                await dispatch(sessionActions.signUp({ firstName, lastName, username, email, password }));
+                await dispatch(sessionActions.signUp({ firstName, lastName, username, email, imageProfile, password }));
 
-                history.push('/');
+                history.push('/places');
             }
             setErrors(errors);
             await setErrors(['Confirm Password should match Password']);
