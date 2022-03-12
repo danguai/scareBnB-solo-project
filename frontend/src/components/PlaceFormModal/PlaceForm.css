@@ -92,6 +92,24 @@
     border-bottom : 1px #15273E solid;
 }
 
+.city__state__country__zipcode {
+    display: flex;
+}
+
+.input__places__one__liner {
+    width : 100px;
+    height : 30px;
+    border: 0;
+    border-bottom : 1px #15273E solid;
+}
+
+.input__places__box__image {
+    width : 120px;
+    height : 30px;
+    border: 0;
+    border-bottom : 1px #15273E solid;
+}
+
 
 .places__title {
     font-weight : bold;

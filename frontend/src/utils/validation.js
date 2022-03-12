@@ -1,13 +1,12 @@
 // L O G   I N   V A L I D A T O R S
-export const validateCredential = ({ credential }) => {
-    console.log(credential);
-    if (!credential.email) return 'Please provide an email.';
+export const validateLoginUsername = (username, email) => {
+    if (!username) return 'Please provide a Username or Email.';
 
-    if (!credential.email.includes('@')) return 'Please provide a valid email.';
+    if (!email) return 'Please provide a Username or Email.';
+};
 
-    if (!credential.username) return 'Please provide a username.';
-
-    if (!credential.username) return 'Please provide a valid username.';
+export const validateLoginPassword = (password) => {
+    if (!password) return `Please provide a valid Password`;
 };
 
 // S I G N   U P   V A L I D A T O R S
@@ -86,10 +85,17 @@ export const validateCountry = (country) => {
 
 export const validateZipcode = (zipcode) => {
     if (!zipcode) return 'Please provide a Zipcode.';
+
+    if (zipcode < 0) return `Zipcode can't be a negative numbers.`;
+
+    if (zipcode.length !== 5) return 'Zipcode must have a length of 5 numbers.';
+
 };
 
 export const validatePrice = (price) => {
     if (!price) return `Please provide the Price.`;
+
+    if (price < 0) return `Price can't be negative`;
 };
 
 export const validateRating = (rating) => {

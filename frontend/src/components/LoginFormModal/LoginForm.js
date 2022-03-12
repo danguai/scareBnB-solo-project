@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { validateCredential, validateUsername, validateEmail, validatePassword } from '../../utils/validation';
+import { validateLoginUsername, validateLoginPassword, validatePassword } from '../../utils/validation';
 
 import * as sessionActions from '../../store/session';
 
@@ -13,6 +13,8 @@ const LoginForm = () => {
     const history = useHistory();
 
     const [credential, setCredential] = useState('');
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState([]);
 
@@ -29,20 +31,19 @@ const LoginForm = () => {
         setErrors([]);
         try {
 
-            await dispatch(sessionActions.login({ credential, password }))
+            await dispatch(sessionActions.login({ credential, password }));
             history.push('/');
         } catch (e) {
             console.error(e);
         }
-
-
     };
+
     return (
         <div className='login__form__container' style={{ 'borderRadius': '20px' }}>
             <form onSubmit={handleSubmit}>
-                {/* <ul>
-                    {errors.map((error, id) => <li key={id}>{error}</li>)}
-                </ul> */}
+                <ul>
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
                 <div className='login__box'>
                     <div className='login__title'>
                         Login
@@ -58,14 +59,15 @@ const LoginForm = () => {
                                 type="text"
                                 value={credential}
                                 onChange={(e) => setCredential(e.target.value)}
-                                // onBlur={() => {
-                                //     const error = validateCredential(credential)
-                                //     if (error) setCredential(error)
-                                // }}
-                                // onFocus={() => { setCredentialError('') }}
+                                onBlur={() => {
+                                    const error = validateLoginUsername(username, email)
+                                    if (error) setCredential(error)
+                                }}
+                                onFocus={() => { setCredentialError('') }}
                                 required
                             />
                         </label>
+                        {usernameError && <div className="errors__style">{usernameError}</div>}
                         <label className='login__label'>
                             Password
                             <input
@@ -73,11 +75,11 @@ const LoginForm = () => {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                // onBlur={() => {
-                                //     const error = validatePassword(password)
-                                //     if (error) setPasswordError(error)
-                                // }}
-                                // onFocus={() => { setPasswordError('') }}
+                                onBlur={() => {
+                                    const error = validatePassword(password)
+                                    if (error) setPasswordError(error)
+                                }}
+                                onFocus={() => { setPasswordError('') }}
                                 required
                             />
                         </label>
