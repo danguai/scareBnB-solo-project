@@ -2,12 +2,14 @@
 export const validateLoginUsername = (username) => {
     if (!username) return 'Please provide a Username.';
 
-    if (username.length < 4 || username.lenght > 30) return 'Please use a valid uername';
+    if (username.includes('@')) return 'Username should not be an email.';
+
+    if (username.length < 4 || username.lenght > 30) return 'Please provide a valid username.';
     return '';
 };
 
 export const validateLoginPassword = (password) => {
-    if (!password) return `Please provide a valid Password`;
+    if (!password) return `Please provide a valid password`;
     return '';
 };
 

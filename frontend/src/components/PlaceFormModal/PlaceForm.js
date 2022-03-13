@@ -14,7 +14,6 @@ import {
     validateCountry,
     validateZipcode,
     validatePrice,
-    validateRating
 } from '../../utils/validation';
 
 import { createPlace, updatePlace, deletePlace, setPlaceToEditValue } from '../../store/places';
@@ -35,7 +34,6 @@ const PlaceForm = () => {
     const [countryError, setCountryError] = useState('');
     const [zipcodeError, setZipcodeError] = useState('');
     const [priceError, setPriceError] = useState('');
-    const [ratingError, setRatingError] = useState('');
 
     const checkingErrors = (
         titleError ||
@@ -44,8 +42,7 @@ const PlaceForm = () => {
         stateError ||
         countryError ||
         zipcodeError ||
-        priceError ||
-        ratingError
+        priceError
     );
 
     let placeToEdit = useSelector(state => state.places.placeToEdit);
@@ -62,7 +59,6 @@ const PlaceForm = () => {
 
             } else {
                 const place = await dispatch(createPlace(placeToEdit));
-                // console.log('PLACE', place);
                 history.push(`/places/${place.id}`);
 
             }
@@ -99,7 +95,7 @@ const PlaceForm = () => {
         <div className='create__place__container' style={{ 'borderRadius': '20px' }}>
             <form onSubmit={handleSubmit}>
                 <ul className="errors">
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    {/* {errors.map((error, idx) => <li key={idx}>{error}</li>)} */}
                 </ul>
                 <div className='places__box'>
                     <div className='places__title'>

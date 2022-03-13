@@ -7,12 +7,15 @@ const { Place } = require('../../db/models');
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { user } = require('pg/lib/defaults');
 
 const router = express.Router();
 
 //  C R E A T E   P L A C E   V A L I D A T O R
 const validateNewPlace = [
+    check('title')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 255 })
+        .withMessage('Title should not be more than 255 characters'),
     check('address')
         .exists({ checkFalsy: true })
         .isLength({ max: 255 })
@@ -37,9 +40,26 @@ const validateNewPlace = [
         .exists({ checkFalsy: true })
         .isDecimal()
         .withMessage('The Price should include 2 decimals'),
-    check('rating')
-        .isNumeric({ max: 5 })
-        .withMessage('How many stars would you give this place'),
+    check('amenities_01')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 100 })
+        .withMessage('Amenities should not be more than 100 characters'),
+    check('amenities_02')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 100 })
+        .withMessage('Amenities should not be more than 100 characters'),
+    check('amenities_03')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 100 })
+        .withMessage('Amenities should not be more than 100 characters'),
+    check('amenities_04')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 100 })
+        .withMessage('Amenities should not be more than 100 characters'),
+    check('amenities_05')
+        .exists({ checkFalsy: true })
+        .isLength({ max: 100 })
+        .withMessage('Amenities should not be more than 100 characters'),
     handleValidationErrors
 ];
 

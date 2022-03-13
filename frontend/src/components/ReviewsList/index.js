@@ -46,17 +46,10 @@ const ReviewsList = () => {
 
     let userCanEdit;
     reviewsList.forEach(review => {
-        if (review.userId === sessionUser.id) {
+        if (review.userId === sessionUser?.id) {
             userCanEdit = true;
         }
     });
-
-    // let userCantEdit;
-    // reviewsList.forEach(review => {
-    //     if (review.userId !== sessionUser.id) {
-    //         userCantEdit = true;
-    //     }
-    // });
 
 
     return (

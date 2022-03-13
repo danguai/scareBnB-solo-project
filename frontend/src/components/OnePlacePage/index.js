@@ -27,7 +27,6 @@ const OnePlacePage = () => {
 
     let reviewToEdit = useSelector(state => state.reviews.reviewToEdit);
 
-
     const sessionUser = useSelector(state => state.session.user);
 
 
@@ -42,11 +41,9 @@ const OnePlacePage = () => {
 
     if (!place) return null;
 
-    let userCanEdit;
-    if (place.userId === sessionUser.id) {
-        userCanEdit = true;
-    }
+    const isPlaceOwner = place.userId === sessionUser?.id;
 
+    const canCreateReview = sessionUser && !isPlaceOwner;
 
     return (
         <div id="places">
@@ -55,12 +52,12 @@ const OnePlacePage = () => {
                     <div className="title__bar">
                         <h1>{place.title}</h1>
                         <div className="buttons__bar">
-                            {userCanEdit && <button
+                            {isPlaceOwner && <button
                                 className='user__button logged__in__button'
                                 onClick={() => dispatch(displayModalPlaceForm(place))}
                             >Edit Place
                             </button>}
-                            {userCanEdit && <button
+                            {isPlaceOwner && <button
                                 className='user__button logged__in__button'
                                 onClick={() => {
                                     dispatch(deletePlace(place.id))
@@ -103,7 +100,7 @@ const OnePlacePage = () => {
                     </div>
                 </div>
                 <div className="reviews__container">
-                    {!userCanEdit && <button
+                    {canCreateReview && <button
                         className='reviews__button__create'
                         onClick={() => dispatch(displayModalReviewForm(reviewToEdit))}
                         type="submit"

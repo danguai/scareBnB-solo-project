@@ -45,7 +45,7 @@ const validateSignup = [
     //             throw new Error("Confirm Password doesn't match Password.");
     //         }
     //         return true;
-    // }),
+    //     }),
     handleValidationErrors
 ];
 

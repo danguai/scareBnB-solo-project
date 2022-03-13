@@ -22,6 +22,14 @@ const ProfileButton = ({ user }) => {
         history.push('/');
     };
 
+    const handleDemoUserOnClick = async () => {
+        await dispatch(login({
+            username: 'freddy',
+            password: 'password'
+        }));
+        history.push('/places');
+    };
+
     let sessionLinks;
 
     if (sessionUser) {
@@ -74,10 +82,7 @@ const ProfileButton = ({ user }) => {
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
-                        onClick={() => dispatch(login({
-                            credential: 'freddy',
-                            password: 'password'
-                        }))}
+                        onClick={handleDemoUserOnClick}
                     >Demo User
                     </button>
                 </li>
@@ -101,15 +106,26 @@ const ProfileButton = ({ user }) => {
 
     }, [showMenu]);
 
+    console.log('IMAGE ', sessionUser);
 
     return (
         <>
             <div className="user__menu__box">
-                <button
+                {!sessionUser ?
+                    <img className='photo__user' src={require('../../images/no-image-user.jpg')}
+                    /> :
+                    <img className='photo__user' src={sessionUser.imageProfile}
+                    />}
+                {sessionUser ? <button
                     className="user__menu__button"
                     onClick={openMenu}
-                >User
-                </button>
+                >{sessionUser.username}
+                </button> :
+                    <button
+                        className="user__menu__button"
+                        onClick={openMenu}
+                    >User
+                    </button>}
                 <div>
                     {showMenu && (
                         <ul className='dropdown__menu__options'>

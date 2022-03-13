@@ -47,11 +47,11 @@ export const displayModalSignup = () => {
 
 //  L O G I N   U S E R
 export const login = user => async dispatch => {
-    const { credential, password } = user;
+    const { username, password } = user;
     const response = await csrfFetch('/api/session', {
         method: 'POST',
         body: JSON.stringify({
-            credential,
+            username,
             password,
         }),
     });
