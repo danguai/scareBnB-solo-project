@@ -26,6 +26,7 @@ const OnePlacePage = () => {
     const place = useSelector(state => state.places.place);
 
     let reviewToEdit = useSelector(state => state.reviews.reviewToEdit);
+    let reviewsList = useSelector(state => state.reviews.reviewsList);
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -44,6 +45,15 @@ const OnePlacePage = () => {
     const isPlaceOwner = place.userId === sessionUser?.id;
 
     const canCreateReview = sessionUser && !isPlaceOwner;
+
+    const score = (reviewToEdit, reviewsList) => {
+
+        let sum = 0;
+
+        reviewsList.forEach(review => {
+            console.log('IS THIS RIGHT', review.placeId);
+        });
+    };
 
     return (
         <div id="places">
@@ -80,12 +90,36 @@ const OnePlacePage = () => {
                     </div>
                 </div>
                 <div id='place__photos__container'>
-
-                    <img className='place__photo__01' src={place.url_image_01} />
-                    <img className='place__photo__02' src={place.url_image_02} />
-                    <img className='place__photo__03' src={place.url_image_03} />
-                    <img className='place__photo__04' src={place.url_image_04} />
-                    <img className='place__photo__05' src={place.url_image_05} />
+                    {place.url_image_01 ?
+                        <img className='place__photo__01' src={place.url_image_01}
+                        /> :
+                        <img className='place__photo__01' src={require('../../images/HauntedHouse_Template.png')}
+                        />
+                    }
+                    {place.url_image_02 ?
+                        <img className='place__photo__02' src={place.url_image_02}
+                        /> :
+                        <img className='place__photo__02' src={require('../../images/HauntedHouse_Template.png')}
+                        />
+                    }
+                    {place.url_image_03 ?
+                        <img className='place__photo__03' src={place.url_image_03}
+                        /> :
+                        <img className='place__photo__03' src={require('../../images/HauntedHouse_Template.png')}
+                        />
+                    }
+                    {place.url_image_04 ?
+                        <img className='place__photo__04' src={place.url_image_04}
+                        /> :
+                        <img className='place__photo__04' src={require('../../images/HauntedHouse_Template.png')}
+                        />
+                    }
+                    {place.url_image_05 ?
+                        <img className='place__photo__05' src={place.url_image_05}
+                        /> :
+                        <img className='place__photo__05' src={require('../../images/HauntedHouse_Template.png')}
+                        />
+                    }
                 </div>
                 <div className="description__reservation">
                     <div className="place__description">
@@ -95,8 +129,10 @@ const OnePlacePage = () => {
                             <li>{place.amenities_02}</li>
                             <li>{place.amenities_03}</li>
                             <li>{place.amenities_04}</li>
-                            <li>{place.amenities_05}</li>
                         </ul>
+                    </div>
+                    <div>
+                        Rating:
                     </div>
                 </div>
                 <div className="reviews__container">

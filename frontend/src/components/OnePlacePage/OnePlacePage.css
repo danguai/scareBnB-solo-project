@@ -56,18 +56,23 @@
     grid-area: photo1;
     width: 380px;
     height: 400px;
+    object-fit: cover;
 }
 
 .place__photo__02 {
     grid-area: photo2;
     width: 195px;
     height: 195px;
+    object-fit: cover;
+
 }
 
 .place__photo__03 {
     grid-area: photo3;
     width: 195px;
     height: 195px;
+    object-fit: cover;
+
 
 }
 
@@ -75,6 +80,8 @@
     grid-area: photo4;
     width: 195px;
     height: 195px;
+    object-fit: cover;
+
 
 }
 
@@ -82,6 +89,8 @@
     grid-area: photo5;
     width: 195px;
     height: 195px;
+    object-fit: cover;
+
 }
 
 .description__reservation {

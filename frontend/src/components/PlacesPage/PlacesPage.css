@@ -6,9 +6,11 @@
 
 .all__places__container {
     display: grid;
-    gap: 20px;
+    gap: 40px;
     grid-template-columns: 300px 300px 300px;
     grid-auto-flow: row dense;
+
+
 }
 
 .grid__item {
@@ -28,6 +30,14 @@
     width: 300px;
     height: 300px;
     border-radius: 20px;
+    object-fit: cover;
+    border: 1px rgb(255, 255, 255, 0.25) solid;
+    transition: box-shadow 0.25s ease-in-out;
+}
+
+.place__photo:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    transition: box-shadow 0.25s ease-in-out;
 }
 
 .find__your__place__photo {
@@ -37,6 +47,6 @@
 }
 
 .find__your__place__title {
-    color: white;
     text-decoration: none;
+    color: white;
 }
