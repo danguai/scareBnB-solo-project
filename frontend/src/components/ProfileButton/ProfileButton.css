@@ -56,12 +56,14 @@
     width: 120px;
     height: 35px;
     background: linear-gradient(180deg, rgb(220, 220, 220) 0%, rgb(180, 180, 180) 100%);
+    transition: size
 }
 
 .user__button:hover {
     cursor: pointer;
     background: linear-gradient(0deg, rgb(220, 220, 220) 0%, rgb(180, 180, 180) 100%);
 }
+
 
 .photo__user {
     width: 30px;

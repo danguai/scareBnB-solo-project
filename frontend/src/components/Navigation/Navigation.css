@@ -18,10 +18,12 @@
     padding: 0 50px;
     color: white;
     text-decoration: none;
+    transition: color 0.25s ease-in-out;
 }
 
 .temp__solution:hover {
-    color: rgb(176, 34, 34, 1);
+    color: rgb(176, 34, 34, 1) ;
+
 }
 
 .scareBnB__Logo {

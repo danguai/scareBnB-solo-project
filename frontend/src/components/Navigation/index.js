@@ -16,7 +16,7 @@ const Navigation = ({ isLoaded, sessionUser }) => {
                     <div className="reviews__link" >
                         <Link className="temp__solution" to='/places'>Find a Haunting experience</Link>
 
-                        <Link className="temp__solution" to='/'>Become a Ghost</Link>
+                        {/* <Link className="temp__solution" to='/'>Become a Ghost</Link> */}
                     </div>
                     <div>
                         {isLoaded && <ProfileButton user={sessionUser} />}

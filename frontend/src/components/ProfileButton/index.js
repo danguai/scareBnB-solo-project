@@ -35,7 +35,7 @@ const ProfileButton = ({ user }) => {
     if (sessionUser) {
         sessionLinks = (
             <>
-                <li className='dropdown__menu__element'>
+                {/* <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
                     >Profile</button>
@@ -44,7 +44,7 @@ const ProfileButton = ({ user }) => {
                     <button
                         className='user__button'
                     >Your Places</button>
-                </li>
+                </li> */}
                 <li className='dropdown__menu__element'>
                     <button
                         className='user__button'
