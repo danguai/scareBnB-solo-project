@@ -106,7 +106,7 @@ const ProfileButton = ({ user }) => {
 
     }, [showMenu]);
 
-    console.log('IMAGE ', sessionUser);
+    // console.log('IMAGE ', sessionUser);
 
     return (
         <>

@@ -26,6 +26,7 @@ const OnePlacePage = () => {
     const place = useSelector(state => state.places.place);
 
     let reviewToEdit = useSelector(state => state.reviews.reviewToEdit);
+    let reviewsList = useSelector(state => state.reviews.reviewsList);
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -44,6 +45,15 @@ const OnePlacePage = () => {
     const isPlaceOwner = place.userId === sessionUser?.id;
 
     const canCreateReview = sessionUser && !isPlaceOwner;
+
+    const score = (reviewToEdit, reviewsList) => {
+
+        let sum = 0;
+
+        reviewsList.forEach(review => {
+            console.log('IS THIS RIGHT', review.placeId);
+        });
+    };
 
     return (
         <div id="places">
@@ -120,6 +130,9 @@ const OnePlacePage = () => {
                             <li>{place.amenities_03}</li>
                             <li>{place.amenities_04}</li>
                         </ul>
+                    </div>
+                    <div>
+                        Rating:
                     </div>
                 </div>
                 <div className="reviews__container">
