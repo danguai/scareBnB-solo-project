@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Switch, Route } from 'react-router-dom';
 
 import Navigation from "./components/Navigation";
+import Footer from "./components/Footer";
 import Splashpage from "./components/Splashpage";
 // import BookingFormPage from "./components/BookingFormPage";
 import PlacesPage from "./components/PlacesPage";
@@ -25,6 +26,7 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
+      <Footer isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
           <Route exact path='/'>

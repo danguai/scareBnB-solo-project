@@ -5,7 +5,9 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* background-color: red; */
+    position: fixed;
+    top: 0;
+    background-color:  rgba(5, 10, 15, 1);
 }
 
 .navigation__bar > li {

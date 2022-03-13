@@ -95,7 +95,6 @@ const OnePlacePage = () => {
                             <li>{place.amenities_02}</li>
                             <li>{place.amenities_03}</li>
                             <li>{place.amenities_04}</li>
-                            <li>{place.amenities_05}</li>
                         </ul>
                     </div>
                 </div>

@@ -25,7 +25,7 @@ const Splashpage = () => {
         <div>
             <div className='search__bar__container'>
                 <div>
-                    <form
+                    {/* <form
                         className='search__bar__options'
                         onSubmit={handleSubmit}
                     >
@@ -56,7 +56,7 @@ const Splashpage = () => {
                                 required
                             />
                         </label>
-                    </form>
+                    </form> */}
                 </div>
             </div>
             <div className='splashpage__image__container'>
