@@ -32,6 +32,8 @@ const PlacesPage = () => {
 
     if (!places) return null;
 
+
+
     return (
         <div>
             <div id="all__places">
@@ -43,7 +45,12 @@ const PlacesPage = () => {
                             <NavLink to={`/places/${place.id}`}>
                                 <div className="find__your__place__photo">
                                     <div>
-                                        <img className='place__photo' src={place.url_image_01} />
+                                        {place.url_image_01 ?
+                                            <img className='place__photo' src={place.url_image_01}
+                                            /> :
+                                            <img className='place__photo' src={require('../../images/HauntedHouse_Template.png')}
+                                            />
+                                        }
                                     </div>
                                     <div className="find__your__place__title">
                                         {place.title}

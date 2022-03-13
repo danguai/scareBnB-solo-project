@@ -80,12 +80,36 @@ const OnePlacePage = () => {
                     </div>
                 </div>
                 <div id='place__photos__container'>
-
-                    <img className='place__photo__01' src={place.url_image_01} />
-                    <img className='place__photo__02' src={place.url_image_02} />
-                    <img className='place__photo__03' src={place.url_image_03} />
-                    <img className='place__photo__04' src={place.url_image_04} />
-                    <img className='place__photo__05' src={place.url_image_05} />
+                    {place.url_image_01 ?
+                        <img className='place__photo__01' src={place.url_image_01}
+                        /> :
+                        <img className='place__photo__01' src={require('../../images/HauntedHouse_Template.png')}
+                        />
+                    }
+                    {place.url_image_02 ?
+                        <img className='place__photo__02' src={place.url_image_02}
+                        /> :
+                        <img className='place__photo__02' src={require('../../images/HauntedHouse_Template.png')}
+                        />
+                    }
+                    {place.url_image_03 ?
+                        <img className='place__photo__03' src={place.url_image_03}
+                        /> :
+                        <img className='place__photo__03' src={require('../../images/HauntedHouse_Template.png')}
+                        />
+                    }
+                    {place.url_image_04 ?
+                        <img className='place__photo__04' src={place.url_image_04}
+                        /> :
+                        <img className='place__photo__04' src={require('../../images/HauntedHouse_Template.png')}
+                        />
+                    }
+                    {place.url_image_05 ?
+                        <img className='place__photo__05' src={place.url_image_05}
+                        /> :
+                        <img className='place__photo__05' src={require('../../images/HauntedHouse_Template.png')}
+                        />
+                    }
                 </div>
                 <div className="description__reservation">
                     <div className="place__description">
