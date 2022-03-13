@@ -158,6 +158,7 @@ const reviewsReducer = (state = initialState, action) => {
         case CREATE_REVIEW:
             newState = Object.assign({}, state);
             newState.reviewsList.push(action.payload);
+            newState.shouldDisplayReviewForm = false;
             return newState;
         case READ_REVIEWS:
             newState = Object.assign({}, state);
@@ -165,10 +166,8 @@ const reviewsReducer = (state = initialState, action) => {
             return newState;
         case UPDATE_REVIEW:
             newState = Object.assign({}, state);
-
             const index = newState.reviewsList.findIndex(r => r.id === action.payload.id);
             newState.reviewsList[index] = action.payload;
-
             newState.shouldDisplayReviewForm = false;
             return newState;
         case DELETE_REVIEW:

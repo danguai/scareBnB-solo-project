@@ -14,7 +14,6 @@ import {
     validateCountry,
     validateZipcode,
     validatePrice,
-    validateRating
 } from '../../utils/validation';
 
 import { createPlace, updatePlace, deletePlace, setPlaceToEditValue } from '../../store/places';
@@ -35,7 +34,6 @@ const PlaceForm = () => {
     const [countryError, setCountryError] = useState('');
     const [zipcodeError, setZipcodeError] = useState('');
     const [priceError, setPriceError] = useState('');
-    const [ratingError, setRatingError] = useState('');
 
     const checkingErrors = (
         titleError ||
@@ -44,8 +42,7 @@ const PlaceForm = () => {
         stateError ||
         countryError ||
         zipcodeError ||
-        priceError ||
-        ratingError
+        priceError
     );
 
     let placeToEdit = useSelector(state => state.places.placeToEdit);
@@ -62,7 +59,6 @@ const PlaceForm = () => {
 
             } else {
                 const place = await dispatch(createPlace(placeToEdit));
-                // console.log('PLACE', place);
                 history.push(`/places/${place.id}`);
 
             }
@@ -99,7 +95,7 @@ const PlaceForm = () => {
         <div className='create__place__container' style={{ 'borderRadius': '20px' }}>
             <form onSubmit={handleSubmit}>
                 <ul className="errors">
-                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                    {/* {errors.map((error, idx) => <li key={idx}>{error}</li>)} */}
                 </ul>
                 <div className='places__box'>
                     <div className='places__title'>
@@ -141,70 +137,155 @@ const PlaceForm = () => {
                             />
                         </label>
                         {addressError && <div className="errors_style">{addressError}</div>}
-                        <label className='places__label'>
-                            City
-                            <input
-                                className='input__places__box'
-                                type="text"
-                                value={placeToEdit.city}
-                                onChange={(e) => dispatch(setPlaceToEditValue({ city: e.target.value }))}
-                                onBlur={() => {
-                                    const error = validateCity(placeToEdit.city)
-                                    if (error) setCityError(error)
-                                }}
-                                onFocus={() => { setCityError('') }}
-                                required
-                            />
-                        </label>
+                        <div className="city__state__country__zipcode">
+                            <label className='places__label'>
+                                City
+                                <input
+                                    className='input__places__one__liner'
+                                    type="text"
+                                    value={placeToEdit.city}
+                                    onChange={(e) => dispatch(setPlaceToEditValue({ city: e.target.value }))}
+                                    onBlur={() => {
+                                        const error = validateCity(placeToEdit.city)
+                                        if (error) setCityError(error)
+                                    }}
+                                    onFocus={() => { setCityError('') }}
+                                    required
+                                />
+                            </label>
+                            <label className='places__label'>
+                                State
+                                <input
+                                    className='input__places__one__liner'
+                                    type="text"
+                                    value={placeToEdit.state}
+                                    onChange={(e) => dispatch(setPlaceToEditValue({ state: e.target.value }))}
+                                    onBlur={() => {
+                                        const error = validateState(placeToEdit.state)
+                                        if (error) setStateError(error)
+                                    }}
+                                    onFocus={() => { setStateError('') }}
+                                    required
+                                />
+                            </label>
+                            <label className='places__label'>
+                                Country
+                                <input
+                                    className='input__places__one__liner'
+                                    type="text"
+                                    value={placeToEdit.country}
+                                    onChange={(e) => dispatch(setPlaceToEditValue({ country: e.target.value }))}
+                                    onBlur={() => {
+                                        const error = validateCountry(placeToEdit.country)
+                                        if (error) setCountryError(error)
+                                    }}
+                                    onFocus={() => { setCountryError('') }}
+                                    required
+                                />
+                            </label>
+                            <label className='places__label'>
+                                Zipcode
+                                <input
+                                    className='input__places__one__liner'
+                                    type="number"
+                                    value={placeToEdit.zipcode}
+                                    onChange={(e) => dispatch(setPlaceToEditValue({ zipcode: e.target.value }))}
+                                    onBlur={() => {
+                                        const error = validateZipcode(placeToEdit.zipcode)
+                                        if (error) setZipcodeError(error)
+                                    }}
+                                    onFocus={() => { setZipcodeError('') }}
+                                    required
+                                />
+                            </label>
+                        </div>
                         {cityError && <div className="errors_style">{cityError}</div>}
-                        <label className='places__label'>
-                            State
-                            <input
-                                className='input__places__box'
-                                type="text"
-                                value={placeToEdit.state}
-                                onChange={(e) => dispatch(setPlaceToEditValue({ state: e.target.value }))}
-                                onBlur={() => {
-                                    const error = validateState(placeToEdit.state)
-                                    if (error) setStateError(error)
-                                }}
-                                onFocus={() => { setStateError('') }}
-                                required
-                            />
-                        </label>
                         {stateError && <div className="errors_style">{stateError}</div>}
-                        <label className='places__label'>
-                            Country
-                            <input
-                                className='input__places__box'
-                                type="text"
-                                value={placeToEdit.country}
-                                onChange={(e) => dispatch(setPlaceToEditValue({ country: e.target.value }))}
-                                onBlur={() => {
-                                    const error = validateCountry(placeToEdit.country)
-                                    if (error) setCountryError(error)
-                                }}
-                                onFocus={() => { setCountryError('') }}
-                                required
-                            />
-                        </label>
                         {countryError && <div className="errors_style">{countryError}</div>}
+                        {zipcodeError && <div className="errors_style">{zipcodeError}</div>}
                         <label className='places__label'>
-                            Zipcode
+                            Image 1
                             <input
                                 className='input__places__box'
-                                type="number"
-                                value={placeToEdit.zipcode}
-                                onChange={(e) => dispatch(setPlaceToEditValue({ zipcode: e.target.value }))}
-                                onBlur={() => {
-                                    const error = validateZipcode(placeToEdit.zipcode)
-                                    if (error) setZipcodeError(error)
-                                }}
-                                onFocus={() => { setZipcodeError('') }}
-                                required
+                                type="url"
+                                value={placeToEdit.url_image_01}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ url_image_01: e.target.value }))}
                             />
                         </label>
-                        {zipcodeError && <div className="errors_style">{zipcodeError}</div>}
+                        {placeToEdit.url_image_01 && <label className='places__label'>
+                            Image 2
+                            <input
+                                className='input__places__box'
+                                type="url"
+                                value={placeToEdit.url_image_02}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ url_image_02: e.target.value }))}
+                            />
+                        </label>}
+                        {placeToEdit.url_image_02 && <label className='places__label'>
+                            Image 3
+                            <input
+                                className='input__places__box'
+                                type="url"
+                                value={placeToEdit.url_image_03}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ url_image_03: e.target.value }))}
+                            />
+                        </label>}
+                        {placeToEdit.url_image_03 && <label className='places__label'>
+                            Image 4
+                            <input
+                                className='input__places__box'
+                                type="url"
+                                value={placeToEdit.url_image_04}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ url_image_04: e.target.value }))}
+                            />
+                        </label>}
+                        {placeToEdit.url_image_04 && <label className='places__label'>
+                            Image 5
+                            <input
+                                className='input__places__box'
+                                type="url"
+                                value={placeToEdit.url_image_05}
+                                onChange={(e) => dispatch(setPlaceToEditValue({ url_image_05: e.target.value }))}
+                            />
+                        </label>}
+                        <div className="city__state__country__zipcode">
+                            <label className='places__label'>
+                                Amenities 1
+                                <input
+                                    className='input__places__one__liner'
+                                    type="text"
+                                    value={placeToEdit.amenities_01}
+                                    onChange={(e) => dispatch(setPlaceToEditValue({ amenities_01: e.target.value }))}
+                                />
+                            </label>
+                            <label className='places__label'>
+                                Amenities 2
+                                <input
+                                    className='input__places__one__liner'
+                                    type="text"
+                                    value={placeToEdit.amenities_02}
+                                    onChange={(e) => dispatch(setPlaceToEditValue({ amenities_02: e.target.value }))}
+                                />
+                            </label>
+                            <label className='places__label'>
+                                Amenities 3
+                                <input
+                                    className='input__places__one__liner'
+                                    type="text"
+                                    value={placeToEdit.amenities_03}
+                                    onChange={(e) => dispatch(setPlaceToEditValue({ amenities_03: e.target.value }))}
+                                />
+                            </label>
+                            <label className='places__label'>
+                                Amenities 4
+                                <input
+                                    className='input__places__one__liner'
+                                    type="text"
+                                    value={placeToEdit.amenities_04}
+                                    onChange={(e) => dispatch(setPlaceToEditValue({ amenities_04: e.target.value }))}
+                                />
+                            </label>
+                        </div>
                         <label className='places__label'>
                             Price
                             <input
@@ -221,22 +302,6 @@ const PlaceForm = () => {
                             />
                         </label>
                         {priceError && <div className="errors_style">{priceError}</div>}
-                        <label className='places__label'>
-                            Rating
-                            <input
-                                className='input__places__box'
-                                type="number"
-                                value={placeToEdit.rating}
-                                onChange={(e) => dispatch(setPlaceToEditValue({ rating: e.target.value }))}
-                                onBlur={() => {
-                                    const error = validateRating(placeToEdit.rating)
-                                    if (error) setRatingError(error)
-                                }}
-                                onFocus={() => { setRatingError('') }}
-                                required
-                            />
-                        </label>
-                        {ratingError && <div className="errors_style">{ratingError}</div>}
                     </div>
                     {!isEditMode &&
                         <button

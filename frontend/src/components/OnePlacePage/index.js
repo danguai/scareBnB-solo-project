@@ -27,7 +27,6 @@ const OnePlacePage = () => {
 
     let reviewToEdit = useSelector(state => state.reviews.reviewToEdit);
 
-
     const sessionUser = useSelector(state => state.session.user);
 
 
@@ -42,11 +41,9 @@ const OnePlacePage = () => {
 
     if (!place) return null;
 
-    let userCanEdit;
-    if (place.userId === sessionUser.id) {
-        userCanEdit = true;
-    }
+    const isPlaceOwner = place.userId === sessionUser?.id;
 
+    const canCreateReview = sessionUser && !isPlaceOwner;
 
     return (
         <div id="places">
@@ -55,12 +52,12 @@ const OnePlacePage = () => {
                     <div className="title__bar">
                         <h1>{place.title}</h1>
                         <div className="buttons__bar">
-                            {userCanEdit && <button
+                            {isPlaceOwner && <button
                                 className='user__button logged__in__button'
                                 onClick={() => dispatch(displayModalPlaceForm(place))}
                             >Edit Place
                             </button>}
-                            {userCanEdit && <button
+                            {isPlaceOwner && <button
                                 className='user__button logged__in__button'
                                 onClick={() => {
                                     dispatch(deletePlace(place.id))
@@ -71,16 +68,19 @@ const OnePlacePage = () => {
                         </div>
                     </div>
                     <div>
-                        <ul className="info__place">
-                            <li>Rating: {place.rating}</li>
-                            <li>Reviews</li>
-                            <li>Location</li>
-                            <li>Share</li>
-                            <li>Favorite</li>
-                        </ul>
+                        <div className="info__place">
+                            <div className="main__address">{place.address}</div>
+                            <div className="address_all_elemenets">
+                                <div className="address__element">{place.city}</div>
+                                <div className="address__element">{place.state}</div>
+                                <div className="address__element">{place.country}</div>
+                                <div className="address__zipcode">{place.zipcode}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div id='place__photos__container'>
+
                     <img className='place__photo__01' src={place.url_image_01} />
                     <img className='place__photo__02' src={place.url_image_02} />
                     <img className='place__photo__03' src={place.url_image_03} />
@@ -91,17 +91,16 @@ const OnePlacePage = () => {
                     <div className="place__description">
                         <h3>What you are getting</h3>
                         <ul className="disamenities">
-                            <li>Cemetery view</li>
-                            <li>Dial-up</li>
-                            <li>Outdoor Bathroom</li>
-                            <li>Abandon Nursery</li>
-                            <li>Creepy Basement</li>
+                            <li>{place.amenities_01}</li>
+                            <li>{place.amenities_02}</li>
+                            <li>{place.amenities_03}</li>
+                            <li>{place.amenities_04}</li>
+                            <li>{place.amenities_05}</li>
                         </ul>
                     </div>
-
                 </div>
                 <div className="reviews__container">
-                    {!userCanEdit && <button
+                    {canCreateReview && <button
                         className='reviews__button__create'
                         onClick={() => dispatch(displayModalReviewForm(reviewToEdit))}
                         type="submit"

@@ -44,27 +44,13 @@ const ReviewsList = () => {
     const shouldDisplayPlaceForm = useSelector(state => state.places.shouldDisplayPlaceForm);
     const shouldDisplayReviewForm = useSelector(state => state.reviews.shouldDisplayReviewForm);
 
-    let userCanEdit;
-    reviewsList.forEach(review => {
-        if (review.userId === sessionUser.id) {
-            userCanEdit = true;
-        }
-    });
-
-    // let userCantEdit;
-    // reviewsList.forEach(review => {
-    //     if (review.userId !== sessionUser.id) {
-    //         userCantEdit = true;
-    //     }
-    // });
-
-
     return (
         <div className='reviews__list__container'>
             <div>
                 <ul className="reviews__list__box">
-                    {reviewsList.map(review =>
-                        <li
+                    {reviewsList.map(review => {
+                        const userCanEdit = review.userId === sessionUser?.id;
+                        return <li
                             className="review__full__message"
                             key={review.id}>
                             <div className="review__tittle__message">
@@ -94,7 +80,8 @@ const ReviewsList = () => {
                                     </button>}
                                 </div>
                             </div>
-                        </li>)}
+                        </li>
+                    })}
                 </ul>
             </div>
             {shouldDisplaySignup && <SignupForm />}

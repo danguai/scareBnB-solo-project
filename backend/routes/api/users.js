@@ -31,21 +31,19 @@ const validateSignup = [
         .withMessage('Please provide a valid email.'),
     check('password')
         .exists({ checkFalsy: true })
-        .isLength({ min: 1 })
-        .withMessage('Password must be 6 characters or more.'),
+        .isLength({ min: 3 })
+        .withMessage('Password must be 3 characters or more.'),
     // .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
     // .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")'),
-    // check('confirmPassword')
-    //     .exists({ checkFalsy: true })
-    //     .withMessage('Please confirm Password.')
-    //     .isLength({ min: 1 })
-    //     .withMessage('Password must be 6 characters or more.')
-    //     .custom((value, { req }) => {
-    //         if (value !== req.body.password) {
-    //             throw new Error("Confirm Password doesn't match Password.");
-    //         }
-    //         return true;
-    // }),
+    check('confirmPassword')
+        .exists({ checkFalsy: true })
+        .withMessage('Please confirm Password.')
+        .custom((value, { req }) => {
+            if (value !== req.body.password) {
+                throw new Error("Confirm Password doesn't match Password.");
+            }
+            return true;
+        }),
     handleValidationErrors
 ];
 

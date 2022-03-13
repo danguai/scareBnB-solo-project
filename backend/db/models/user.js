@@ -28,14 +28,11 @@ module.exports = (sequelize, DataTypes) => {
       }
     });
 
-  User.login = async function ({ credential, password }) {
+  User.login = async function ({ username, password }) {
     const { Op } = require('sequelize');
     const user = await User.scope('loginUser').findOne({
       where: {
-        [Op.or]: {
-          username: credential,
-          email: credential
-        }
+        username
       }
     });
 
@@ -63,8 +60,8 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.prototype.toSafeObject = function () { // remember, this cannot be an arrow function
-    const { id, username, email } = this; // context will be the User instance
-    return { id, username, email };
+    const { id, username, email, imageProfile } = this; // context will be the User instance
+    return { id, username, email, imageProfile };
   };
 
   User.prototype.validatePassword = function (password) {
