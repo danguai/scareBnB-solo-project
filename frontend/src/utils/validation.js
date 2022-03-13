@@ -102,8 +102,20 @@ export const validatePrice = (price) => {
     if (price < 0) return `Price can't be negative`;
 };
 
-export const validateRating = (rating) => {
-    if (!rating) return `Please provide a rating`;
+//  C R E A T E   R E V I E W S   V A L I D A T O R S
+export const validateScore = (rating) => {
+    if (rating < 0 || rating > 5) return false;
+    return true;
+};
 
-    if (rating < 0 || rating > 5) return `Please provide a rating between 0 and 5.`;
+export const validateReviewTitle = (title) => {
+    if (!title) return 'Please provide an Title.';
+
+    if (title.lenght > 255) return 'Title should be less than 255 characters';
+    return '';
+};
+
+export const validateReviewMessage = (title) => {
+    if (!title) return 'Please provide an Title.';
+
 };

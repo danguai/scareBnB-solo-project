@@ -7,6 +7,7 @@ const DELETE_REVIEW = 'reviews/DELETE_REVIEW';
 
 const DISPLAY_MODAL_REVIEW_FORM = 'reviews/DISPLAY_MODAL_REVIEW_FORM';
 const SET_REVIEW_TO_EDIT = 'reviews/SET_REVIEW_TO_EDIT';
+const CLEAR_REVIEW_TO_EDIT = 'reviews/CLEAR_REVIEW_TO_EDIT';
 
 //   C R E A T E   R E V I E W
 const createReviewAction = review => {
@@ -137,6 +138,12 @@ export const deleteReview = review => async dispatch => {
     }
 };
 
+// CLEAR ReviewToEdit
+export const clearReviewToEdit = () => {
+    return {
+        type: CLEAR_REVIEW_TO_EDIT
+    };
+};
 
 //   R E D U C E R S
 const initialState = {
@@ -182,6 +189,10 @@ const reviewsReducer = (state = initialState, action) => {
                 ...newState.reviewToEdit,
                 ...action.payload,
             };
+            return newState;
+        case CLEAR_REVIEW_TO_EDIT:
+            newState = Object.assign({}, state);
+            newState.reviewToEdit = undefined;
             return newState;
         case DISPLAY_MODAL_REVIEW_FORM:
             newState = Object.assign({}, state);

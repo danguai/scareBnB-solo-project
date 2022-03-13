@@ -23,7 +23,6 @@
     align-items: center;
     background-color: white;
     border-radius: 20px;
-
 }
 
 .reviews__button {
@@ -51,7 +50,6 @@
 
 .reviews__button:hover {
     background : linear-gradient(0deg, rgba(194, 68, 84, 1) 0%, rgba(128, 42, 71, 1) 100%);
-
 }
 
 .reviews__cancel__button {
@@ -77,7 +75,10 @@
     margin: 0 20px;
 }
 
-.errors_style  {
+.errors__style  {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
     font-size: 9px;
     color: red
 }

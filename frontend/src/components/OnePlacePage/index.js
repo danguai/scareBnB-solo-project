@@ -132,7 +132,7 @@ const OnePlacePage = () => {
                         </ul>
                     </div>
                     <div>
-                        Rating:
+                        {/* Rating: */}
                     </div>
                 </div>
                 <div className="reviews__container">
