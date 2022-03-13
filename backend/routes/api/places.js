@@ -41,23 +41,18 @@ const validateNewPlace = [
         .isDecimal()
         .withMessage('The Price should include 2 decimals'),
     check('amenities_01')
-        .exists({ checkFalsy: true })
         .isLength({ max: 100 })
         .withMessage('Amenities should not be more than 100 characters'),
     check('amenities_02')
-        .exists({ checkFalsy: true })
         .isLength({ max: 100 })
         .withMessage('Amenities should not be more than 100 characters'),
     check('amenities_03')
-        .exists({ checkFalsy: true })
         .isLength({ max: 100 })
         .withMessage('Amenities should not be more than 100 characters'),
     check('amenities_04')
-        .exists({ checkFalsy: true })
         .isLength({ max: 100 })
         .withMessage('Amenities should not be more than 100 characters'),
     check('amenities_05')
-        .exists({ checkFalsy: true })
         .isLength({ max: 100 })
         .withMessage('Amenities should not be more than 100 characters'),
     handleValidationErrors

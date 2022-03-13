@@ -48,16 +48,24 @@ export const displayModalSignup = () => {
 //  L O G I N   U S E R
 export const login = user => async dispatch => {
     const { username, password } = user;
-    const response = await csrfFetch('/api/session', {
-        method: 'POST',
-        body: JSON.stringify({
-            username,
-            password,
-        }),
-    });
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
+    try {
+        const response = await csrfFetch('/api/session', {
+            method: 'POST',
+            body: JSON.stringify({
+                username,
+                password,
+            }),
+        });
+        const data = await response.json();
+        dispatch(setUser(data.user));
+        return response;
+    } catch (e) {
+        const data = await e.json();
+        return {
+            error: true,
+            data: data.errors,
+        };
+    }
 };
 
 
@@ -71,7 +79,7 @@ export const restoreUser = () => async dispatch => {
 
 //  S I G N   U P
 export const signUp = user => async dispatch => {
-    const { firstName, lastName, username, email, imageProfile, password } = user;
+    const { firstName, lastName, username, email, imageProfile, password, confirmPassword } = user;
     const response = await csrfFetch('/api/users', {
         method: 'POST',
         body: JSON.stringify({
@@ -80,16 +88,17 @@ export const signUp = user => async dispatch => {
             username,
             email,
             imageProfile,
-            password
+            password,
+            confirmPassword
         })
-    }).catch(e => console.log('BEFORE DATA', e));
+    });
     if (response.ok) {
         const data = await response.json();
         if (data.errors) {
             return Promise.reject(data);
         }
         dispatch(setUser(data.user));
-        // console.log('AFTER DISPATCH', data);
+
         return response;
     }
     return Promise.reject();

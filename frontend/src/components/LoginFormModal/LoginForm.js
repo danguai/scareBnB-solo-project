@@ -29,20 +29,21 @@ const LoginForm = () => {
         e.preventDefault();
 
         setErrors([]);
-        try {
-            await dispatch(sessionActions.login({ username, password }));
-            history.push('/places');
-        } catch (e) {
-            console.error(e);
+        const res = await dispatch(sessionActions.login({ username, password }));
+        if (res.error) {
+            setErrors(res.data);
+            return;
         }
+
+        history.push('/places');
     };
 
     return (
         <div className='login__form__container' style={{ 'borderRadius': '20px' }}>
             <form onSubmit={handleSubmit}>
-                <ul>
+                {errors && <ul>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-                </ul>
+                </ul>}
                 <div className='login__box'>
                     <div className='login__title'>
                         Login

@@ -44,7 +44,7 @@ export const validateEmail = (email) => {
 };
 
 export const validatePassword = (password) => {
-    if (!password) return `Password must contain at least 1 lowercase letter, uppercase letter, number, and special character(i.e. "!@#$%^&*"`;
+    if (!password) return `Password is required.`;
 };
 
 export const validateConfirmPassword = (password, confirmPassword) => {
