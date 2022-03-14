@@ -68,4 +68,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    bottom: 10px;
+    left: 20px;
+    height: 300px;
 }
