@@ -1,5 +1,6 @@
 .reviews__list__container {
    margin-top:20px;
+   padding-bottom: 50px;
 }
 
 .reviews__list__box {
@@ -27,10 +28,16 @@
     color: white;
 }
 
+.individual__review__message {
+    width : 520px;
+    font-size: 12px;
+}
+
 .review__tittle__message {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    font-size: 18px;
     padding: 20px
 }
 
@@ -45,7 +52,8 @@
 .individual__review__score {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
+    align-items: flex-start;
+    margin-top: 18px;
     font-size: 20px;
     font-weight: bolder;
     padding-right: 20px;
@@ -86,7 +94,9 @@
 .logged__reviews__button {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 10px;
+    padding: 6px;
+    margin-top: 12px;
+    margin-right: 12px;
 }

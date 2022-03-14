@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useHistory } from "react-router-dom";
@@ -15,10 +15,11 @@ const Reviews = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const [titleErrors, setTitleErrors] = useState([]);
-    const [messageErrors, setMessageErrors] = useState([]);
+    const [titleErrors, setTitleErrors] = useState('');
+    const [messageErrors, setMessageErrors] = useState('');
+    const [scoreErrors, setScoreErrors] = useState('');
 
-    const checkingErrors = (titleErrors || messageErrors);
+    const checkingErrors = (titleErrors || messageErrors || scoreErrors);
 
 
     const placeId = useSelector(state => state.places.place.id);
@@ -27,15 +28,31 @@ const Reviews = () => {
 
     const isEditMode = Boolean(reviewToEdit?.id);
 
+    useEffect(() => {
+        if (reviewToEdit.score) {
+
+            const titleError = validateReviewTitle(reviewToEdit?.title);
+            if (titleError) setTitleErrors(titleError);
+
+            const messageError = validateReviewMessage(reviewToEdit?.message);
+            if (messageError) setMessageErrors(messageError);
+        }
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (reviewToEdit.score) {
 
-        if (isEditMode) {
-            await dispatch(updateReview(reviewToEdit));
-            dispatch(clearReviewToEdit());
+            if (isEditMode) {
+                await dispatch(updateReview(reviewToEdit));
+                dispatch(clearReviewToEdit());
+            } else {
+                await dispatch(createReview(reviewToEdit));
+                dispatch(clearReviewToEdit());
+            }
         } else {
-            await dispatch(createReview(reviewToEdit));
-            dispatch(clearReviewToEdit());
+            validateScore(reviewToEdit.score);
+            setScoreErrors('Score should be a number between 1 and 5');
         }
 
         reviewToEdit = null;
@@ -44,8 +61,8 @@ const Reviews = () => {
     const handleOnChange = e => {
         if (validateScore(e.target.value)) {
             dispatch(setReviewToEdit({ score: e.target.value, placeId }));
+            setScoreErrors('');
         }
-
     };
 
     if (!reviewToEdit) {
@@ -107,6 +124,7 @@ const Reviews = () => {
                                 required
                             />
                         </label>
+                        {scoreErrors && <div className="errors__style">{scoreErrors}</div>}
                     </div>
                     <div className="centering__review__button">
                         <button className={checkingErrors ? 'login__button__disabled' : 'login__button'}

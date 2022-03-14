@@ -104,7 +104,7 @@ export const validatePrice = (price) => {
 
 //  C R E A T E   R E V I E W S   V A L I D A T O R S
 export const validateScore = (rating) => {
-    if (rating < 0 || rating > 5) return false;
+    if (rating < 1 || rating > 5) return false;
     return true;
 };
 
