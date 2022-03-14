@@ -159,7 +159,6 @@ export const getPlace = id => async dispatch => {
 export const getPlaces = () => async dispatch => {
     const response = await csrfFetch(`/api/places`);
 
-    console.log('RESPONSERESPONSERESPONSERESPONSE', response);
     if (response.ok) {
         const places = await response.json();
         // console.log('PLACESWHATINNEVITABLE', places);

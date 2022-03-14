@@ -8,7 +8,9 @@ import LoginForm from '../LoginFormModal/';
 import SignupForm from '../SignUpModal/';
 import PlaceForm from '../PlaceFormModal/';
 
-import { getPlaces } from '../../store/places';
+import { getPlaces, displayModalPlaceForm } from '../../store/places';
+
+
 
 import './PlacesPage.css';
 
@@ -18,9 +20,6 @@ const PlacesPage = () => {
     // const { id } = useParams();
     const sessionUser = useSelector(state => state.session.user);
     const places = useSelector(state => state.places.placesList);
-
-    console.log('PLACES', places);
-    console.log('SESSION USER', sessionUser);
 
     useEffect(() => {
         dispatch(getPlaces());
@@ -52,13 +51,24 @@ const PlacesPage = () => {
                                             />
                                         }
                                     </div>
-                                    <div className="find__your__place__title">
-                                        {place.title}
+                                    <div className="title__price">
+                                        <div className="find__your__place__title">
+                                            {place.title}
+                                        </div>
+                                        <div className="find__your__place__price">
+                                            $ {place.price} / night
+                                        </div>
                                     </div>
                                 </div>
                             </NavLink>
-
                         </li>)}
+                    {sessionUser && <div className="new__place__in__places">
+                        <button
+                            className='user__button'
+                            onClick={() => dispatch(displayModalPlaceForm())}
+                        >New Place
+                        </button>
+                    </div>}
                 </ul>
 
             </div>

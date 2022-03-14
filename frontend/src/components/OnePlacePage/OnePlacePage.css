@@ -253,6 +253,14 @@
     align-items: flex-start;
     margin: 5px 0;
 }
+
+.info__place__price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
 .main__address{
     font-size: 20px;
 }
@@ -264,9 +272,19 @@
     padding-right: 5px
 
 }
-.address__side {
-    /* display: flex; */
-}
-.address__zipcode{
 
+.rating__score {
+    display: flex;
+    flex-direction: column;
+}
+.place__score {
+    color: white;
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.score__number{
+    color: white;
+    font-size: 20px;
+    padding-top:5px;
 }
