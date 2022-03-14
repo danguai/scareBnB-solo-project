@@ -97,16 +97,11 @@ const ProfileButton = ({ user }) => {
 
     useEffect(() => {
         if (!showMenu) return;
-
         const closeMenu = () => setShowMenu(false);
 
         document.addEventListener('click', closeMenu);
-
         return () => document.removeEventListener("click", closeMenu);
-
     }, [showMenu]);
-
-    // console.log('IMAGE ', sessionUser);
 
     return (
         <>
