@@ -52,8 +52,13 @@ const PlacesPage = () => {
                                             />
                                         }
                                     </div>
-                                    <div className="find__your__place__title">
-                                        {place.title}
+                                    <div className="title__price">
+                                        <div className="find__your__place__title">
+                                            {place.title}
+                                        </div>
+                                        <div className="find__your__place__price">
+                                            $ {place.price} / night
+                                        </div>
                                     </div>
                                 </div>
                             </NavLink>

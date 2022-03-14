@@ -45,15 +45,16 @@ const OnePlacePage = () => {
     const isPlaceOwner = place.userId === sessionUser?.id;
 
     const canCreateReview = sessionUser && !isPlaceOwner;
+    let sum = 0;
+    let theseReviews = [];
 
-    const score = (reviewToEdit, reviewsList) => {
-
-        let sum = 0;
-
-        reviewsList.forEach(review => {
-            console.log('IS THIS RIGHT', review.placeId);
-        });
-    };
+    reviewsList.forEach(review => {
+        if (review.placeId === place.id) {
+            theseReviews.push(review);
+            sum = (sum + review.score) / theseReviews.length;
+        }
+    });
+    let score = sum.toFixed(2);
 
     return (
         <div id="places">
@@ -77,7 +78,7 @@ const OnePlacePage = () => {
                             </button>}
                         </div>
                     </div>
-                    <div>
+                    <div className="info__place__price">
                         <div className="info__place">
                             <div className="main__address">{place.address}</div>
                             <div className="address_all_elemenets">
@@ -87,6 +88,7 @@ const OnePlacePage = () => {
                                 <div className="address__zipcode">{place.zipcode}</div>
                             </div>
                         </div>
+                        <div className="main__price">$ {place.price} / night</div>
                     </div>
                 </div>
                 <div id='place__photos__container'>
@@ -131,8 +133,13 @@ const OnePlacePage = () => {
                             <li>{place.amenities_04}</li>
                         </ul>
                     </div>
-                    <div>
-                        {/* Rating: */}
+                    <div className="rating__score">
+                        <div className="place__score">
+                            Rating:
+                        </div>
+                        <div className="score__number">
+                            {score}
+                        </div>
                     </div>
                 </div>
                 <div className="reviews__container">
