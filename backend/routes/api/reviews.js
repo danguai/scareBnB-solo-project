@@ -25,19 +25,19 @@ router.post('/', requireAuth, asyncHandler(async (req, res) => {
     const userId = req.user.id;
     const placeId = req.params.placeId;
 
-    try {
-        const review = await Review.create({
-            title,
-            message,
-            score,
-            userId,
-            placeId
-        });
+    // try {
+    const review = await Review.create({
+        title,
+        message,
+        score,
+        userId,
+        placeId
+    });
 
-        return res.json({ review });
-    } catch (e) {
-        console.log(e);
-    }
+    return res.json({ review });
+    // } catch (e) {
+    //     console.log(e);
+    // }
 }));
 
 //  R E A D   R E V I E W S

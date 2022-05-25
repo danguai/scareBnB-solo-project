@@ -9,13 +9,9 @@
     gap: 40px;
     grid-template-columns: 300px 300px 300px;
     grid-auto-flow: row dense;
-
-
 }
 
-.grid__item {
-
-}
+.grid__item {}
 
 .each__place__container {
     width: 300px;

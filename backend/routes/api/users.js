@@ -66,9 +66,8 @@ router.post('/', validateSignup, asyncHandler(async (req, res) => {
             email,
             imageProfile,
             password
-        }).catch(e => console.log('backend', e));
+        });
 
-    console.log('user', user);
     await setTokenCookie(res, user);
 
     return res.json({ user });

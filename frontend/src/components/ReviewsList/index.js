@@ -3,8 +3,6 @@ import React from "react";
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useHistory, useParams } from 'react-router-dom';
-
 import LoginForm from '../LoginFormModal';
 import SignupForm from '../SignUpModal';
 import PlaceForm from "../PlaceFormModal";
@@ -19,7 +17,6 @@ import './ReviewsList.css';
 
 const ReviewsList = () => {
     const dispatch = useDispatch();
-    // const history = useHistory();
 
     const reviews = useSelector(state => state.reviews.reviewsList);
 
@@ -33,7 +30,6 @@ const ReviewsList = () => {
             reviewsList.push(review);
         }
     });
-    // console.log('ESTE Es MI ARRAY DE REVIEWS', reviewsList);
 
     useEffect(() => {
         dispatch(getReviews(place.id));
@@ -59,6 +55,9 @@ const ReviewsList = () => {
                                 </div>
                                 <div className="individual__review__message">
                                     {review.message}
+                                </div>
+                                <div>
+                                    By: {review.userId}
                                 </div>
                             </div>
                             <div className="score__buttons">

@@ -45,6 +45,7 @@ const OnePlacePage = () => {
     const isPlaceOwner = place.userId === sessionUser?.id;
 
     const canCreateReview = sessionUser && !isPlaceOwner;
+
     let sum = 0;
     let theseReviews = [];
 

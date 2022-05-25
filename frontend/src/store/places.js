@@ -1,7 +1,5 @@
 import { csrfFetch } from './csrf';
 
-//   S
-
 const CREATE_PLACE = 'places/CREATE_PLACE';
 const READ_PLACE = 'places/READ_PLACE';
 const UPDATE_PLACE = 'places/UPDATE_PLACE';
@@ -102,7 +100,6 @@ export const createPlace = place => async dispatch => {
         rating,
         userId
     } = place;
-    console.log('PLACEPLACEPLACE', place);
     try {
 
         const response = await csrfFetch('/api/places', {
@@ -129,14 +126,12 @@ export const createPlace = place => async dispatch => {
                 userId
             })
         });
-        console.log('RESPONSE', response);
         if (response.ok) {
             const data = await response.json();
             if (data.errors) {
                 return Promise.reject(data);
             }
             dispatch(createPlaceAction(data.place));
-            // console.log('AFTER DISPATCH', data, response);
             return data.place;
         }
     } catch (e) {

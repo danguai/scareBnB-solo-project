@@ -121,7 +121,6 @@ router.get('/:id', asyncHandler(async (req, res) => {
         const id = +req.params.id;
         const place = await Place.findByPk(id);
 
-        // console.log('ONE PLACE', place);
         return res.json(place);
     } catch (e) {
         console.log('ERROR', e);
@@ -133,7 +132,6 @@ router.get('/', asyncHandler(async (req, res) => {
     try {
         const places = await Place.findAll();
 
-        console.log('ALL PLACES', places);
         return res.json(places);
     } catch (e) {
         console.log(e);

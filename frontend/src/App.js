@@ -9,6 +9,7 @@ import Splashpage from "./components/Splashpage";
 // import BookingFormPage from "./components/BookingFormPage";
 import PlacesPage from "./components/PlacesPage";
 import OnePlacePage from "./components/OnePlacePage";
+import Profile from "./components/Profile";
 // import ReviewEditForm from "./components/ReviewEditForm";
 
 import * as sessionActions from './store/session';
@@ -35,9 +36,9 @@ function App() {
           {/* <Route path='/booking'>
             <BookingFormPage />
           </Route> */}
-          {/* <Route path='/review-edit'>
-            <ReviewEditForm />
-          </Route> */}
+          <Route path='/profile'>
+            <Profile />
+          </Route>
           <Route path='/places/:id'>
             <OnePlacePage />
           </Route>
